@@ -90,7 +90,7 @@ The created dataset collection of the three *MGF files* in the history is used a
 >    >
 >    > * Click the **Dataset collection** icon on the left of the input field:
 >    >
->    >      ![Dataset collection button](../../images/dataset_button.png)
+>    >      ![Dataset collection button](../../../images/dataset_button.png)
 >    > * Select the appropriate dataset collection from the list
 >    {: .tip}
 >
@@ -183,7 +183,7 @@ outputs.
 >       {: .comment}
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->     ![View data button](../../images/view_data_icon.png)
+>     ![View data button](../../../images/view_data_icon.png)
 >
 {: .hands_on}
 
@@ -191,7 +191,7 @@ outputs.
 A number of new items will appear in your history, each corresponding to the outputs selected
 in the PeptideShaker parameters. Most relevant for this tutorial is the PSM report:
 
-![Display of the PSM report tabular file](../../images/psm_report.png "The PSM report")
+![Display of the PSM report tabular file](../../../images/psm_report.png "The PSM report")
 
 Scrolling at the bottom to the left will show the sequence for the PSM that matched to these
 metapeptide entries. Column 3 is the sequence matched for each PSM entry. Every PSM is a
@@ -295,7 +295,7 @@ As a tabular file is being read, line filters may be applied and an SQL query ca
 >
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
->     ![Query Tabular output showing the peptides](../../images/query_tabular_1.png "Query Tabular output")
+>     ![Query Tabular output showing the peptides](../../../images/query_tabular_1.png "Query Tabular output")
 >
 {: .hands_on}
 
@@ -351,11 +351,11 @@ We do a taxonomy analysis using the UniPept pept2lca function to return the taxo
 >
 >    - Click on the JSON output file from the *Unipept* tool to expand it. Click on the **Visualize** button and select **Unipept Tree viewer**:
 >
->       ![Visualize button](../../images/visualize_button.png)
+>       ![Visualize button](../../../images/visualize_button.png)
 >
 >    - A new window should appear with a visualization of the taxonomy tree of your data. Use the mouse wheel to scroll in and out and click on nodes to expand or collapse them:
 >
->       ![Unipept Tree viewer visual output](../../images/unipept_tree_viewer.png "Interactive visualization from the Unipept Tree viever plugin")
+>       ![Unipept Tree viewer visual output](../../../images/unipept_tree_viewer.png "Interactive visualization from the Unipept Tree viever plugin")
 >
 {: .hands_on}
 
@@ -421,7 +421,7 @@ once again used, aggregating the number of peptides and PSMs for each genus leve
 >
 > 2. Click **Execute** and inspect the query results file after it turned green:
 >
->     ![Query Tabular output showing gene, PSMs and distinct peptides](../../images/metaproteomics_summary.png "Query Tabular output")
+>     ![Query Tabular output showing gene, PSMs and distinct peptides](../../../images/metaproteomics_summary.png "Query Tabular output")
 >
 {: .hands_on}
 
