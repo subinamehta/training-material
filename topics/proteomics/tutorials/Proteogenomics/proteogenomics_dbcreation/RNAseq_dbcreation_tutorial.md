@@ -60,7 +60,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 >
 > 3. Build a **Dataset list** for the three MGF files
 >    - Click the **Operations on multiple datasets** check box at the top of the history panel
->       ![Operations on multiple datasets button](../../images/operations_icon.png)
+>       ![Operations on multiple datasets button](../../../images/operations_icon.png)
 >    - Check the three boxes next to the MGF files
 >    - Click **For all selected...** and choose **Build dataset list**
 >    - Ensure the three control samples are the only ones selected, and enter a name for the new collection (e.g. *MGF files*)
