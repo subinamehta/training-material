@@ -7,15 +7,11 @@ tutorial_name: Proteogenomics_RNAseq_db_creation
 # Introduction
 {:.no_toc}
 
-In this Proteogenomics tutorial we will identify expressed proteins from a complex bacterial community sample.
-For this MS/MS data will be matched to peptide sequences provided through a FASTA file.
+Proteogenomics is a combination of proteomics, genomics and transcriptomics data to identify peptides and to understand protein level evidence of gene expression. In this Proteogenomics tutorial we will create a Protein FASTA database using RNA sequencing files (FASTQ) and then perform Database searching of the created FASTA file with MS/MS data to identify Novel Peptides. We will then assign the genomic coordinate and annotation for these novel peptides as well as perform visualization of the data. 
 
-Metaproteomics is the large-scale characterization of the entire protein complement of environmental microbiota
-at a given point in time. It has the potential to unravel the mechanistic details of microbial interactions with
-the host / environment by analyzing the functional dynamics of the microbiome.
+Proteogenomics most commonly integrates RNA-Seq data, for generating customized protein sequence databases, with mass spectrometry-based proteomics data, which are matched to these databases to identify novel protein sequence variants. (Cancer Res. (2017); 77(21):e43-e46. doi: 10.1158/0008-5472.CAN-17-0331.)
 
-In this tutorial, we will analyze a sample of sea water that was collected in August of 2013 from the Bering
-Strait chlorophyll maximum layer (7m depth, 65° 43.44″ N, 168° 57.42″ W). The data were originally published in [May et al., 2016](https://www.ncbi.nlm.nih.gov/pubmed/27396978).
+In this tutorial, the proteins and the total RNA were obtained from the early development of B-cells from mouse. It was obtained at two developmental stages of B-cells, Ebf -/- pre-pro-B and Rag2 -/- pro-B. Please refer to the original study for details [Heydarian, M. et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4276347/).
 
 > ### Agenda
 >
@@ -40,7 +36,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 
 > ### {% icon hands_on %} Hands-on: Data upload and organization
 >
-> 1. Create a new history and name it something meaningful (e.g. *Metaproteomics tutorial*)
+> 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
 > 2. Import the three MGF MS/MS files and the FASTA sequence file from Zenodo.
 >
 >    > ### {% icon tip %} Tip: Importing data via links
@@ -70,20 +66,20 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 
 # Analysis
 
-## Match peptide sequences
+The first workflow focuses on creating a FASTA Database created from RNA-seq data. There are two outputs from this workflow, a sequence database consisting of variants and known reference sequences and mapping files containing genomic and variant mapping data.
 
-The search database labelled `FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA` is the input database that
-will be used to match MS/MS to peptide sequences via a sequence database search. It is a small excerpt of the original database, which was constructed based on a metagenomic screening of the sea water samples (see [May et al. (2016)](https://www.ncbi.nlm.nih.gov/pubmed/27396978)). The full original database can be accessed from [here](https://noble.gs.washington.edu/proj/metapeptide/data/metapeptides_BSt.fasta). A contaminant database was added.
+## Aligning FASTQ files to the human genome
 
-For this, the sequence database-searching program called [SearchGUI](https://compomics.github.io/projects/searchgui.html) will be used.
-The created dataset collection of the three *MGF files* in the history is used as the MS/MS input.
+The first tool in the workflow is the [HISAT2](http://ccb.jhu.edu/software/hisat) alignment tool. It maps next generation sequence reads to the reference genome. For running the HISAT2 tools there are two input files a RNA-seq file (.FASTQ) and a reference genome (GTF file format). The .gtf (Gene Transfer Format (GTF)) file is obtained from the Ensembl database.
+This tool creates a .bam file.
 
-#### SearchGUI
+#### HISAT2
 
-> ### {% icon hands_on %} Hands-on: SearchGUI
+> ### {% icon hands_on %} Hands-on: HISAT2
 >
-> 1. **SearchGUI** {% icon tool %}: Run **SearchGUI** with:
->    - **Protein Database**: `FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA`(or however you named the `FASTA` file)
+> 1. **HISAT2** {% icon tool %}: Run **HISAT2** with:
+>    - **Source for the reference genome**: `Use a built-in genome` mm10
+>    - **Single-end or paired-end reads**: `Single end 
 >    - **Input Peak lists (mgf)**: `MGF files` dataset collection.
 >
 >    > ### {% icon tip %} Tip: Select dataset collections as input
