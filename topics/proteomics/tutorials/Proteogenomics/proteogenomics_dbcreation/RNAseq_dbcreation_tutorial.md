@@ -167,27 +167,171 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >       > ### {% icon comment %} Comment
 >       Three FASTA files are created through the Custom ProDB tool, a variant FASTA file for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
 
-## Taxonomy analysis
+Similar to the genomic mapping, a variant mapping file is also created from CustomProDB. This sqlite file is also converted to tabular and made SearchGUI compatible. This variant annotation file will be used to visualize the variants in the Multi-omics visualization Platform (in-house visualization platform developed by Galaxy-P senior developers).
 
-In the previous section, the genome sequencing and mass spectrometry data from
-processing of biological samples was used to identify peptides present in those samples.
-Now those peptides are used as evidence to infer which organisms are represented in the sample,
-and what biological functions those peptides and associated proteins suggest are occurring.
 
-The UniProt organization collects and annotates all known proteins for organisms. A UniProt
-entry includes the protein amino acid sequence, the NCBI taxonomy, and any annotations
-about structure and function of the protein. The UniPept web resource developed
-by Ghent University will be used to match the sample peptides to proteins. UniPept indexes all Uniprot
-proteins and provides a fast matching algorithm for peptides.
+#### StringTie
 
-> ### {% icon tip %} Tip: Unipept
->
-> Users can access UniPept via a [web page](https://unipept.ugent.be) and paste peptide
-> sequences into the search form to retrieve protein information. But we`ll use a Galaxy
-> *Unipept* tool to automate the process. The *Unipept* tool sends the peptide list to the
-> UniPept REST API service, then transforms the results into datasets that can be further analyzed
-> or operated on within Galaxy.
-{: .tip}
+[StringTie](http://ccb.jhu.edu/software/stringtie/) is a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts. It uses a novel network flow algorithm as well as an optional de novo assembly step to assemble and quantitate full-length transcripts representing multiple splice variants for each gene locus. 
+> Its input can include not only the alignments of raw reads used by other transcript assemblers, but also alignments of longer sequences that have been assembled from those reads. In order to identify differentially expressed genes between experiments, StringTie's output can be processed by specialized software like Ballgown, Cuffdiff or other programs (DESeq2, edgeR, etc.).
+
+
+1. **StringTie** {% icon tool %}:
+> **StringTie transcript assembly and quantification**
+>   - **Input mapped reads**: `HISAT_Output.BAM`
+>   - **Specify strand information**: `Unstranded`
+>   - **Use a reference file to guide assembly?**: `Use Reference GTF/GFF3`
+>   - **Reference file**: `Use file from History`
+>       - **GTF/GFF3 dataset to guide assembly**: `Homo_sapiens.GRCh38.83.gtf`
+>   - **Use Reference transcripts only?**: `No`
+>   - **Output files for differential expression?**: `No additional output`
+>   - **Output coverage file?**: `No`
+>   - **Advanced Options**: `Default Parameters`
+
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+> ### {% icon comment %} Comment
+>       StringTie takes as input a BAM (or SAM) file of paired-end RNA-seq reads, which must be sorted by genomic location (coordinate position). This file contains spliced read alignments and can be produced directly by programs such as HISAT2. We recommend using HISAT2 as it is a fast and accurate alignment program. Every spliced read alignment (i.e. an alignment across at least one junction) in the input BAM file must contain the tag XS to indicate the genomic strand that produced the RNA from which the read was sequenced. Alignments produced by HISAT2 (when run with --dta option) already include this tag, but if you use a different read mapper you should check that this XS tag is included for spliced alignments.
+
+> NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options), or your results will suffer.
+
+> Also note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. As, if Forward (FR) is selected, StringTie will assume the reads are from a --fr library, while if Reverse (RF) is selected, StringTie will assume the reads are from a --rf library, otherwise it is assumed that the reads are from an unstranded library (The widely-used, although now deprecated, TopHat had a similar --library-type option, where fr-firststrand corresponded to RF; fr-secondstrand corresponded to FR). If you don't know whether your reads are from are a stranded library or not, you could use the tool RSeQC Infer Experiment to try to determine.
+
+> As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In this case, StringTie will prefer to use these "known" genes from the annotation file, and for the ones that are expressed it will compute coverage, TPM and FPKM values. It will also produce additional transcripts to account for RNA-seq data that aren't covered by (or explained by) the annotation. Note that if option -e is not used the reference transcripts need to be fully covered by reads in order to be included in StringTie's output. In that case, other transcripts assembled from the data by StringTie and not present in the reference file will be printed as well.
+
+NOTE: we highly recommend that you provide annotation if you are analyzing a genome that is well-annotated, such as human, mouse, or other model organisms.
+
+#### GffCompare
+> [GffCompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml) compare and evaluate the accuracy of RNA-Seq transcript assemblers (Cufflinks, Stringtie). * collapse (merge) duplicate transcripts from multiple GTF/GFF3 files (e.g. resulted from assembly of different samples) * classify transcripts from one or multiple GTF/GFF3 files as they relate to reference transcripts provided in a annotation file (also in GTF/GFF3 format)
+
+> The original form of this program is also distributed as part of the Cufflinks suite, under the name ["CuffCompare"] (http://cole-trapnell-lab.github.io/cufflinks/cuffcompare/). Most of the options and parameters of CuffCompare are supported by GffCompare, while new features will likely be added to GffCompare in the future.
+
+1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
+>   -**GTF inputs for comparison**`Stringtie_outut.gtf`
+>   - **Use Reference Annotation**: `Homo_sapiens.GRCh38.83.gtf`
+>   - **Reference Annotation**: `Unstranded`
+
+>   - **Ignore reference transcripts that are not overlapped by any input transfrags**: `No`
+>   - **Ignore input transcripts that are not overlapped by any reference transcripts**: `No`
+>   - **Use Sequence Data**: `No`
+>   - **discard (ignore) single-exon transcripts**: `No`
+>   - **Max. Distance for assessing exon accuracy**: `100`
+>   - **Max distance for transcript grouping**: `100`
+>   - **discard intron-redundant transfrags sharing 5'**: `No`
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+>  ### {% icon comment %} Comment
+>       A notable difference from GffCompare is that when a single query GTF/GFF file is given as input, along with a reference annotation (-r option), gffcompare switches into "annotation mode" and it generates a .annotated.gtf file instead of the .merged.gtf produced by CuffCompare with the same parameters. This file has the same general format as CuffCompare's .merged.gtf file (with "class codes" assigned to transcripts as per their relationship with the matching/overlapping reference transcript), but the original transcript IDs are preserved, so gffcompare can thus be used as a simple way of annotating a set of transcripts.
+
+> Another important difference is that the input transcripts are no longer discarded when they are found to be "intron redundant", i.e. contained within other, longer isoforms. CuffCompare had the -G option to prevent collapsing of such intron redundant isoforms into their longer "containers", but GffCompare has made this the default mode of operation (hence the -G option is no longer needed and is simply ignored when given).
+
+#### Convert gffCompare annotated GTF to BED for StringTie results
+
+> Convert a GFFCompare annotated GTF file to BED format.
+
+1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
+> **GTF annotated by gffCompare**
+> **filter gffCompare class_codes to convert** 
+> `j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript
+> e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible pre-mRNA fragment.
+> i : A transfrag falling entirely within a reference intron
+> p : Possible polymerase run-on fragment (within 2Kbases of a reference transcript)
+> u : Unknown, intergenic transcript`
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+#### Translate BED transcripts cDNA in 3frames or CDS
+> Translate transcripts from the input BED file into protein sequences.
+
+> The genomic sequence:
+1.may be supplied in an extra column in the BED input file
+2.retrieved from a twobit genomic reference file
+3.retrieved from the Ensembl REST API for Ensembl transcripts
+
+1. **Translate BED transcripts cDNA in 3frames or CDS** {% icon tool %}:
+**A BED file with 12 columns**: `Convert gffCompare annotated GTF to BED`
+**Source for Genomic Sequence Data** `Locally cached File`
+**Select reference 2bit file** `hg38`
+**BED Filtering Options** `default`
+**Translation Options ** `default`
+**FASTA ID Options** `default`
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+> ### {% icon comment %} Comment
+> **INPUTS**
+
+> BED file with at least the standard 12 columns
+> Genome reference in twobit format (optional)
+
+> **OUTPUTS**
+
+>FASTA of transcript translations
+>BED with the genomic location of the translated protein. The added 13th column contains the protein sequence.
+
+> **OPTIONS**
+
+> Feature translation
+    - cDNA - three frame translations of the cDNA sequences with an output for each sequence between STOP codons
+    - CDS - three frame translations of CDS (coding sequence defined by thickStart and thickEnd in the BED file)
+> Translation filtering
+    - can be trimmed to a Methionine start codon
+    - can be split into peptides by an enzyme digestion
+    - must exceed specified minimum length
+> BED Filtering
+    - genomic regions
+    - ensembl biotype if the BED contains the 20 columns as retrieved from the Ensembl REST API
+    
+#### bed to protein map genomic location of proteins for MVP
+
+Convert a BED format file of the proteins from a proteomics search database into a tabular format for the Multiomics Visualization Platform (MVP).
+
+>   1. **A BED file with 12 columns, thickStart and thickEnd define protein coding region**: `Translate cDNA_minus_CDS`
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+> ### {% icon comment %} Comment
+
+> The tabular output can be converted to a sqlite database using the Query_Tabular tool.
+
+> The sqlite table should be named: feature_cds_map The names for the columns should be: name,chrom,start,end,strand,cds_start,cds_end
+
+> This SQL query will return the genomic location for a peptide sequence in a protein (multiply the animo acid position by 3 for the cds location):
+
+
+### Creating FASTA Database:
+
+The Protein database downloader tool is used to download the FASTA database from UNIPROT and cRAP database containing known/reference mouse proteins.
+
+#### FASTA Merge Files and Filter Unique Sequences Concatenate FASTA database files together
+
+> Concatenate FASTA database files together.
+> If the uniqueness criterion is "Accession and Sequence", only the first appearence of each unique sequence will appear in the output. Otherwise, duplicate sequences are allowed, but only the first appearance of each accession will appear in the output.
+> The default accession parser will treat everything in the header before the first space as the accession.
+
+> 1. **Run in batch mode?**: `Merge individual FASTAs (output collection if input is collection)`
+
+> *Input FASTA File(s)* : ` Input Custom ProDB Fasta File output`
+                         > 1.HISAT_Output.rpkm
+                         > 2.HISAT_Output.snv
+                         > 3.HISAT_Output.indel
+
+**How are sequences judged to be unique?**:`Accession and Sequence`
+**Accession Parsing Regex**: `^>([^ |]+).*$`
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+
+> ### {% icon comment %} Comment
+The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases together” tool is used to merge the databases obtained from the CustomProDB and translate Bed tool along with the Uniprot and cRAP databases.
+
 
 #### Recieving the list of peptides: Query Tabular
 
