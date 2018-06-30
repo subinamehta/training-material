@@ -68,7 +68,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 
 The first workflow focuses on creating a FASTA Database created from RNA-seq data. There are two outputs from this workflow, a sequence database consisting of variants and known reference sequences and mapping files containing genomic and variant mapping data.
 
-## Aligning FASTQ files to the human genome
+## Aligning FASTQ files on the human genome
 
 The first tool in the workflow is the [HISAT2](http://ccb.jhu.edu/software/hisat) alignment tool. It maps next generation sequence reads to the reference genome. For running the HISAT2 tools there are two input files a RNA-seq file (.FASTQ) and a reference genome (GTF file format). The .gtf (Gene Transfer Format (GTF)) file is obtained from the Ensembl database.
 This tool creates a .bam file.
@@ -79,123 +79,101 @@ This tool creates a .bam file.
 >
 > 1. **HISAT2** {% icon tool %}: Run **HISAT2** with:
 >    - **Source for the reference genome**: `Use a built-in genome` mm10
->    - **Single-end or paired-end reads**: `Single end 
->    - **Input Peak lists (mgf)**: `MGF files` dataset collection.
+>    - **Single-end or paired-end reads**: `Single end` 
+>    - **Input FASTQ files**: `FASTQ_ProB.fastqsanger`
+>    - **Specify strand information**: `Unstranded`
+>    > ### {% icon tip %} Tip: If you have paired inputs, select the paired end reads.
+>   
 >
->    > ### {% icon tip %} Tip: Select dataset collections as input
->    >
->    > * Click the **Dataset collection** icon on the left of the input field:
->    >
->    >      ![Dataset collection button](../../../images/dataset_button.png)
->    > * Select the appropriate dataset collection from the list
->    {: .tip}
+>    Section **Summary Options**:
 >
->    Section **Search Engine Options**:
->
->    - **B-Search Engines**: `X!Tandem`
->
+>    - Select `default parameters`
+
+>   Section **Advanced Options**:
+
+    - Select `default parameters`
+    
 >    > ### {% icon comment %} Comment
 >    >
->    > The section **Search Engine Options** contains a selection of sequence database searching
->    > programs that are available in SearchGUI. Any combination of these programs can be used for
->    > generating PSMs from MS/MS data. For the purpose of this tutorial, **X!Tandem** we will be used.
+>    > Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - firststrand corresponds to R and RF; fr - secondstrand corresponds to F and FR.)
+
 >    {: .comment}
->
->    Section **Precursor Options**:
->
->    - **Fragment Tolerance Units**: `Daltons`
->    - **Fragment Tolerance**: `0.02`- this is high resolution MS/MS data
->    - **Maximum Charge**: `6`
->
->    Section **Protein Modification Options**:
->
->    - **Fixed Modifications**: `Carbamidomethylation of C`
->    - **Variable modifications**: `Oxidation of M`
->
->    > ### {% icon tip %} Tip: Search for options
->    >
->    > * For selection lists, typing the first few letters in the window will filter the available options.
->    {: .tip}
->
->    Section **Advanced Options**:
->    - **X!Tandem Options**: `Advanced`
->    - **X!Tandem: Quick Acetyl**: `No`
->    - **X!Tandem: Quick Pyrolidone**: `No`
->    - **X!Tandem: Protein stP Bias**: `No`
->    - **X!Tandem: Maximum Valid Expectation Value**: `100`
->
->    - leave everything else as default
 >
 > 2. Click **Execute**.
 >
 {: .hands_on}
 
-Once the database search is completed, the SearchGUI tool will output a file (called a
-SearchGUI archive file) that will serve as an input for the next section, PeptideShaker.
+
+#### FreeBayes
+
+[FreeBayes]( https://github.com/ekg/freebayes) FreeBayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
 > ### {% icon comment %} Comment
-> Note that sequence databases used for metaproteomics are usually much larger than the excerpt used in this tutorial. When using large databases, the peptide identification step can take much more time for computation. In metaproteomics, choosing the optimal database is a crucial step of your workflow, for further reading see [Timmins-Schiffman et al (2017)](https://www.ncbi.nlm.nih.gov/pubmed/27824341).
->
-> To learn more about database construction in general, like integrating contaminant databases or using a decoy strategy for FDR searching, please consult our tutorial on [Database Handling]({{site.baseurl}}/topics/proteomics/tutorials/database-handling/tutorial.html).
->
+> Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.
+> By default, FreeBayes will consider variants supported by at least 2 observations in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are suitable to low to high depth sequencing in haploid and diploid samples, but users working with polyploid or pooled samples may wish to adjust them depending on the characteristics of their sequencing data.
+> FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can comfortably be set to half the read length.
+> Ploidy may be set to any level (-p), but by default all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in copy-number (-A) using a copy-number variation map.
+> FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and set input filters to a suitable level. Allele observation counts will be described by AO and RO fields in the VCF output.
 {: .comment}
 
-#### PeptideShaker
-
-[PeptideShaker](https://compomics.github.io/projects/peptide-shaker.html) is a post-processing software tool that
-processes data from the SearchGUI software tool. It serves to organize the Peptide-Spectral
-Matches (PSMs) generated from SearchGUI processing and is contained in the SearchGUI archive.
-It provides an assessment of confidence of the data, inferring proteins identified from the
-matched peptide sequences and generates outputs that can be visualized by users to interpret
-results. PeptideShaker has been wrapped in Galaxy to work in combination with SearchGUI
-outputs.
-
-> ### {% icon comment %} Comment
-> There are a number of choices for different data files that can be generated using
-> PeptideShaker. A compressed file can be made containing all information needed to view the
-> results in the standalone PeptideShaker viewer. A `mzidentML` file can be created that contains
-> all peptide sequence matching information and can be utilized by compatible downstream
-> software. Other outputs are focused on the inferred proteins identified from the PSMs, as well
-> as phosphorylation reports, relevant if a phosphoproteomics experiment has been undertaken. 
-> More detailed information on peptide inference using SearchGUI and PeptideShaker can be found in our tutorial on [Peptide and Protein ID]({{site.baseurl}}/topics/proteomics/tutorials/protein-id-sg-ps/tutorial.html).
-{: .comment}
-
-> ### {% icon hands_on %} Hands-on: PeptideShaker
+> ### {% icon hands_on %} Hands-on: Freebayes
 >
-> 1. **PeptideShaker** {% icon tool %}: Run **PeptideShaker** with:
->   - **Compressed SearchGUI results**: The SearchGUI archive file
->   - **Specify Advanced PeptideShaker Processing Options**: `Default Processing Options`
->   - **Specify Advanced Filtering Options**: `Advanced Filtering Options`
->   - **Maximum Precursor Error Type**: `Daltons`
->   - **Specify Contact Information for mzIdendML**: You can leave the default dummy options for now, but feel free to enter custom contact information.
->   - **Include the protein sequences in mzIdentML**: `No`
->   - **Output options**: Select the `PSM Report` (Peptide-Spectral Match) and the `Certificate of Analysis`
+> 1. **FreeBayes** {% icon tool %}:
+>   - **Choose the source for the reference genome**: `Locally cached file`
+>       - **Run in batch mode?**: `Run Individually`
+>   - **BAM dataset**: `HISAT_Output.BAM`
+>   - **Using reference genome**: `Human Dec.2013 (GRCh38/hg38)(hg38)`
+>   - **Limit variant calling to a set of regions?**: `Do not Limit`
+>   - **Choose parameter selection level**: `Simple diploid calling`
+>   
 >
 >       > ### {% icon comment %} Comment
 >       >
->       > The **Certificate of Analysis** provides details on all the parameters
->       > used by both SearchGUI and PeptideShaker in the analysis. This can be downloaded from the
->       > Galaxy instance to your local computer in a text file if desired.
->       {: .comment}
+>       > Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are:
+
+> 1.Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes with only a BAM input and no other parameter options.
+> 2.Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 --genotype-variant-threshold 0) and --min-coverage.
+> 3.Frequency-based pooled calling: This is equivalent to using FreeBayes with the following options: --haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous --report-monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or organellar genomes.
+> 4.Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage like in #2.
+> Complete list of all options: Gives you full control by exposing all FreeBayes options as Galaxy parameters.
+>      {: .comment}
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >     ![View data button](../../../images/view_data_icon.png)
 >
 {: .hands_on}
 
+#### CustomProDB
 
-A number of new items will appear in your history, each corresponding to the outputs selected
-in the PeptideShaker parameters. Most relevant for this tutorial is the PSM report:
+[CustomProDB]( http://dx.doi.org/10.1093/bioinformatics/btt543) Generate custom protein FASTAs from exosome or transcriptome data.
+The reference protein set can be filtered by transcript expression level (RPKM calculated from a BAM file), and variant protein forms can be predicted based on variant calls (SNPs and INDELs reported in a VCF file).
 
-![Display of the PSM report tabular file](../../../images/psm_report.png "The PSM report")
+> ### {% icon comment %} Comment
+> Annotations CustomProDB depends on a set of annotation files (in RData format) to create reference and variant protein sequences. Galaxy administrators can use the customProDB data manager to create these annotations to make them available for users.
+> 
+{: .comment}
 
-Scrolling at the bottom to the left will show the sequence for the PSM that matched to these
-metapeptide entries. Column 3 is the sequence matched for each PSM entry. Every PSM is a
-new row in the tabular output.
+> ### {% icon hands_on %} Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
+>
+> 1. **CustomProDB** {% icon tool %}:
+>   - **Will you select a genome annotation from your history or use a built-in annotation?**: `Use built in genome annotation`
+>   - **Using reference genome**: `Human Ensembl 89 hsapiens (hg38/GRCh38.p10)`
+>   - **BAM file**: `HISAT_Output.BAM`
+>   - **VCF file**: `Freebayes.vcf`
+>   - **Annotate SNPs with rsid from dbSNP**: `No`
+>   - **Annotate somatic SNPs from COSMIC (human only)**: `No`
+>   - **Transcript Expression Cutoff (RPKM)**: `1`
+>   - **Create a variant FASTA for short insertions and deletions**: `Yes`
+>   - **Create SQLite files for mapping proteins to genome and summarizing variant proteins**: `Yes`
+>   - **Create RData file of variant protein coding sequences**: `Yes`
 
-In the following steps of this tutorial, selected portions of this output will be extracted and used for
-analysis of the taxonomic make-up of the sample as well as the biochemical functions
-represented by the proteins identified.
+
+>   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>     ![View data button](../../../images/view_data_icon.png)
+>   
+>
+>       > ### {% icon comment %} Comment
+>       Three FASTA files are created through the Custom ProDB tool, a variant FASTA file for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
 
 ## Taxonomy analysis
 
