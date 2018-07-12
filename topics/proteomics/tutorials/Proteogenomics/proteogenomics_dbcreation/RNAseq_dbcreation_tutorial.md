@@ -18,8 +18,8 @@ In this tutorial, the proteins and the total RNA were obtained from the early de
 >
 > 1. TOC
 > {:toc}
->
-{: .agenda}
+!-- [[TOC]] --
+> {: .agenda}
 
 # Pretreatments
 
