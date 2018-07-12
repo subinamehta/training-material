@@ -130,7 +130,7 @@ This tool creates a .bam file.
 >      {: .comment}
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->     ![View data button](training-material/topics/proteomics/tutorials/Proteogenomics/proteogenomics_dbcreation/view_icon.png)
+>     ![View data button](../../../../../../view_icon.png)
 >
 {: .hands_on}
 
