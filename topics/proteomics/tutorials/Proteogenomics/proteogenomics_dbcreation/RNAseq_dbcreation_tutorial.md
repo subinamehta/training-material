@@ -130,8 +130,8 @@ This tool creates a .bam file.
 >      {: .comment}
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->    ![View data button](../../../images/view_icon.png?v=4&s=200)
->
+>    ![View data button](../../../images/view_icon.png)
+>   <img src="../../../images/view_icon.png" width=200>
 {: .hands_on}
 
 #### CustomProDB
