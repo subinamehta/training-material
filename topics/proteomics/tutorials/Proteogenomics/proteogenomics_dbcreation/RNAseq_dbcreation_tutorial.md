@@ -45,12 +45,12 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 > 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
 > 2. Import the two FASTQ files and the GTF file from Zenodo.
 
->>       **Tip : Importing data via links**
+>>       _Tip : Importing data via links**
 >>          * Copy the link location 
 >>          * Open the Galaxy Upload Manager
->>          * Select **Paste/Fetch Data**
+>>          * Select "Paste/Fetch Data"
 >>          * Paste the link into the text field. You can add multiple links, each on a separate line.
->>          * Press **Start**
+>>          * Press Start_
 
 
 
