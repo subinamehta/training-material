@@ -50,8 +50,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 >      * Copy the link location 
 >      * Open the Galaxy Upload Manager
 >      * Select **Paste/Fetch Data**
->      * Paste the link into the text field. You can add 
-          multiple links, each on a separate line.
+>      * Paste the link into the text field. You can add multiple links, each on a separate line.
 >      * Press **Start**
 
 
