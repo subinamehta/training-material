@@ -108,7 +108,7 @@ This tool creates a .bam file.
 > FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and set input filters to a suitable level. Allele observation counts will be described by AO and RO fields in the VCF output.
 {: .comment}
 
-> ### {% icon hands_on %} Hands-on: Freebayes
+### {% icon hands_on %} Hands-on: Freebayes
 >
 > 1. **FreeBayes** {% icon tool %}:
 >   - **Choose the source for the reference genome**: `Locally cached file`
@@ -119,9 +119,9 @@ This tool creates a .bam file.
 >   - **Choose parameter selection level**: `Simple diploid calling`
 >   
 >
->       > ### {% icon comment %} Comment
->       >
->       > Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are:
+### {% icon comment %} Comment
+>  
+>   Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are:
 
 > 1.Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes with only a BAM input and no other parameter options.
 > 2.Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 --genotype-variant-threshold 0) and --min-coverage.
@@ -145,7 +145,7 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 > 
 {: .comment}
 
-> ### {% icon hands_on %} Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
+### {% icon hands_on %} Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
 >
 > 1. **CustomProDB** {% icon tool %}:
 >   - **Will you select a genome annotation from your history or use a built-in annotation?**: `Use built in genome annotation`
