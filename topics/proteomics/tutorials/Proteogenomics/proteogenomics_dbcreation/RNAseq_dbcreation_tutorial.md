@@ -6,9 +6,9 @@ tutorial_name: Proteogenomics_RNAseq_db_creation
 
 # Introduction
 
-Proteogenomics is a combination of proteomics, genomics and transcriptomics data to identify peptides and to understand protein level evidence of gene expression. In this Proteogenomics tutorial we will create a Protein FASTA database using RNA sequencing files (FASTQ) and then perform Database searching of the created FASTA file with MS/MS data to identify Novel Peptides. We will then assign the genomic coordinate and annotation for these novel peptides as well as perform visualization of the data. 
+**Proteogenomics** is a combination of proteomics, genomics and transcriptomics data to identify peptides and to understand protein level evidence of gene expression. In this tutorial, we will create a Protein FASTA database using RNA sequencing files (FASTQ) and then perform database searching of the created FASTA file with the MS/MS data to identify novel peptides. Then we will assign the genomic coordinates and annotations for these novel peptides as well as perform visualization of the data. 
 
-Proteogenomics most commonly integrates RNA-Seq data, for generating customized protein sequence databases, with mass spectrometry-based proteomics data, which are matched to these databases to identify novel protein sequence variants. (Cancer Res. (2017); 77(21):e43-e46. doi: 10.1158/0008-5472.CAN-17-0331.)
+Proteogenomics - most commonly integrates **RNA-Seq** data, for generating customized protein sequence databases, with mass spectrometry-based proteomics data, which are matched to these databases to identify novel protein sequence variants. (Cancer Res. (2017); 77(21):e43-e46. doi: 10.1158/0008-5472.CAN-17-0331.)
 
 In this tutorial, the proteins and the total RNA were obtained from the early development of B-cells from mouse. It was obtained at two developmental stages of B-cells, Ebf -/- pre-pro-B and Rag2 -/- pro-B. Please refer to the original study for details [Heydarian, M. et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4276347/).
 
@@ -17,9 +17,17 @@ In this tutorial, the proteins and the total RNA were obtained from the early de
 > In this tutorial, we will deal with:
 >
 > 1. TOC
-> {:toc}
-!-- [[TOC]] --
-> {: .agenda}
+
+>  _  - Pretreatments / Data upload_ 
+
+>  _  - Alignment of RNA sequencing data with reference genome_
+
+>  _ - Creating FASTA files with SAV, indels and Splice Junctions_
+
+>  _-Merging databases_
+
+
+
 
 # Pretreatments
 
@@ -33,83 +41,85 @@ There are a many ways how you can upload your data. Three among these are:
 
 In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg)](https://doi.org/10.5281/zenodo.839701).
 
-> ### {% icon hands_on %} Hands-on: Data upload and organization
+> ### Hands-on: Data upload and organization
 >
 > 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
-> 2. Import the three MGF MS/MS files and the FASTA sequence file from Zenodo.
->
->    > ### {% icon tip %} Tip: Importing data via links
->    >
->    > * Copy the link location
->    > * Open the Galaxy Upload Manager
->    > * Select **Paste/Fetch Data**
->    > * Paste the link into the text field. You can add multiple links, each on a separate line.
->    > * Press **Start**
->    {: .tip}
+> 2. Import the two FASTQ files and the GTF file from Zenodo.
+
+>>       Tip : Importing data via links_
+>>
+>      * Copy the link location 
+>      * Open the Galaxy Upload Manager
+>      * Select **Paste/Fetch Data**
+>      * Paste the link into the text field. You can add 
+          multiple links, each on a separate line.
+>      * Press **Start**
+
+
+
 >
 >    As default, Galaxy takes the link as name.
 >
->    > ### {% icon comment %} Comments
->    > - Rename the datasets to a more descriptive name
->    {: .comment}
+>>###_Comments:_
+Rename the datasets to a more descriptive name
+>    
 >
-{: .hands_on}
+
 
 # Analysis
 
-The first workflow focuses on creating a FASTA Database created from RNA-seq data. There are two outputs from this workflow, a sequence database consisting of variants and known reference sequences and mapping files containing genomic and variant mapping data.
+The first workflow focuses on creating a **FASTA** Database created from RNA-seq data. There are two outputs from this workflow, a **sequence database** consisting of variants and known reference sequences and mapping files containing **genomic** and **variant** mapping data.
 
-## Aligning FASTQ files on the human genome
+### Aligning FASTQ files on the human genome
 
-The first tool in the workflow is the [HISAT2](http://ccb.jhu.edu/software/hisat) alignment tool. It maps next generation sequence reads to the reference genome. For running the HISAT2 tools there are two input files a RNA-seq file (.FASTQ) and a reference genome (GTF file format). The .gtf (Gene Transfer Format (GTF)) file is obtained from the Ensembl database.
+The first tool in the workflow is the [**HISAT2**](http://ccb.jhu.edu/software/hisat) alignment tool. It maps next generation sequence reads to the reference genome. For running the HISAT2 tools there are two input files a RNA-seq file (.FASTQ) and a reference genome (GTF file format). The .gtf (Gene Transfer Format (GTF)) file is obtained from the Ensembl database.
 This tool creates a .bam file.
 
 #### HISAT2
 
-> ### {% icon hands_on %} Hands-on: HISAT2
+> ### Hands-on: HISAT2
 >
-> 1. **HISAT2** {% icon tool %}: Run **HISAT2** with:
+>  1. **HISAT2** :
+
+> Parameters
+
 >    - **Source for the reference genome**: `Use a built-in genome` mm10
 >    - **Single-end or paired-end reads**: `Single end` 
 >    - **Input FASTQ files**: `FASTQ_ProB.fastqsanger`
 >    - **Specify strand information**: `Unstranded`
->    > ### {% icon tip %} Tip: If you have paired inputs, select the paired end reads.
->   
->
->    Section **Summary Options**:
->
->    - Select `default parameters`
 
->   Section **Advanced Options**:
+>>     Tip: For paired inputs, select the paired end reads.
 
-    - Select `default parameters`
+>    - **Section ** **Summary Options**:
+
+>        - Select `default parameters`
+
+>    - **Section** **Advanced Options**:
+
+>        - Select `default parameters`
     
->    > ### {% icon comment %} Comment
->    >
->    > Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - firststrand corresponds to R and RF; fr - secondstrand corresponds to F and FR.)
+>>###_Comments:_
+ Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
+>
+Once all parameters are selected,  Click **Execute**.
 
->    {: .comment}
->
-> 2. Click **Execute**.
->
-{: .hands_on}
 
 
 #### FreeBayes
 
-[FreeBayes]( https://github.com/ekg/freebayes) FreeBayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
+[FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
-> ### {% icon comment %} Comment
-> Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.
-> By default, FreeBayes will consider variants supported by at least 2 observations in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are suitable to low to high depth sequencing in haploid and diploid samples, but users working with polyploid or pooled samples may wish to adjust them depending on the characteristics of their sequencing data.
-> FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can comfortably be set to half the read length.
-> Ploidy may be set to any level (-p), but by default all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in copy-number (-A) using a copy-number variation map.
-> FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and set input filters to a suitable level. Allele observation counts will be described by AO and RO fields in the VCF output.
+>> ###_Comment_
+> Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.By default, FreeBayes will consider variants supported by at least 2 observations in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are suitable to low to high depth sequencing in haploid and diploid samples, but users working with polyploid or pooled samples may wish to adjust them depending on the characteristics of their sequencing data.
+
+>> FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can comfortably be set to half the read length. Ploidy may be set to any level (-p), but by default all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in copy-number (-A) using a copy-number variation map.
+
+>> FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and set input filters to a suitable level. Allele observation counts will be described by AO and RO fields in the VCF output.
 {: .comment}
 
-### {% icon hands_on %} Hands-on: Freebayes
->
-> 1. **FreeBayes** {% icon tool %}:
+
+
+> 1. **FreeBayes** :
 >   - **Choose the source for the reference genome**: `Locally cached file`
 >       - **Run in batch mode?**: `Run Individually`
 >   - **BAM dataset**: `HISAT_Output.BAM`
@@ -118,21 +128,24 @@ This tool creates a .bam file.
 >   - **Choose parameter selection level**: `Simple diploid calling`
 >   
 >
-### {% icon comment %} Comment
->  
->   Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are:
+>>### Comment
+>   Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are: 
 
-> 1.Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes with only a BAM input and no other parameter options.
-> 2.Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 --genotype-variant-threshold 0) and --min-coverage.
-> 3.Frequency-based pooled calling: This is equivalent to using FreeBayes with the following options: --haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous --report-monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or organellar genomes.
-> 4.Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage like in #2.
-> Complete list of all options: Gives you full control by exposing all FreeBayes options as Galaxy parameters.
->      {: .comment}
+>> 1.Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes with only a BAM input and no other parameter options.
+
+>> 2.Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 --genotype-variant-threshold 0) and --min-coverage.
+
+>> 3.Frequency-based pooled calling: This is equivalent to using FreeBayes with the following options: --haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous --report-monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or organellar genomes.
+
+>> 4.Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage like in #2.
+
+>> Complete list of all options: Gives you full control by exposing all FreeBayes options as Galaxy parameters.
+>    
 >
-> 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+> Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >    <img src="../../../images/view_icon.png" width=200>
 >   
-{: .hands_on}
+
 
 #### CustomProDB
 
