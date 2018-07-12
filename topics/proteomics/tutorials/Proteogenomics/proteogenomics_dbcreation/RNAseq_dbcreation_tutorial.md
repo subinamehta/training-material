@@ -16,15 +16,14 @@ In this tutorial, the proteins and the total RNA were obtained from the early de
 >
 > In this tutorial, we will deal with:
 >
-> 1. TOC
 
->  _  - Pretreatments / Data upload_ 
+> - _Pretreatments / Data upload_ 
 
->  _  - Alignment of RNA sequencing data with reference genome_
+> - _Alignment of RNA sequencing data with reference genome_
 
->  _ - Creating FASTA files with SAV, indels and Splice Junctions_
+> - _Creating FASTA files with SAV, indels and Splice Junctions_
 
->  _-Merging databases_
+> - _Merging databases_
 
 
 
