@@ -46,11 +46,11 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 > 2. Import the two FASTQ files and the GTF file from Zenodo.
 
 >>       Tip : Importing data via links_
->      * Copy the link location 
->      * Open the Galaxy Upload Manager
->      * Select **Paste/Fetch Data**
->      * Paste the link into the text field. You can add multiple links, each on a separate line.
->      * Press **Start**
+>>      * Copy the link location 
+>>      * Open the Galaxy Upload Manager
+>>      * Select **Paste/Fetch Data**
+>>      * Paste the link into the text field. You can add multiple links, each on a separate line.
+>>      * Press **Start**
 
 
 
