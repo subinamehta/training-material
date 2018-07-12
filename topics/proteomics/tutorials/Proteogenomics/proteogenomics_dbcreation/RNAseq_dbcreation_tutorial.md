@@ -45,12 +45,12 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 > 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
 > 2. Import the two FASTQ files and the GTF file from Zenodo.
 
->>       _Tip : Importing data via links**
+>>       Tip: Importing data via links
 >>          * Copy the link location 
 >>          * Open the Galaxy Upload Manager
 >>          * Select "Paste/Fetch Data"
 >>          * Paste the link into the text field. You can add multiple links, each on a separate line.
->>          * Press Start_
+>>          * Press Start
 
 
 
@@ -95,10 +95,11 @@ This tool creates a .bam file.
 
 >        - Select `default parameters`
     
->>###_Comments:_
+>> ###_Comments:_
  Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
->
-Once all parameters are selected,  Click **Execute**.
+ 
+
+>Once all parameters are selected,  Click **Execute**.
 
 
 
