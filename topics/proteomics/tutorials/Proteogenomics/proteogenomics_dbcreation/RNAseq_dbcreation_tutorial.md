@@ -50,15 +50,9 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 >>          * Open the Galaxy Upload Manager
 >>          * Select "Paste/Fetch Data"
 >>          * Paste the link into the text field. You can add multiple links, each on a separate line.
->>          * Press Start
-
-
-
+>>          * Press Start. As default, Galaxy takes the link as name.
 >
->    As default, Galaxy takes the link as name.
->
->>###_Comments:_
-Rename the datasets to a more descriptive name
+>>       **Comments**:Rename the datasets to a more descriptive name
 >    
 >
 
@@ -95,8 +89,8 @@ This tool creates a .bam file.
 
 >        - Select `default parameters`
     
->> ###_Comments:_
- Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
+>>       **Comments**:
+>> Note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. For single-end reads, use F or R. 'F' means a read corresponds to a transcript. 'R' means a read corresponds to the reverse complemented counterpart of a transcript. For paired-end reads, use either FR or RF. With this option being used, every read alignment will have an XS attribute tag: '+' means a read belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript on '-' strand of genome. (TopHat has a similar option, --library-type option, where fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
  
 
 >Once all parameters are selected,  Click **Execute**.
@@ -107,14 +101,12 @@ This tool creates a .bam file.
 
 [FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
->> ###_Comment_
-> Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.By default, FreeBayes will consider variants supported by at least 2 observations in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are suitable to low to high depth sequencing in haploid and diploid samples, but users working with polyploid or pooled samples may wish to adjust them depending on the characteristics of their sequencing data.
+>>       **Comments**:
+>> Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.By default, FreeBayes will consider variants supported by at least 2 observations in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are suitable to low to high depth sequencing in haploid and diploid samples, but users working with polyploid or pooled samples may wish to adjust them depending on the characteristics of their sequencing data.
 
 >> FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can comfortably be set to half the read length. Ploidy may be set to any level (-p), but by default all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in copy-number (-A) using a copy-number variation map.
 
 >> FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and set input filters to a suitable level. Allele observation counts will be described by AO and RO fields in the VCF output.
-{: .comment}
-
 
 
 > 1. **FreeBayes** :
@@ -126,8 +118,8 @@ This tool creates a .bam file.
 >   - **Choose parameter selection level**: `Simple diploid calling`
 >   
 >
->>### Comment
->   Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are: 
+>>       **Comments**:
+>>   Galaxy allows five levels of control over FreeBayes options, provided by the Choose parameter selection level menu option. These are: 
 
 >> 1.Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes with only a BAM input and no other parameter options.
 
@@ -141,7 +133,7 @@ This tool creates a .bam file.
 >    
 >
 > Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->    <img src="../../../images/view_icon.png" width=200>
+>    <img src="../../../images/view_icon.png" width=100>
 >   
 
 
@@ -150,14 +142,14 @@ This tool creates a .bam file.
 [CustomProDB]( http://dx.doi.org/10.1093/bioinformatics/btt543) Generate custom protein FASTAs from exosome or transcriptome data.
 The reference protein set can be filtered by transcript expression level (RPKM calculated from a BAM file), and variant protein forms can be predicted based on variant calls (SNPs and INDELs reported in a VCF file).
 
-> ### {% icon comment %} Comment
-> Annotations CustomProDB depends on a set of annotation files (in RData format) to create reference and variant protein sequences. Galaxy administrators can use the customProDB data manager to create these annotations to make them available for users.
-> 
+>>       **Comments**:
+>> Annotations CustomProDB depends on a set of annotation files (in RData format) to create reference and variant protein sequences. Galaxy administrators can use the customProDB data manager to create these annotations to make them available for users.
+>> 
 {: .comment}
 
-### {% icon hands_on %} Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
+### Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
 >
-> 1. **CustomProDB** {% icon tool %}:
+> 1. **CustomProDB**:
 >   - **Will you select a genome annotation from your history or use a built-in annotation?**: `Use built in genome annotation`
 >   - **Using reference genome**: `Human Ensembl 89 hsapiens (hg38/GRCh38.p10)`
 >   - **BAM file**: `HISAT_Output.BAM`
@@ -171,13 +163,11 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 
 
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->     <img src="../../../images/view_icon.png" width=200>
->   
 >
->       > ### {% icon comment %} Comment
->       Three FASTA files are created through the Custom ProDB tool, a variant FASTA file for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
+>>       **Comments**:
+>>       Three FASTA files are created through the Custom ProDB tool, a variant FASTA file for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
 
-Similar to the genomic mapping, a variant mapping file is also created from CustomProDB. This sqlite file is also converted to tabular and made SearchGUI compatible. This variant annotation file will be used to visualize the variants in the Multi-omics visualization Platform (in-house visualization platform developed by Galaxy-P senior developers).
+>> Similar to the genomic mapping, a variant mapping file is also created from CustomProDB. This sqlite file is also converted to tabular and made SearchGUI compatible. This variant annotation file will be used to visualize the variants in the Multi-omics visualization Platform (in-house visualization platform developed by Galaxy-P senior developers).
 
 
 #### StringTie
@@ -202,18 +192,19 @@ Similar to the genomic mapping, a variant mapping file is also created from Cust
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >    
 
-> ### {% icon comment %} Comment
+>>       **Comments**:
 >       StringTie takes as input a BAM (or SAM) file of paired-end RNA-seq reads, which must be sorted by genomic location (coordinate position). This file contains spliced read alignments and can be produced directly by programs such as HISAT2. We recommend using HISAT2 as it is a fast and accurate alignment program. Every spliced read alignment (i.e. an alignment across at least one junction) in the input BAM file must contain the tag XS to indicate the genomic strand that produced the RNA from which the read was sequenced. Alignments produced by HISAT2 (when run with --dta option) already include this tag, but if you use a different read mapper you should check that this XS tag is included for spliced alignments.
 
-> NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options), or your results will suffer.
+>>     NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options), or your results will suffer.
 
-> Also note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. As, if Forward (FR) is selected, StringTie will assume the reads are from a --fr library, while if Reverse (RF) is selected, StringTie will assume the reads are from a --rf library, otherwise it is assumed that the reads are from an unstranded library (The widely-used, although now deprecated, TopHat had a similar --library-type option, where fr-firststrand corresponded to RF; fr-secondstrand corresponded to FR). If you don't know whether your reads are from are a stranded library or not, you could use the tool RSeQC Infer Experiment to try to determine.
+>> Also note that if your reads are from a stranded library, you need to choose the appropriate setting under Specify strand information above. As, if Forward (FR) is selected, StringTie will assume the reads are from a --fr library, while if Reverse (RF) is selected, StringTie will assume the reads are from a --rf library, otherwise it is assumed that the reads are from an unstranded library (The widely-used, although now deprecated, TopHat had a similar --library-type option, where fr-firststrand corresponded to RF; fr-secondstrand corresponded to FR). If you don't know whether your reads are from are a stranded library or not, you could use the tool RSeQC Infer Experiment to try to determine.
 
-> As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In this case, StringTie will prefer to use these "known" genes from the annotation file, and for the ones that are expressed it will compute coverage, TPM and FPKM values. It will also produce additional transcripts to account for RNA-seq data that aren't covered by (or explained by) the annotation. Note that if option -e is not used the reference transcripts need to be fully covered by reads in order to be included in StringTie's output. In that case, other transcripts assembled from the data by StringTie and not present in the reference file will be printed as well.
+>> As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In this case, StringTie will prefer to use these "known" genes from the annotation file, and for the ones that are expressed it will compute coverage, TPM and FPKM values. It will also produce additional transcripts to account for RNA-seq data that aren't covered by (or explained by) the annotation. Note that if option -e is not used the reference transcripts need to be fully covered by reads in order to be included in StringTie's output. In that case, other transcripts assembled from the data by StringTie and not present in the reference file will be printed as well.
 
-NOTE: we highly recommend that you provide annotation if you are analyzing a genome that is well-annotated, such as human, mouse, or other model organisms.
+>> We highly recommend that you provide annotation if you are analyzing a genome that is well-annotated, such as human, mouse, or other model organisms.
 
 #### GffCompare
+
 > [GffCompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml) compare and evaluate the accuracy of RNA-Seq transcript assemblers (Cufflinks, Stringtie). * collapse (merge) duplicate transcripts from multiple GTF/GFF3 files (e.g. resulted from assembly of different samples) * classify transcripts from one or multiple GTF/GFF3 files as they relate to reference transcripts provided in a annotation file (also in GTF/GFF3 format)
 
 > The original form of this program is also distributed as part of the Cufflinks suite, under the name ["CuffCompare"] (http://cole-trapnell-lab.github.io/cufflinks/cuffcompare/). Most of the options and parameters of CuffCompare are supported by GffCompare, while new features will likely be added to GffCompare in the future.
