@@ -40,7 +40,7 @@ There are a many ways how you can upload your data. Three among these are:
 
 In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg)](https://doi.org/10.5281/zenodo.839701).
 
-> ### Hands-on: Data upload and organization
+### Hands-on: Data upload and organization
 >
 > 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
 > 2. Import the two FASTQ files and the GTF file from Zenodo.
@@ -81,7 +81,7 @@ This tool creates a .bam file.
 
 >>     Tip: For paired inputs, select the paired end reads.
 
->    - **Section ** **Summary Options**:
+>    - **Section** **Summary Options**:
 
 >        - Select `default parameters`
 
@@ -89,15 +89,15 @@ This tool creates a .bam file.
 
 >        - Select `default parameters`
     
->>       **Comments**: 
->>         Note that if your reads are from a stranded library, you need to choose the appropriate 
->>         setting under Specify strand information above. For single-end reads, use F or R. 'F' means 
->>         a read corresponds to a transcript. 'R' means a readcorresponds to the reverse complemented 
->>         counterpart of a transcript. For paired-end reads, use either FR or RF. With this 
->>         option being used, every read alignment will have an XS attribute tag: '+' means a read 
->>         belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript 
->>         on '-' strand of genome. (TopHat has a similar option, --library--type option, where 
->>         fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
+>>      **Comments**: 
+>>       Note that if your reads are from a stranded library, you need to choose the appropriate 
+>>       setting under Specify strand information above. For single-end reads, use F or R. 'F' means 
+>>       a read corresponds to a transcript. 'R' means a readcorresponds to the reverse complemented 
+>>       counterpart of a transcript. For paired-end reads, use either FR or RF. With this 
+>>       option being used, every read alignment will have an XS attribute tag: '+' means a read 
+>>       belongs to a transcript on '+' strand of genome. '-' means a read belongs to a transcript 
+>>       on '-' strand of genome. (TopHat has a similar option, --library--type option, where 
+>>       fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
  
 >Once all parameters are selected,  Click **Execute**.
 
@@ -107,25 +107,25 @@ This tool creates a .bam file.
 
 [FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
->>       **Comments**: Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce 
->>       a VCF dataset describing SNPs, indels, and complex variants in samples in the input 
->>       alignments. By default, FreeBayes will consider variants supported by at least 2 observations  
->>       in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These 
->>       settings are suitable to low to high depth sequencing in haploid and diploid samples, but users  
->>       working with polyploid or pooled samples may wish to adjust them depending on the characteristics 
->>       of their sequencing data.
+>>      **Comments**: Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce 
+>>      a VCF dataset describing SNPs, indels, and complex variants in samples in the input 
+>>      alignments. By default, FreeBayes will consider variants supported by at least 2 observations  
+>>      in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These 
+>>      settings are suitable to low to high depth sequencing in haploid and diploid samples, but   
+>>      users working with polyploid or pooled samples may adjust them depending on the characteristics 
+>       of their sequencing data.
 >>
->>       FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple 
->>       polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in
->>       this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can 
->>       comfortably be set to half the read length. Ploidy may be set to any level (-p), but by default 
->>       all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in 
->>       copy-number (-A) using a copy-number variation map.
+>>      FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple 
+>>      polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in
+>>      this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can 
+>>      comfortably be set to half the read length. Ploidy may be set to any level (-p), but by default 
+>>      all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in 
+>>      copy-number (-A) using a copy-number variation map.
 >>
->>       FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in 
->>       terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and 
->>       set input filters to a suitable level. Allele observation counts will be described by AO and RO  
->>       fields in the VCF output.
+>>      FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in 
+>>      terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and 
+>>      set input filters to a suitable level. Allele observation counts will be described by AO and RO  
+>>      fields in the VCF output.
 
 
 > 1. **FreeBayes** :
