@@ -108,12 +108,12 @@ This tool creates a .bam file.
 [FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
 >>       **Comments**: Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce 
->>          a VCF dataset describing SNPs, indels, and complex variants in samples in the input alignments.
->>          By default, FreeBayes will consider variants supported by at least 2 observations in a single 
->>          sample (-C) and also by at least 20% of the reads from a single sample (-F). These settings are 
->>          suitable to low to high depth sequencing in haploid and diploid samples, but users working with 
->>          polyploid or pooled samples may wish to adjust them depending on the characteristics of their 
->>          sequencing data.
+>>          a VCF dataset describing SNPs, indels, and complex variants in samples in the input 
+>>          alignments. By default, FreeBayes will consider variants supported by at least 2 observations  
+>>          in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These 
+>>          settings are suitable to low to high depth sequencing in haploid and diploid samples, but users  
+>>          working with polyploid or pooled samples may wish to adjust them depending on the characteristics 
+>>          of their sequencing data.
 >>
 >>          FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple 
 >>          polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in
@@ -124,8 +124,8 @@ This tool creates a .bam file.
 >>
 >>          FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in 
 >>          terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and 
->>          set input filters to a suitable level. Allele observation counts will be described by AO and RO fields 
->>          in the VCF output.
+>>          set input filters to a suitable level. Allele observation counts will be described by AO and RO  
+>>          fields in the VCF output.
 
 
 > 1. **FreeBayes** :
