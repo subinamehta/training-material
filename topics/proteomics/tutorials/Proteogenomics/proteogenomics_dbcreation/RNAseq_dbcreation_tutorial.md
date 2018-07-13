@@ -294,11 +294,11 @@ Convert a GFFCompare annotated GTF file to BED format.
 1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
 > **GTF annotated by gffCompare**
 > **filter gffCompare class_codes to convert** 
-> `j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript
-> e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible pre-mRNA fragment.
-> i : A transfrag falling entirely within a reference intron
-> p : Possible polymerase run-on fragment (within 2Kbases of a reference transcript)
-> u : Unknown, intergenic transcript`
+>  -`j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript`
+>  - `e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible    >    pre-mRNA fragment.`
+>  - `i : A transfrag falling entirely within a reference intron`
+>  - ` p : Possible polymerase run-on fragment (within 2Kbases of a reference transcript)`
+>  - `u : Unknown, intergenic transcript`
 
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >     
@@ -307,9 +307,9 @@ Convert a GFFCompare annotated GTF file to BED format.
 Translate transcripts from the input BED file into protein sequences.
  
 > The genomic sequence:
-1.may be supplied in an extra column in the BED input file
-2.retrieved from a twobit genomic reference file
-3.retrieved from the Ensembl REST API for Ensembl transcripts
+1. may be supplied in an extra column in the BED input file
+2. retrieved from a twobit genomic reference file
+3. retrieved from the Ensembl REST API for Ensembl transcripts
 
 1. **Translate BED transcripts cDNA in 3frames or CDS** {% icon tool %}:
 **A BED file with 12 columns**: `Convert gffCompare annotated GTF to BED`
@@ -389,7 +389,7 @@ The Protein database downloader tool is used to download the FASTA database from
 
 >>     **Comments**:
 >>     The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI 
->>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases ” 
+>>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases” 
 >>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
 >>     tool along with the Uniprot and cRAP databases.
 
