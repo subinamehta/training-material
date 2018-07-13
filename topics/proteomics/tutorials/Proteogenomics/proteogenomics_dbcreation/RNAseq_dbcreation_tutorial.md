@@ -294,12 +294,13 @@ Convert a GFFCompare annotated GTF file to BED format.
 1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
 > **GTF annotated by gffCompare**
 > **filter gffCompare class_codes to convert** 
+>
 >  -`j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript`
 >  - `e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible    >    pre-mRNA fragment.`
 >  - `i : A transfrag falling entirely within a reference intron`
 >  - ` p : Possible polymerase run-on fragment (within 2Kbases of a reference transcript)`
 >  - `u : Unknown, intergenic transcript`
-
+>
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >     
 
@@ -323,6 +324,7 @@ Translate transcripts from the input BED file into protein sequences.
 >   
 
 >>       **Comments**:
+>>
 >>       **INPUTS**
 >>          BED file with at least the standard 12 columns
 >>          Genome reference in twobit format (optional)
@@ -356,7 +358,6 @@ Convert a BED format file of the proteins from a proteomics search database into
 
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >   
-
 >>       **Comments**:
 >>      - The tabular output can be converted to a sqlite database using the Query_Tabular tool.
 >>      - The sqlite table should be named: feature_cds_map The names for the columns should be: 
