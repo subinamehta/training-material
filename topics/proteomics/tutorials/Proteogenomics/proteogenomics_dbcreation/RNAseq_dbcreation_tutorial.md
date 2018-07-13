@@ -394,7 +394,8 @@ The Protein database downloader tool is used to download the FASTA database from
 >>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases” 
 >>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
 >>     tool along with the Uniprot and cRAP databases.
-
-
-
+>
+>
+>
+>
 
