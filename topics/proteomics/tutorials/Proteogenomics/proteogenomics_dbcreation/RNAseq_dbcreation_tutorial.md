@@ -79,13 +79,11 @@ This tool creates a .bam file.
 
 >>     Tip: For paired inputs, select the paired end reads.
 
->    - **Section** **Summary Options**:
+>   - **Section** **Summary Options**:
+>    - Select `default parameters`
 
->        - Select `default parameters`
-
->    - **Section** **Advanced Options**:
-
->        - Select `default parameters`
+>   - **Section** **Advanced Options**:
+>   - Select `default parameters`
     
 >>      **Comments**: 
 >>       Note that if your reads are from a stranded library, you need to choose the appropriate 
@@ -141,13 +139,13 @@ This tool creates a .bam file.
 >>    FreeBayes with only a BAM input and no other parameter options.
 >>
 >>    2. Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: 
->>     -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 
->>     0 --genotype-variant-threshold 0) and --min-coverage.
+>>     -0 (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele 
+>>     -qsum 0 --genotype-variant-threshold 0) and --min-coverage.
 >>
 >>    3. Frequency-based pooled calling: This is equivalent to using FreeBayes with the following  
->>    options:--haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous 
->>    --report- monomorphic. This is the best choice for calling variants in mixtures such as viral,  
->>    bacterial, or organellar genomes.
+>>    options:--haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled
+>>    -continuous  --report- monomorphic. This is the best choice for calling variants in mixtures   
+>>    such as viral, bacterial, or organellar genomes.
 >>
 >>    4. Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and  
 >>    --min-coverage like in #2.
@@ -199,7 +197,8 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 #### StringTie
 
 [StringTie](http://ccb.jhu.edu/software/stringtie/) is a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts. It uses a novel network flow algorithm as well as an optional de novo assembly step to assemble and quantitate full-length transcripts representing multiple splice variants for each gene locus. 
-> Its input can include not only the alignments of raw reads used by other transcript assemblers, but also alignments of longer sequences that have been assembled from those reads. In order to identify differentially expressed genes between experiments, StringTie's output can be processed by specialized software like Ballgown, Cuffdiff or other programs (DESeq2, edgeR, etc.).
+
+Its input can include not only the alignments of raw reads used by other transcript assemblers, but also alignments of longer sequences that have been assembled from those reads. In order to identify differentially expressed genes between experiments, StringTie's output can be processed by specialized software like Ballgown, Cuffdiff or other programs (DESeq2, edgeR, etc.).
 
 
 1. **StringTie** 
@@ -254,9 +253,9 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 
 #### GffCompare
 
-> [GffCompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml) compare and evaluate the accuracy of RNA-Seq transcript assemblers (Cufflinks, Stringtie). * collapse (merge) duplicate transcripts from multiple GTF/GFF3 files (e.g. resulted from assembly of different samples) * classify transcripts from one or multiple GTF/GFF3 files as they relate to reference transcripts provided in a annotation file (also in GTF/GFF3 format)
+[GffCompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml) compare and evaluate the accuracy of RNA-Seq transcript assemblers (Cufflinks, Stringtie). * collapse (merge) duplicate transcripts from multiple GTF/GFF3 files (e.g. resulted from assembly of different samples) * classify transcripts from one or multiple GTF/GFF3 files as they relate to reference transcripts provided in a annotation file (also in GTF/GFF3 format)
 
-> The original form of this program is also distributed as part of the Cufflinks suite, under the name ["CuffCompare"] (http://cole-trapnell-lab.github.io/cufflinks/cuffcompare/). Most of the options and parameters of CuffCompare are supported by GffCompare, while new features will likely be added to GffCompare in the future.
+The original form of this program is also distributed as part of the Cufflinks suite, under the name ["CuffCompare"] (http://cole-trapnell-lab.github.io/cufflinks/cuffcompare/). Most of the options and parameters of CuffCompare are supported by GffCompare, while new features will likely be added to GffCompare in the future.
 
 1. **GffCompare compare assembled transcripts to a reference annotation**:
 >   -**GTF inputs for comparison**`Stringtie_outut.gtf`
@@ -292,7 +291,7 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 
 #### Convert gffCompare annotated GTF to BED for StringTie results
 
-> Convert a GFFCompare annotated GTF file to BED format.
+Convert a GFFCompare annotated GTF file to BED format.
 
 1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
 > **GTF annotated by gffCompare**
@@ -307,8 +306,8 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >     
 
 #### Translate BED transcripts cDNA in 3frames or CDS
-> Translate transcripts from the input BED file into protein sequences.
-
+Translate transcripts from the input BED file into protein sequences.
+ 
 > The genomic sequence:
 1.may be supplied in an extra column in the BED input file
 2.retrieved from a twobit genomic reference file
@@ -364,8 +363,8 @@ Convert a BED format file of the proteins from a proteomics search database into
 >>      - The tabular output can be converted to a sqlite database using the Query_Tabular tool.
 >>      - The sqlite table should be named: feature_cds_map The names for the columns should be: 
 >>        name,chrom,start,end,strand,cds_start,cds_end
->>      - This SQL query will return the genomic location for a peptide sequence in a protein (multiply   
->>        the amino acid position by 3 for the cds location)
+>>      - This SQL query will return the genomic location for a peptide sequence in a protein    
+>>        (multiply the amino acid position by 3 for the cds location)
 
 ### Creating FASTA Database:
 
@@ -373,9 +372,9 @@ The Protein database downloader tool is used to download the FASTA database from
 
 #### FASTA Merge Files and Filter Unique Sequences Concatenate FASTA database files together
 
-> Concatenate FASTA database files together.
-> If the uniqueness criterion is "Accession and Sequence", only the first appearence of each unique sequence will appear in the output. Otherwise, duplicate sequences are allowed, but only the first appearance of each accession will appear in the output.
-> The default accession parser will treat everything in the header before the first space as the accession.
+- Concatenate FASTA database files together.
+-  If the uniqueness criterion is "Accession and Sequence", only the first appearence of each unique sequence will appear in the output. Otherwise, duplicate sequences are allowed, but only the first appearance of each accession will appear in the output.
+- The default accession parser will treat everything in the header before the first space as the accession.
 
 > 1. **Run in batch mode?**: `Merge individual FASTAs (output collection if input is collection)`
 
@@ -393,8 +392,8 @@ The Protein database downloader tool is used to download the FASTA database from
 >>     **Comments**:
 >>     The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI 
 >>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases ” 
->>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed tool  
->>     along with the Uniprot and cRAP databases.
+>>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
+>>     tool along with the Uniprot and cRAP databases.
 
 
 
