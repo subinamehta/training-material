@@ -80,10 +80,10 @@ This tool creates a .bam file.
 >>     Tip: For paired inputs, select the paired end reads.
 
 >   - **Section** **Summary Options**:
->    - Select `default parameters`
-
+>    ` - Select `default parameters`
+>
 >   - **Section** **Advanced Options**:
->   - Select `default parameters`
+>    ` - Select `default parameters`
     
 >>      **Comments**: 
 >>       Note that if your reads are from a stranded library, you need to choose the appropriate 
@@ -379,9 +379,9 @@ The Protein database downloader tool is used to download the FASTA database from
 > 1. **Run in batch mode?**: `Merge individual FASTAs (output collection if input is collection)`
 
 > *Input FASTA File(s)* : ` Input Custom ProDB Fasta File output`
-                         > 1.HISAT_Output.rpkm
-                         > 2.HISAT_Output.snv
-                         > 3.HISAT_Output.indel
+                        ` > 1.HISAT_Output.rpkm`
+                        ` > 2.HISAT_Output.snv`
+                        ` > 3.HISAT_Output.indel`
 
 **How are sequences judged to be unique?**:`Accession and Sequence`
 **Accession Parsing Regex**: `^>([^ |]+).*$`
