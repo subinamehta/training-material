@@ -295,7 +295,7 @@ Convert a GFFCompare annotated GTF file to BED format.
 > **GTF annotated by gffCompare**
 > **filter gffCompare class_codes to convert** 
 >
->  -`j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript`
+>  - `j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript`
 >  - `e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible    >    pre-mRNA fragment.`
 >  - `i : A transfrag falling entirely within a reference intron`
 >  - ` p : Possible polymerase run-on fragment (within 2Kbases of a reference transcript)`
@@ -378,9 +378,9 @@ The Protein database downloader tool is used to download the FASTA database from
 > 1. **Run in batch mode?**: `Merge individual FASTAs (output collection if input is collection)`
 
 > *Input FASTA File(s)* : ` Input Custom ProDB Fasta File output`
-                        ` > 1.HISAT_Output.rpkm`
-                        ` > 2.HISAT_Output.snv`
-                        ` > 3.HISAT_Output.indel`
+                        - ` 1.HISAT_Output.rpkm`
+                        - ` 2.HISAT_Output.snv`
+                        - ` 3.HISAT_Output.indel`
 
 **How are sequences judged to be unique?**:`Accession and Sequence`
 **Accession Parsing Regex**: `^>([^ |]+).*$`
