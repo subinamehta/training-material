@@ -382,8 +382,9 @@ The Protein database downloader tool is used to download the FASTA database from
                         - ` 2.HISAT_Output.snv`
                         - ` 3.HISAT_Output.indel`
 
-**How are sequences judged to be unique?**:`Accession and Sequence`
-**Accession Parsing Regex**: `^>([^ |]+).*$`
+>  **How are sequences judged to be unique?**:`Accession and Sequence`
+>
+>  **Accession Parsing Regex**: `^>([^ |]+).*$`
 
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >   
