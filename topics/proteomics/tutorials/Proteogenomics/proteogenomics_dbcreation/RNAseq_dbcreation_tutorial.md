@@ -55,8 +55,6 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 >>       **Comments**:Rename the datasets to a more descriptive name
 >    
 >
-
-
 # Analysis
 
 The first workflow focuses on creating a **FASTA** Database created from RNA-seq data. There are two outputs from this workflow, a **sequence database** consisting of variants and known reference sequences and mapping files containing **genomic** and **variant** mapping data.
@@ -138,7 +136,7 @@ This tool creates a .bam file.
 >   
 >
 >>      **Comments**: Galaxy allows five levels of control over FreeBayes options, provided by the Choose 
->>        parameter selection level menu option. These are: 
+>>       parameter selection level menu option. These are: 
 >>    1. Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes 
 >>    with only a BAM input and no other parameter options.
 >>
@@ -151,8 +149,8 @@ This tool creates a .bam file.
 >>    monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or 
 >>    organellar genomes.
 >>
->>    4. Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage 
->>    like in #2.
+>>    4. Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and  
+>>    --min-coverage like in #2.
 
 > Complete list of all options: Gives you full control by exposing all FreeBayes options as Galaxy parameters.
 >    
@@ -167,9 +165,9 @@ This tool creates a .bam file.
 [CustomProDB]( http://dx.doi.org/10.1093/bioinformatics/btt543) Generate custom protein FASTAs from exosome or transcriptome data.
 The reference protein set can be filtered by transcript expression level (RPKM calculated from a BAM file), and variant protein forms can be predicted based on variant calls (SNPs and INDELs reported in a VCF file).
 
->>       **Comments**: Annotations CustomProDB depends on a set of annotation files (in RData format) to create 
->>          reference and variant protein sequences. Galaxy administrators can use the customProDB data manager 
->>          to create these annotations to make them available for users.
+>>      **Comments**: Annotations CustomProDB depends on a set of annotation files (in RData format) to 
+>>      create reference and variant protein sequences. Galaxy administrators can use the customProDB data  
+>>      manager to create these annotations to make them available for users.
 
 
 ### Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
@@ -189,13 +187,13 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >
->>       **Comments**: Three FASTA files are created through the Custom ProDB tool, a variant FASTA file for
->>          short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant 
->>          mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
->>          Similar to the genomic mapping, a variant mapping file is also created from CustomProDB. This sqlite 
->>          file is also converted to tabular and made SearchGUI compatible. This variant annotation file will be 
->>          used to visualize the variants in the Multi-omics visualization Platform (in-house visualization platform 
->>          developed by Galaxy-P senior developers).
+>>       **Comments**: Three FASTA files are created through the Custom ProDB tool, a variant FASTA file 
+>>      for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and  
+>>      variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
+>>      Similar to the genomic mapping, a variant mapping file is also created from CustomProDB. This sqlite 
+>>      file is also converted to tabular and made SearchGUI compatible. This variant annotation file will be 
+>>      used to visualize the variants in the Multi-omics visualization Platform (in-house visualization  
+>>      platform developed by Galaxy-P senior developers).
 
 
 #### StringTie
@@ -220,37 +218,37 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >    
 
->>       **Comments**:
->>          StringTie takes as input a BAM (or SAM) file of paired-end RNA-seq reads, which must be sorted 
->>          by genomic location (coordinate position). This file contains spliced read alignments and can be 
->>          produced directly by programs such as HISAT2. We recommend using HISAT2 as it is a fast and accurate 
->>          alignment program. Every spliced read alignment (i.e. an alignment across at least one junction) in 
->>          the input BAM file must contain the tag XS to indicate the genomic strand that produced the RNA from 
->>          which the read was sequenced. Alignments produced by HISAT2 (when run with --dta option) already include 
->>          this tag, but if you use a different read mapper you should check that this XS tag is included for spliced 
->>          alignments.
+>>     **Comments**:
+>>     StringTie takes as input a BAM (or SAM) file of paired-end RNA-seq reads, which must be sorted 
+>>     by genomic location (coordinate position). This file contains spliced read alignments and can be 
+>>     produced directly by programs such as HISAT2. We recommend using HISAT2 as it is a fast and accurate 
+>>     alignment program. Every spliced read alignment (i.e. an alignment across at least one junction) in 
+>>     the input BAM file must contain the tag XS to indicate the genomic strand that produced the RNA from 
+>>     which the read was sequenced. Alignments produced by HISAT2 (when run with --dta option) already  
+>>     include this tag, but if you use a different read mapper you should check that this XS tag is included   
+>>     for spliced alignments.
 
->>      NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options), or your 
->>      results will suffer.
+>>     NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options), or your 
+>>     results will suffer.
 >>
->>          Also note that if your reads are from a stranded library, you need to choose the appropriate setting 
->>          under Specify strand information above. As, if Forward (FR) is selected, StringTie will assume the 
->>          reads are from a --fr library, while if Reverse (RF) is selected, StringTie will assume the reads are 
->>          from a --rf library, otherwise it is assumed that the reads are from an unstranded library (The widely-used,
->>          although now deprecated, TopHat had a similar --library-type option, where fr-firststrand corresponded to RF;
->           fr-secondstrand corresponded to FR). If you don't know whether your reads are from are a stranded library
->>          or not, you could use the tool RSeQC Infer Experiment to try to determine.
-
->>          As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In this case, 
->>          StringTie will prefer to use these "known" genes from the annotation file, and for the ones that are 
->>          expressed it will compute coverage, TPM and FPKM values. It will also produce additional transcripts 
->>          to account for RNA-seq data that aren't covered by (or explained by) the annotation. Note that if option 
->>          -e is not used the reference transcripts need to be fully covered by reads in order to be included in 
->>          StringTie's output. In that case, other transcripts assembled from the data by StringTie and not present 
->>          in the reference file will be printed as well.
+>>     Also note that if your reads are from a stranded library, you need to choose the appropriate setting 
+>>     under Specify strand information above. As, if Forward (FR) is selected, StringTie will assume the 
+>>     reads are from a --fr library, while if Reverse (RF) is selected, StringTie will assume the reads are 
+>>     from a --rf library, otherwise it is assumed that the reads are from an unstranded library (The 
+>>     widely-used,although now deprecated, TopHat had a similar --library-type option, where fr-firststrand 
+>>     corresponded to RF; fr-secondstrand corresponded to FR). If you don't know whether your reads are from 
+>>     are a stranded library or not, you could use the tool RSeQC Infer Experiment to try to determine.
+>>     
+>>     As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In this case, 
+>>     StringTie will prefer to use these "known" genes from the annotation file, and for the ones that are 
+>>     expressed it will compute coverage, TPM and FPKM values. It will also produce additional transcripts 
+>>     to account for RNA-seq data that aren't covered by (or explained by) the annotation. Note that if option 
+>>     -e is not used the reference transcripts need to be fully covered by reads in order to be included in 
+>>     StringTie's output. In that case, other transcripts assembled from the data by StringTie and not present 
+>>     in the reference file will be printed as well.
 >>
->>          We highly recommend that you provide annotation if you are analyzing a genome that is well-annotated, 
->>          such as human, mouse, or other model organisms.
+>>     We highly recommend that you provide annotation if you are analyzing a genome that is well-annotated, 
+>>     such as human, mouse, or other model organisms.
 
 #### GffCompare
 
@@ -274,20 +272,20 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >     
 
->>       **Comments**:
->>          A notable difference from GffCompare is that when a single query GTF/GFF file is given as input,
->>          along with a reference annotation (-r option), gffcompare switches into "annotation mode" and it 
->>          generates a .annotated.gtf file instead of the .merged.gtf produced by CuffCompare with the same 
->>          parameters. This file has the same general format as CuffCompare's .merged.gtf file (with "class codes" 
->>          assigned to transcripts as per their relationship with the matching/overlapping reference transcript), 
->>          but the original transcript IDs are preserved, so gffcompare can thus be used as a simple way of annotating
->>          a set of transcripts.
-
->>          Another important difference is that the input transcripts are no longer discarded when they are found 
->>          to be "intron redundant", i.e. contained within other, longer isoforms. CuffCompare had the -G option 
->>          to prevent collapsing of such intron redundant isoforms into their longer "containers", but GffCompare 
->>          has made this the default mode of operation (hence the -G option is no longer needed and is simply ignored 
->>          when given).
+>>      **Comments**:
+>>      A notable difference from GffCompare is that when a single query GTF/GFF file is given as input,
+>>      along with a reference annotation (-r option), gffcompare switches into "annotation mode" and it 
+>>      generates a .annotated.gtf file instead of the .merged.gtf produced by CuffCompare with the same 
+>>      parameters. This file has the same general format as CuffCompare's .merged.gtf file (with "class  
+>>      codes" assigned to transcripts as per their relationship with the matching/overlapping reference , 
+>>      transcript) but the original transcript IDs are preserved, so gffcompare can thus be used as a simple 
+>>      way of annotating a set of transcripts.
+>>
+>>      Another important difference is that the input transcripts are no longer discarded when they are found 
+>>      to be "intron redundant", i.e. contained within other, longer isoforms. CuffCompare had the -G option 
+>>      to prevent collapsing of such intron redundant isoforms into their longer "containers", but GffCompare 
+>>      has made this the default mode of operation (hence the -G option is no longer needed and is simply  
+>>      ignored when given).
 
 #### Convert gffCompare annotated GTF to BED for StringTie results
 
@@ -332,15 +330,16 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >>       **OUTPUTS**
 >>
 >>          FASTA of transcript translations
->>          BED with the genomic location of the translated protein. The added 13th column contains the protein 
->>          sequence.
+>>          BED with the genomic location of the translated protein. The added 13th column contains the 
+>>          protein sequence.
 >>
 >>       **OPTIONS**
 >>
 >>       Feature translation
 >>          - cDNA - three frame translations of the cDNA sequences with an output for each sequence between 
 >>              STOP codons
->>          - CDS - three frame translations of CDS (coding sequence defined by thickStart and thickEnd in the BED file)
+>>          - CDS - three frame translations of CDS (coding sequence defined by thickStart and thickEnd in 
+>>              the BED file)
 >>       Translation filtering
 >>          - can be trimmed to a Methionine start codon
 >>          - can be split into peptides by an enzyme digestion
@@ -362,8 +361,8 @@ Convert a BED format file of the proteins from a proteomics search database into
 >>      - The tabular output can be converted to a sqlite database using the Query_Tabular tool.
 >>      - The sqlite table should be named: feature_cds_map The names for the columns should be: 
 >>        name,chrom,start,end,strand,cds_start,cds_end
->>      - This SQL query will return the genomic location for a peptide sequence in a protein (multiply the animo 
->>        acid position by 3 for the cds location)
+>>      - This SQL query will return the genomic location for a peptide sequence in a protein (multiply the  
+>>        amino acid position by 3 for the cds location)
 
 ### Creating FASTA Database:
 
@@ -388,11 +387,11 @@ The Protein database downloader tool is used to download the FASTA database from
 >   2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >   
 
->>       **Comments**:
->>          The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI 
->>          compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases together” 
->>          tool is used to merge the databases obtained from the CustomProDB and translate Bed tool along with 
->>          the Uniprot and cRAP databases.
+>>     **Comments**:
+>>     The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI 
+>>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases together” 
+>>     tool is used to merge the databases obtained from the CustomProDB and translate Bed tool along with 
+>>     the Uniprot and cRAP databases.
 
 
 
