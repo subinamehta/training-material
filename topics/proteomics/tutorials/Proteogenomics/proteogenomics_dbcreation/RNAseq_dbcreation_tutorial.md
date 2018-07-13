@@ -26,8 +26,6 @@ In this tutorial, the proteins and the total RNA were obtained from the early de
 > - _Merging databases_
 
 
-
-
 # Pretreatments
 
 ## Data upload
@@ -80,10 +78,10 @@ This tool creates a .bam file.
 >>     Tip: For paired inputs, select the paired end reads.
 
 >   - **Section** **Summary Options**:
->    ` - Select `default parameters`
+>    `Select default parameters`
 >
 >   - **Section** **Advanced Options**:
->    ` - Select `default parameters`
+>    `Select default parameters`
     
 >>      **Comments**: 
 >>       Note that if your reads are from a stranded library, you need to choose the appropriate 
