@@ -99,7 +99,7 @@ This tool creates a .bam file.
 >>       on '-' strand of genome. (TopHat has a similar option, --library--type option, where 
 >>       fr - first strand corresponds to R and RF; fr - second strand corresponds to F and FR.)
  
->Once all parameters are selected,  Click **Execute**.
+> Once all parameters are selected,  Click **Execute**.
 
 
 
@@ -113,19 +113,19 @@ This tool creates a .bam file.
 >>      in a single sample (-C) and also by at least 20% of the reads from a single sample (-F). These 
 >>      settings are suitable to low to high depth sequencing in haploid and diploid samples, but   
 >>      users working with polyploid or pooled samples may adjust them depending on the characteristics 
->       of their sequencing data.
+>>      of their sequencing data.
 >>
 >>      FreeBayes is capable of calling variant haplotypes shorter than a read length where multiple 
 >>      polymorphisms segregate on the same read. The maximum distance between polymorphisms phased in
 >>      this way is determined by the --max-complex-gap, which defaults to 3bp. In practice, this can 
 >>      comfortably be set to half the read length. Ploidy may be set to any level (-p), but by default 
->>      all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation in 
->>      copy-number (-A) using a copy-number variation map.
+>>      all samples are assumed to be diploid. FreeBayes can model per-sample and per-region variation  
+>>      in copy-number (-A) using a copy-number variation map.
 >>
 >>      FreeBayes can act as a frequency-based pooled caller and describe variants and haplotypes in 
->>      terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous and 
->>      set input filters to a suitable level. Allele observation counts will be described by AO and RO  
->>      fields in the VCF output.
+>>      terms of observation frequency rather than called genotypes. To do so, use --pooled-continuous  
+>>      and set input filters to a suitable level. Allele observation counts will be described by AO   
+>>      and RO fields in the VCF output.
 
 
 > 1. **FreeBayes** :
@@ -137,22 +137,22 @@ This tool creates a .bam file.
 >   - **Choose parameter selection level**: `Simple diploid calling`
 >   
 >
->>       **Comments**: Galaxy allows five levels of control over FreeBayes options, provided by the Choose 
->>            parameter selection level menu option. These are: 
->>          1. Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes 
->>            with only a BAM input and no other parameter options.
+>>      **Comments**: Galaxy allows five levels of control over FreeBayes options, provided by the Choose 
+>>        parameter selection level menu option. These are: 
+>>    1. Simple diploid calling: The simplest possible FreeBayes application. Equivalent to using FreeBayes 
+>>    with only a BAM input and no other parameter options.
 >>
->>          2. Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 
->>            (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 
->>            --genotype-variant-threshold 0) and --min-coverage.
+>>    2. Simple diploid calling with filtering and coverage: Same as #1 plus two additional options: -0 
+>>    (standard filters: --min-mapping-quality 30 --min-base-quality 20 --min-supporting-allele-qsum 0 
+>>    --genotype-variant-threshold 0) and --min-coverage.
 >>
->>          3. Frequency-based pooled calling: This is equivalent to using FreeBayes with the following options: 
->>            --haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous --report-
->>             monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or 
->>             organellar genomes.
+>>    3. Frequency-based pooled calling: This is equivalent to using FreeBayes with the following options: 
+>>    --haplotype-length 0 --min-alternate-count 1 --min-alternate-fraction 0 --pooled-continuous --report-
+>>    monomorphic. This is the best choice for calling variants in mixtures such as viral, bacterial, or 
+>>    organellar genomes.
 >>
->>          4. Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage 
->>              like in #2.
+>>    4. Frequency-based pooled calling with filtering and coverage: Same as #3 but adds -0 and --min-coverage 
+>>    like in #2.
 
 > Complete list of all options: Gives you full control by exposing all FreeBayes options as Galaxy parameters.
 >    
