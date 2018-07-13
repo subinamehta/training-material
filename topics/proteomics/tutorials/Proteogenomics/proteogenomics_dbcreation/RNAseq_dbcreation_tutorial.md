@@ -222,10 +222,10 @@ Its input can include not only the alignments of raw reads used by other transcr
 >>     sorted by genomic location (coordinate position). This file contains spliced read alignments 
 >>     and can be produced directly by programs such as HISAT2. We recommend using HISAT2 as it is a  
 >>     fast and accurate alignment program. Every spliced read alignment (i.e. an alignment across  
->>     at least one junction) in the input BAM file must contain the tag XS to indicate the genomic strand 
->>     that produced the RNA from which the read was sequenced. Alignments produced by HISAT2 (when run 
->>     with --dta option) already include this tag, but if you use a different read mapper you should check
->>     that this XS tag is included for spliced alignments.
+>>     at least one junction) in the input BAM file must contain the tag XS to indicate the genomic  
+>>     strand that produced the RNA from which the read was sequenced. Alignments produced by HISAT2  
+>>     (when run with --dta option) already include this tag, but if you use a different read mapper 
+>>     you should check that this XS tag is included for spliced alignments.
 
 >>     NOTE: be sure to run HISAT2 with the --dta option for alignment (under Spliced alignment options),  
 >>     or your results will suffer.
@@ -234,10 +234,10 @@ Its input can include not only the alignments of raw reads used by other transcr
 >>     settingunder Specify strand information above. As, if Forward (FR) is selected, StringTie will  
 >>     assume thereads are from a --fr library, while if Reverse (RF) is selected, StringTie will 
 >>     assume the reads are from a --rf library, otherwise it is assumed that the reads are from an 
->>     unstranded library (The widely-used, although now deprecated, TopHat had a similar --library-type 
->>     option, where fr-firststrand corresponded to RF; fr-secondstrand corresponded to FR). If you don't
->>     know whether your reads are from are a stranded library or not, you could use the tool RSeQC Infer
->>     Experiment to try to determine.
+>>     unstranded library (The widely-used, although now deprecated, TopHat had a similar --library
+>>     -type option, where fr-firststrand corresponded to RF; fr-secondstrand corresponded to FR). 
+>>     If you don't know whether your reads are from are a stranded library or not, you could use the 
+>>     tool RSeQC Infer Experiment to try to determine.
 >>     
 >>     As an option, a reference annotation file in GTF/GFF3 format can be provided to StringTie. In  
 >>     this case,StringTie will prefer to use these "known" genes from the annotation file, and for  
