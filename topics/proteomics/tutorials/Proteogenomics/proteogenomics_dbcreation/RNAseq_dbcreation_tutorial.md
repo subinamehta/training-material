@@ -164,8 +164,8 @@ This tool creates a .bam file.
 The reference protein set can be filtered by transcript expression level (RPKM calculated from a BAM file), and variant protein forms can be predicted based on variant calls (SNPs and INDELs reported in a VCF file).
 
 >>      **Comments**: Annotations CustomProDB depends on a set of annotation files (in RData format) to 
->>      create reference and variant protein sequences. Galaxy administrators can use the customProDB data  
->>      manager to create these annotations to make them available for users.
+>>      create reference and variant protein sequences. Galaxy administrators can use the customProDB   
+>>      data manager to create these annotations to make them available for users.
 
 
 ### Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
