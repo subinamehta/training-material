@@ -426,10 +426,12 @@ This tool goes line by line through the specified input file and if the text in 
 >>     `^(ENS[^_]+_\d+:)([ACGTacgt]+)>([ACGTacgt]+)\s*`
 >> **Replacement:**  
 >>     `\1\2_\3`
+> **Check 2**:
 >>**Find Regex:**
 >>     `,([A-Z]\d+[A-Z])\s*`
 >> **Replacement:**  
 >>     `.\1`
+> **Check 3**:
 **Find Regex:**
 >>    ` ^(ENS[^ |]*)\s*`
 >> **Replacement:**  
@@ -472,9 +474,70 @@ Loads tabular datasets into a SQLite data base.
 
 ### SQLite to tabular for SQL query (For variant annotations)
 
+> The Inputs for this tool is an existing SQLite data base (genomic_mapping.sqlite from CustomProDB) and the outputs are the results of a SQL query are output to the history as a tabular file.
+
+
+>  **Query**:
+>
+>      `SELECT var_pro_name,pro_name,cigar,annotation
+>       FROM variant_annotation`
+
+We will subject the output to text manipulation so that the results are compatible with the Multiomics Visualization Platform.
+
 ### Column Regex Find And Replace (SearchGUI compatible Protein Names Variant annotations)
+This tool goes line by line through the specified input file and if the text in the selected column matches a specified regular expression pattern replaces the text with the corresponding specified replacement.
+
+> **Select cells from**: `variant_annotations_sqlite' (tabular)`
+> **Using:** `column 1`
+> Select insert check
+
+> **Check 1**: 
+>>
+>> **Find Regex:**
+>>     `^(ENS[^_]+_\d+:)([ACGTacgt]+)>([ACGTacgt]+)\s*`
+>> **Replacement:**  
+>>     `\1\2_\3`
+> **Check 2**:
+>>**Find Regex:**
+>>     `,([A-Z]\d+[A-Z])\s*`
+>> **Replacement:**  
+>>     `.\1`
+> **Check 3**:
+**Find Regex:**
+>>    ` ^(ENS[^ |]*)\s*`
+>> **Replacement:**  
+>>     \1
+
 
 ### Query Tabular using sqlite sql (For variant annotations)
+
+>Loads tabular datasets into a SQLite data base.
+
+1. **Query Tabular** : Run **Query Tabular** with:
+>
+>    - **Database Table**: Click on `+ Insert Database Table`
+>    - **Tabular Dataset for Table**: `variant_annotation`
 >
 >
+>    Section **Table Options**:
+>
+>    - **Specify Name for Table**: `variant_annotation`
+>    - **Specify Column Names (comma-separated list)**: `name,reference,cigar,annotation`
+>
+>    - **Only load the columns you have named into database**: `No`
+>
+>    Section **Table Index**:
+>
+>    - **This is a unique index**: `No`
+>    - **Index on columns**: `name,cigar`
+>
+> Rename the output as **"Variant_annotation_sqlitedb"**
+>
+>
+> 2. Click **Execute** and inspect the query results file after it turned green:
+>
+
+>>      A sqlite database containing the genomic mapping sqlite and information from the 
+>>      protein mapping file is concatenated to form a single genomic mapping sqlite database 
+>>      later used as an input for the Peptide genomic coordinate tool.
 
