@@ -402,9 +402,51 @@ A sqlite database containing the genomic mapping sqlite and information from the
 
 ### SQLite to tabular for SQL query (For genomic mapping)
 
+> The Inputs for this tool is an existing SQLite data base (genomic_mapping.sqlite from CustomProDB) and the outputs are the results of a SQL query are output to the history as a tabular file.
+
+
+>  **Query**:
+>
+>      `SELECT pro_name, chr_name, cds_chr_start - 1, cds_chr_end,strand,cds_start - 1, cds_end
+>      FROM genomic_mapping
+>      ORDER BY pro_name, cds_start, cds_end`
+
+We will subject the output to text manipulation so that the results are compatible with the Multiomics Visualization Platform.
+
 ### Column Regex Find And Replace (SearchGUI compatible Protein Names Genomic Mapping)
 
-### ### Query Tabular using sqlite sql (For genomic mapping)
+This tool goes line by line through the specified input file and if the text in the selected column matches a specified regular expression pattern replaces the text with the corresponding specified replacement.
+
+> **Select cells from**: `genomic_mapping_sqlite' (tabular)`
+> **Using:** `column 1`
+> Select insert check
+
+> **Check 1**: 
+>> **Find Regex:**
+>>     `^(ENS[^_]+_\d+:)([ACGTacgt]+)>([ACGTacgt]+)\s*`
+>> **Replacement:**  
+>>     `\1\2_\3`
+>>**Find Regex:**
+>>     `,([A-Z]\d+[A-Z])\s*`
+>> **Replacement:**  
+>>     `.\1`
+**Find Regex:**
+>>    ` ^(ENS[^ |]*)\s*`
+>> **Replacement:**  
+>>     \1
+
+Once this step is complete we will concatenate the output from this tool with the "Bed to protein map" output.
+
+### Concatenate multiple datasets
+> Select the output from the previous tool with "Bed2protein_SJ_SAV_INDEL" output.
+
+> Ouput will be the "Genomic_Protein_map"
+
+### Query Tabular using sqlite sql (For genomic mapping)
+
+Loads tabular datasets into a SQLite data base.
+
+
 
 ### SQLite to tabular for SQL query (For variant annotations)
 
