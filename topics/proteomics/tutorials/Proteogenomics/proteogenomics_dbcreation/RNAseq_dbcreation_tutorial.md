@@ -537,7 +537,6 @@ This tool goes line by line through the specified input file and if the text in 
 > 2. Click **Execute** and inspect the query results file after it turned green:
 >
 
->>      A sqlite database containing the genomic mapping sqlite and information from the 
->>      protein mapping file is concatenated to form a single genomic mapping sqlite database 
->>      later used as an input for the Peptide genomic coordinate tool.
+>>      These sqlite databases containing the genomic mapping sqlite and variant annotation information from the 
+>>      protein mapping file will be used to view in the MVP to view the genomic coordinates of the variant peptide.
 
