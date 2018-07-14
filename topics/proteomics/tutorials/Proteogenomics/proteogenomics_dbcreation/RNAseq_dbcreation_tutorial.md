@@ -126,7 +126,7 @@ This tool creates a .bam file.
 >   - **Choose the source for the reference genome**: `Locally cached file`
 >       - **Run in batch mode?**: `Run Individually`
 >   - **BAM dataset**: `HISAT_Output.BAM`
->   - **Using reference genome**: `Human Dec.2013 (GRCh38/hg38)(hg38)`
+>   - **Using reference genome**: `mm10`
 >   - **Limit variant calling to a set of regions?**: `Do not Limit`
 >   - **Choose parameter selection level**: `Simple diploid calling`
 >   
@@ -158,7 +158,7 @@ This tool creates a .bam file.
 
 #### CustomProDB
 
-[CustomProDB]( http://dx.doi.org/10.1093/bioinformatics/btt543) Generate custom protein FASTAs from exosome or transcriptome data.
+[CustomProDB]( http://dx.doi.org/10.1093/bioinformatics/btt543) Generate custom protein FASTAs from exosome or transcriptome data. Once Freebayes creates the .vcf file the Custom ProDB uses this file to generate a custom protein FASTA file from the transcriptome data. For this tool, we use Ensemble 89 mmusculus (GRm38.p5) (dbsnp142) as the genome annotation. We create three FASTA files from the Custom ProDB, a variant FASTA file for short indels, a Single Amino acid Variant (SAV) FASTA file, an Sqlite file (genome mapping and variant mapping) for mapping proteins to genome and a RData file for variant protein coding sequences.
 The reference protein set can be filtered by transcript expression level (RPKM calculated from a BAM file), and variant protein forms can be predicted based on variant calls (SNPs and INDELs reported in a VCF file).
 
 >>      **Comments**: Annotations CustomProDB depends on a set of annotation files (in RData format) to 
@@ -170,7 +170,7 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >
 > 1. **CustomProDB**:
 >   - **Will you select a genome annotation from your history or use a built-in annotation?**: `Use built in genome annotation`
->   - **Using reference genome**: `Human Ensembl 89 hsapiens (hg38/GRCh38.p10)`
+>   - **Using reference genome**: `Ensemble 89 mmusculus (GRm38.p5) (dbsnp142)`
 >   - **BAM file**: `HISAT_Output.BAM`
 >   - **VCF file**: `Freebayes.vcf`
 >   - **Annotate SNPs with rsid from dbSNP**: `No`
@@ -201,11 +201,11 @@ Its input can include not only the alignments of raw reads used by other transcr
 
 1. **StringTie** 
 > **StringTie transcript assembly and quantification**
->   - **Input mapped reads**: `HISAT_Output.BAM`
+>   - **Input mapped reads**: `FASTQ_ProB.BAM`
 >   - **Specify strand information**: `Unstranded`
 >   - **Use a reference file to guide assembly?**: `Use Reference GTF/GFF3`
 >   - **Reference file**: `Use file from History`
->       - **GTF/GFF3 dataset to guide assembly**: `Homo_sapiens.GRCh38.83.gtf`
+>       - **GTF/GFF3 dataset to guide assembly**: `Mus_musculus.GRCm38.86.gtf`
 >   - **Use Reference transcripts only?**: `No`
 >   - **Output files for differential expression?**: `No additional output`
 >   - **Output coverage file?**: `No`
@@ -257,7 +257,7 @@ The original form of this program is also distributed as part of the Cufflinks s
 
 1. **GffCompare compare assembled transcripts to a reference annotation**:
 >   -**GTF inputs for comparison**`Stringtie_outut.gtf`
->   - **Use Reference Annotation**: `Homo_sapiens.GRCh38.83.gtf`
+>   - **Use Reference Annotation**: `Mus_musculus.GRCm38.86.gtf`
 >   - **Reference Annotation**: `Unstranded`
 
 >   - **Ignore reference transcripts that are not overlapped by any input transfrags**: `No`
@@ -317,7 +317,7 @@ Translate transcripts from the input BED file into protein sequences.
 1. **Translate BED transcripts cDNA in 3frames or CDS** {% icon tool %}:
 **A BED file with 12 columns**: `Convert gffCompare annotated GTF to BED`
 **Source for Genomic Sequence Data** `Locally cached File`
-**Select reference 2bit file** `hg38`
+**Select reference 2bit file** `mm10`
 **BED Filtering Options** `default`
 **Translation Options ** `default`
 **FASTA ID Options** `default`
