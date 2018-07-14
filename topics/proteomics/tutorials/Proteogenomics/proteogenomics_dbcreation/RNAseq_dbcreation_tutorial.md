@@ -397,7 +397,20 @@ The Protein database downloader tool is used to download the FASTA database from
 >>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
 >>     tool along with the Uniprot and cRAP databases.
 >
->
+For visualization purpose we also use “Concatenate tool” to concatenate the genomic mapping with protein mapping dataset. This output will be used to view in the MVP to view the genomic coordinates of the variant peptide.
+A sqlite database containing the genomic mapping sqlite and information from the protein mapping file is concatenated to form a single genomic mapping sqlite database later used as an input for the Peptide genomic coordinate tool. For that we need to follow the steps below:
+
+### SQLite to tabular for SQL query (For genomic mapping)
+
+### Column Regex Find And Replace (SearchGUI compatible Protein Names Genomic Mapping)
+
+### ### Query Tabular using sqlite sql (For genomic mapping)
+
+### SQLite to tabular for SQL query (For variant annotations)
+
+### Column Regex Find And Replace (SearchGUI compatible Protein Names Variant annotations)
+
+### Query Tabular using sqlite sql (For variant annotations)
 >
 >
 
