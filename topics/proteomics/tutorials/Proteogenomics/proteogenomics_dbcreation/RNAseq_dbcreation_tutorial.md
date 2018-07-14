@@ -291,9 +291,11 @@ The original form of this program is also distributed as part of the Cufflinks s
 
 Convert a GFFCompare annotated GTF file to BED format.
 
-1. **GffCompare compare assembled transcripts to a reference annotation** {% icon tool %}:
-> **GTF annotated by gffCompare**
-> **filter gffCompare class_codes to convert** 
+1. **GffCompare compare assembled transcripts to a reference annotation**:
+>
+>   **GTF annotated by gffCompare**
+>
+>  **filter gffCompare class_codes to convert** 
 >
 >  - `j : Potentially novel isoform (fragment): at least one splice junction is shared with a reference transcript`
 >  - `e : Single exon transfrag overlapping a reference exon and at least 10 bp of a reference intron, indicating a possible    >    pre-mRNA fragment.`
