@@ -446,6 +446,28 @@ Once this step is complete we will concatenate the output from this tool with th
 
 Loads tabular datasets into a SQLite data base.
 
+1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
+>
+>    - **Database Table**: Click on `+ Insert Database Table`
+>    - **Tabular Dataset for Table**: `Genomic_Protein_map`
+>
+>
+>    Section **Table Options**:
+>
+>    - **Specify Name for Table**: `feature_cds_map`
+>    - **Specify Column Names (comma-separated list)**: `name,chrom,start,end,strand,cds_start,cds_end`
+>
+>    - **Only load the columns you have named into database**: `No`
+>
+>    Section **Table Index**:
+>
+>    - **This is a unique index**: `No`
+>    - **Index on columns**: `name,cds_start,cds_end`
+>
+> Rename the output as **"genomic_mapping_sqlite"**
+>
+>
+> 2. Click **Execute** and inspect the query results file after it turned green:
 
 
 ### SQLite to tabular for SQL query (For variant annotations)
