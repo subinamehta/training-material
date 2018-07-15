@@ -63,6 +63,8 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 # Analysis
 
 The first workflow focuses on creating a **FASTA** Database created from RNA-seq data. There are two outputs from this workflow, a **sequence database** consisting of variants and known reference sequences and mapping files containing **genomic** and **variant** mapping data.
+
+
 <img src="../../../images/database_creation.png" width=400>
 
 ### Aligning FASTQ files on the human genome
@@ -109,7 +111,9 @@ This tool creates a .bam file.
 
 [FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
 
+
 <img src="../../../images/variant_calling.png" width=400>
+
 
 >>     **Comments**: Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce 
 >>     a VCF dataset describing SNPs, indels, and complex variants in samples in the input 
@@ -162,6 +166,8 @@ This tool creates a .bam file.
 >    
 >
 > Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
+>
+>
 >    <img src="../../../images/view_icon.png" width=80>
 >   
 
@@ -266,7 +272,8 @@ Its input can include not only the alignments of raw reads used by other transcr
 The original form of this program is also distributed as part of the Cufflinks suite, under the name ["CuffCompare"] (http://cole-trapnell-lab.github.io/cufflinks/cuffcompare/). Most of the options and parameters of CuffCompare are supported by GffCompare, while new features will likely be added to GffCompare in the future.
 
 1. **GffCompare compare assembled transcripts to a reference annotation**:
->   -**GTF inputs for comparison**`Stringtie_outut.gtf`
+
+>   - **GTF inputs for comparison**`Stringtie_outut.gtf`
 >   - **Use Reference Annotation**: `Mus_musculus.GRCm38.86.gtf`
 >   - **Reference Annotation**: `Unstranded`
 
@@ -301,9 +308,9 @@ The original form of this program is also distributed as part of the Cufflinks s
 
 Convert a GFFCompare annotated GTF file to BED format.
 
-1. **GffCompare compare assembled transcripts to a reference annotation**:
+1. **GffCompare compare assembled transcripts to a reference annotation**: `ouput from gff compare`
 >
->   **GTF annotated by gffCompare**
+>  **GTF annotated by gffCompare**: 
 >
 >  **filter gffCompare class_codes to convert** 
 >
@@ -402,11 +409,13 @@ The Protein database downloader tool is used to download the FASTA database from
 >   
 
 >>     **Comments**:
->>     The regex text manipulation tool is used to manipulate the FASTA file to make it searchGUI 
->>     compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate FASTA databases” 
->>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
->>     tool along with the Uniprot and cRAP databases.
+>>     The regex text manipulation tool is used to manipulate the FASTA file to make it 
+>>     searchGUI compatible. The “FASTA Merge Files and Filter Unique Sequences Concatenate  
+>>     FASTA databases”together tool is used to merge the databases obtained from the    
+>>     CustomProDB and translate Bed" tool along with the Uniprot and cRAP databases.
 >
+
+
 <img src="../../../images/Fasta_sequence.png" width=400>
 
 For visualization purpose we also use “Concatenate tool” to concatenate the genomic mapping with protein mapping dataset. This output will be used to view in the MVP to view the genomic coordinates of the variant peptide.
@@ -552,6 +561,9 @@ This tool goes line by line through the specified input file and if the text in 
 > 2. Click **Execute** and inspect the query results file after it turned green:
 >
 
->>      These sqlite databases containing the genomic mapping sqlite and variant annotation information from the 
->>      protein mapping file will be used to view in the MVP to view the genomic coordinates of the variant peptide.
+>>      These sqlite databases containing the genomic mapping sqlite and variant 
+>>      annotation information from the protein mapping file will be used to view in the MVP 
+>>      to view the genomic coordinates of the variant peptide.
+
+
 <img src="../../../images/viewing_SNP_Variant_IGV.png" width=600>
