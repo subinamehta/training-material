@@ -7,10 +7,13 @@ tutorial_name: Proteogenomics_RNAseq_db_creation
 # Introduction
 
 **Proteogenomics** is a combination of proteomics, genomics and transcriptomics data to identify peptides and to understand protein level evidence of gene expression. In this tutorial, we will create a Protein FASTA database using RNA sequencing files (FASTQ) and then perform database searching of the created FASTA file with the MS/MS data to identify novel peptides. Then we will assign the genomic coordinates and annotations for these novel peptides as well as perform visualization of the data. 
+<img src="../../../images/potential_novel_publication.png" width=140>
 
 Proteogenomics - most commonly integrates **RNA-Seq** data, for generating customized protein sequence databases, with mass spectrometry-based proteomics data, which are matched to these databases to identify novel protein sequence variants. (Cancer Res. (2017); 77(21):e43-e46. doi: 10.1158/0008-5472.CAN-17-0331.)
+<img src="../../../images/workflow_objective1.png" width=100>
 
 In this tutorial, the proteins and the total RNA were obtained from the early development of B-cells from mouse. It was obtained at two developmental stages of B-cells, Ebf -/- pre-pro-B and Rag2 -/- pro-B. Please refer to the original study for details [Heydarian, M. et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4276347/).
+
 
 ### Agenda
 >
@@ -56,6 +59,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 # Analysis
 
 The first workflow focuses on creating a **FASTA** Database created from RNA-seq data. There are two outputs from this workflow, a **sequence database** consisting of variants and known reference sequences and mapping files containing **genomic** and **variant** mapping data.
+<img src="../../../images/database_creation.png" width=140>
 
 ### Aligning FASTQ files on the human genome
 
@@ -100,6 +104,8 @@ This tool creates a .bam file.
 #### FreeBayes
 
 [FreeBayes]( https://github.com/ekg/freebayes) is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment.
+
+<img src="../../../images/variant_calling.png" width=140>
 
 >>     **Comments**: Provided some BAM dataset(s) and a reference sequence, FreeBayes will produce 
 >>     a VCF dataset describing SNPs, indels, and complex variants in samples in the input 
@@ -152,7 +158,7 @@ This tool creates a .bam file.
 >    
 >
 > Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->    <img src="../../../images/view_icon.png" width=100>
+>    <img src="../../../images/view_icon.png" width=80>
 >   
 
 
@@ -164,7 +170,7 @@ The reference protein set can be filtered by transcript expression level (RPKM c
 >>      **Comments**: Annotations CustomProDB depends on a set of annotation files (in RData format) to 
 >>      create reference and variant protein sequences. Galaxy administrators can use the customProDB   
 >>      data manager to create these annotations to make them available for users.
-
+<img src="../../../images/CustomProDB.png" width=140>
 
 ### Hands-on: CustomProDB Generate protein FASTAs from exosome or transcriptome data
 >
@@ -397,8 +403,12 @@ The Protein database downloader tool is used to download the FASTA database from
 >>     together tool is used to merge the databases obtained from the CustomProDB and translate Bed   
 >>     tool along with the Uniprot and cRAP databases.
 >
+<img src="../../../images/Fasta_sequence.png" width=140>
+
 For visualization purpose we also use “Concatenate tool” to concatenate the genomic mapping with protein mapping dataset. This output will be used to view in the MVP to view the genomic coordinates of the variant peptide.
-A sqlite database containing the genomic mapping sqlite and information from the protein mapping file is concatenated to form a single genomic mapping sqlite database later used as an input for the Peptide genomic coordinate tool. For that we need to follow the steps below:
+<img src="../../../images/viewing_SNP_Variant_IGV.png" width=140>
+
+A sqlite database containing the genomic mapping sqlite, variant annotation and information from the protein mapping file is concatenated to form a single genomic mapping sqlite database later used as an input for the Peptide genomic coordinate tool. For that we need to follow the steps below:
 
 ### SQLite to tabular for SQL query (For genomic mapping)
 
@@ -468,7 +478,8 @@ Loads tabular datasets into a SQLite data base.
 >
 > Rename the output as **"genomic_mapping_sqlite"**
 >
->
+<img src="../../../images/genomic_mapping_file.png" width=140>
+
 > 2. Click **Execute** and inspect the query results file after it turned green:
 
 
