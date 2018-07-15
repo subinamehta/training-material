@@ -7,9 +7,13 @@ tutorial_name: Proteogenomics_RNAseq_db_creation
 # Introduction
 
 **Proteogenomics** is a combination of proteomics, genomics and transcriptomics data to identify peptides and to understand protein level evidence of gene expression. In this tutorial, we will create a Protein FASTA database using RNA sequencing files (FASTQ) and then perform database searching of the created FASTA file with the MS/MS data to identify novel peptides. Then we will assign the genomic coordinates and annotations for these novel peptides as well as perform visualization of the data. 
-         <img src="../../../images/potential_novel_publication.png" width=600 align="centre">
+
+
+<img src="../../../images/potential_novel_publication.png" width=600 align="centre">
 
 Proteogenomics - most commonly integrates **RNA-Seq** data, for generating customized protein sequence databases, with mass spectrometry-based proteomics data, which are matched to these databases to identify novel protein sequence variants. (Cancer Res. (2017); 77(21):e43-e46. doi: 10.1158/0008-5472.CAN-17-0331.)
+
+
 <img src="../../../images/workflow_objective1.png" width=600>
 
 In this tutorial, the proteins and the total RNA were obtained from the early development of B-cells from mouse. It was obtained at two developmental stages of B-cells, Ebf -/- pre-pro-B and Rag2 -/- pro-B. Please refer to the original study for details [Heydarian, M. et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4276347/).
