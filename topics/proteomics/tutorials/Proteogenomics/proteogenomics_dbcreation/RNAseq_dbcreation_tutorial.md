@@ -67,6 +67,8 @@ The first workflow focuses on creating a **FASTA** Database created from RNA-seq
 
 <img src="../../../images/database_creation.png" width=400>
 
+The first part of the workflow deals with creating the FASTA file containing sequences with single amino acid variants, insertions and deletions. The second part of the workflow helps in creating a fasta file with transcript assemblies.
+
 ### Aligning FASTQ files on the human genome
 
 The first tool in the workflow is the [**HISAT2**](http://ccb.jhu.edu/software/hisat) alignment tool. It maps next generation sequence reads to the reference genome. For running the HISAT2 tools there are two input files a RNA-seq file (.FASTQ) and a reference genome (GTF file format). The .gtf (Gene Transfer Format (GTF)) file is obtained from the Ensembl database.
@@ -384,6 +386,8 @@ Convert a BED format file of the proteins from a proteomics search database into
 >>      - This SQL query will return the genomic location for a peptide sequence in a protein    
 >>        (multiply the amino acid position by 3 for the cds location)
 
+>   2. Click **Execute**
+
 ### Creating FASTA Database:
 
 The Protein database downloader tool is used to download the FASTA database from UNIPROT and cRAP database containing known/reference mouse proteins.
@@ -438,28 +442,31 @@ We will subject the output to text manipulation so that the results are compatib
 
 ### Column Regex Find And Replace (SearchGUI compatible Protein Names Genomic Mapping)
 
+> 2. Click **Execute**
+
 This tool goes line by line through the specified input file and if the text in the selected column matches a specified regular expression pattern replaces the text with the corresponding specified replacement.
 
 > **Select cells from**: `genomic_mapping_sqlite' (tabular)`
 > **Using:** `column 1`
 > Select insert check
 
-> **Check 1**: 
->> **Find Regex:**
+>   **Check 1**: 
+>>  **Find Regex:**
 >>     `^(ENS[^_]+_\d+:)([ACGTacgt]+)>([ACGTacgt]+)\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     `\1\2_\3`
-> **Check 2**:
->>**Find Regex:**
+>>  **Check 2**:
+>>  **Find Regex:**
 >>     `,([A-Z]\d+[A-Z])\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     `.\1`
-> **Check 3**:
-**Find Regex:**
+>>  **Check 3**:
+>>  **Find Regex:**
 >>    ` ^(ENS[^ |]*)\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     \1
 
+>   2. Click **Execute**
 Once this step is complete we will concatenate the output from this tool with the "Bed to protein map" output.
 
 ### Concatenate multiple datasets
@@ -515,21 +522,20 @@ This tool goes line by line through the specified input file and if the text in 
 > **Using:** `column 1`
 > Select insert check
 
-> **Check 1**: 
->>
->> **Find Regex:**
+>   **Check 1**: 
+>>  **Find Regex:**
 >>     `^(ENS[^_]+_\d+:)([ACGTacgt]+)>([ACGTacgt]+)\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     `\1\2_\3`
-> **Check 2**:
->>**Find Regex:**
+>>  **Check 2**:
+>>  **Find Regex:**
 >>     `,([A-Z]\d+[A-Z])\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     `.\1`
-> **Check 3**:
-**Find Regex:**
+>>  **Check 3**:
+>>  **Find Regex:**
 >>    ` ^(ENS[^ |]*)\s*`
->> **Replacement:**  
+>>  **Replacement:**  
 >>     \1
 
 
