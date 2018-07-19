@@ -47,7 +47,7 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 
 ### Hands-on: Data upload and organization
 >
-> 1. Create a new history and name it something meaningful (e.g. *Proteogenomics tutorial*)
+> 1. Create a new history and name it something meaningful (e.g. *Proteogenomics DB creation*)
 > 2. Import the two FASTQ files and the GTF file from Zenodo.
 
 >>       Tip: Importing data via links
