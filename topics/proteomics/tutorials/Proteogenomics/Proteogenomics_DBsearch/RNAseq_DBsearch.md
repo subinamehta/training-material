@@ -154,33 +154,33 @@ matched peptide sequences and generates outputs that can be visualized by users 
 results. PeptideShaker has been wrapped in Galaxy to work in combination with SearchGUI
 outputs.
 
-> ### {% icon comment %} Comment
-> There are a number of choices for different data files that can be generated using
-> PeptideShaker. A compressed file can be made containing all information needed to view the
-> results in the standalone PeptideShaker viewer. A `mzidentML` file can be created that contains
-> all peptide sequence matching information and can be utilized by compatible downstream
-> software. Other outputs are focused on the inferred proteins identified from the PSMs, as well
-> as phosphorylation reports, relevant if a phosphoproteomics experiment has been undertaken. 
-> More detailed information on peptide inference using SearchGUI and PeptideShaker can be found in our tutorial on [Peptide and Protein ID]({{site.baseurl}}/topics/proteomics/tutorials/protein-id-sg-ps/tutorial.html).
-{: .comment}
+>>     ###Comment
+>>      There are a number of choices for different data files that can be generated using
+>>      PeptideShaker. A compressed file can be made containing all information needed to 
+>>      view them results in the standalone PeptideShaker viewer. A `mzidentML` file can 
+>>      be created that contains all peptide sequence matching information and can be 
+>>      utilized by compatible downstream software. Other outputs are focused on the inferred 
+>>      proteins identified from the PSMs, as well as phosphorylation reports, relevant if 
+>>      a phosphoproteomics experiment has been undertaken. 
+>>
+>>      More detailed information on peptide inference using SearchGUI and PeptideShaker can
+>>      be found in our tutorial on [Peptide and Protein ID]({{site.baseurl}}/topics/proteomics/tutorials/protein-id-sg-ps/tutorial.html).
 
-> ### {% icon hands_on %} Hands-on: PeptideShaker
+ ###  Hands-on: PeptideShaker
 >
-> 1. **PeptideShaker** {% icon tool %}: Run **PeptideShaker** with:
+> 1. **PeptideShaker** : Run **PeptideShaker** with:
 >   - **Compressed SearchGUI results**: The SearchGUI archive file
 >   - **Specify Advanced PeptideShaker Processing Options**: `Default Processing Options`
->   - **Specify Advanced Filtering Options**: `Advanced Filtering Options`
->   - **Maximum Precursor Error Type**: `Daltons`
->   - **Specify Contact Information for mzIdendML**: You can leave the default dummy options for now, but feel free to enter custom contact information.
+>   - **Specify Advanced Filtering Options**: `Default Filtering Options`
 >   - **Include the protein sequences in mzIdentML**: `No`
 >   - **Output options**: Select the `PSM Report` (Peptide-Spectral Match) and the `Certificate of Analysis`
 >
->       > ### {% icon comment %} Comment
->       >
->       > The **Certificate of Analysis** provides details on all the parameters
->       > used by both SearchGUI and PeptideShaker in the analysis. This can be downloaded from the
->       > Galaxy instance to your local computer in a text file if desired.
->       {: .comment}
+>>     ###  Comment
+>>
+>>     The **Certificate of Analysis** provides details on all the parameters
+>>     used by both SearchGUI and PeptideShaker in the analysis. This can be downloaded from the
+>>     Galaxy instance to your local computer in a text file if desired.
+>      
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
 >     ![View data button](../../images/view_data_icon.png)
@@ -191,15 +191,27 @@ outputs.
 A number of new items will appear in your history, each corresponding to the outputs selected
 in the PeptideShaker parameters. Most relevant for this tutorial is the PSM report:
 
-![Display of the PSM report tabular file](../../images/psm_report.png "The PSM report")
-
 Scrolling at the bottom to the left will show the sequence for the PSM that matched to these
 metapeptide entries. Column 3 is the sequence matched for each PSM entry. Every PSM is a
 new row in the tabular output.
 
-In the following steps of this tutorial, selected portions of this output will be extracted and used for
-analysis of the taxonomic make-up of the sample as well as the biochemical functions
-represented by the proteins identified.
+A number of new items will appear in your History, each corresponding to the outputs selected in the PeptideShaker parameters. The Peptide Shaker’s PSM report is used as an input for the BlastP analysis. Before performing BlastP analysis. The Query Tabular tool and few test manipulation tools are used to remove spectra that belongs to the reference proteins. The output tabular file “Peptides_for_Blast-P_analysis” will contain only those spectra that did not belong to any known proteins.
+
+#### Creating SQLITE database using mz to sqlite
+
+The mzidentml output from the Peptide shaker is converted into an sqlite database file by using the mz to sqlite tool. This sqlite output is used to open the Multi-omics visualization platform, wherein you can view the spectra of the peptides using Lorikeet parameters. To open the MVP viewer, click on the “Visualize in MVP Application” icon ( this will pop-open the interactive multi-omics viewer in a new window/tab)
+
+
+### Hands-on: mz to sqlite: extract mzidentml ans associated proteomics datasets into a sqlite db
+
+>
+> 1. **mz to sqlite** : Run **mz to sqlite** with:
+>
+>    - **Proteomics identification files**: Click on `PeptideShaker_mzidentml`:
+>    - **Proteomics Spectrum files**: `Mo_Tai_MGFs`
+>    - **Proteomics Search Database Fasta**: `Uniprot_cRAP_SAV_indel_translatedbed.FASTA`
+>
+Click **Execute**
 
 
 
