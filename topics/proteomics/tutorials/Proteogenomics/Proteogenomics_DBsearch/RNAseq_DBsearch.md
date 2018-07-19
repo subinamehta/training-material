@@ -132,12 +132,17 @@ For this, the sequence database-searching program called [SearchGUI](https://com
 Once the database search is completed, the SearchGUI tool will output a file (called a
 SearchGUI archive file) that will serve as an input for the next section, PeptideShaker.
 
-> ### {% icon comment %} Comment
-> Note that sequence databases used for metaproteomics are usually much larger than the excerpt used in this tutorial. When using large databases, the peptide identification step can take much more time for computation. In metaproteomics, choosing the optimal database is a crucial step of your workflow, for further reading see [Timmins-Schiffman et al (2017)](https://www.ncbi.nlm.nih.gov/pubmed/27824341).
->
-> To learn more about database construction in general, like integrating contaminant databases or using a decoy strategy for FDR searching, please consult our tutorial on [Database Handling]({{site.baseurl}}/topics/proteomics/tutorials/database-handling/tutorial.html).
->
-{: .comment}
+>>    ###Comment
+>>    Note that sequence databases used for metaproteomics are usually much larger than 
+>>    the excerpt used in this tutorial. When using large databases, the peptide identification 
+>>    step can take much more time for computation. In metaproteomics, choosing the optimal 
+>>    database is a crucial step of your workflow, for further reading see 
+>>    [Timmins-Schiffman et al (2017)](https://www.ncbi.nlm.nih.gov/pubmed/27824341).
+>>
+>>    To learn more about database construction in general, like integrating contaminant 
+>>    databases or using a decoy strategy for FDR searching, please consult our tutorial
+>>    on [Database Handling]({{site.baseurl}}/topics/proteomics/tutorials/database-handling/tutorial.html).
+
 
 #### PeptideShaker
 
