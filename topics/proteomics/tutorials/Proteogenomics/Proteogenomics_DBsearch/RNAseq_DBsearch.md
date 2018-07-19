@@ -1,22 +1,25 @@
 ---
 layout: tutorial_hands_on
 topic_name: proteomics
-tutorial_name: metaproteomics
+tutorial_name: Proteogenomics_RNAseq_db_search
 ---
 
 # Introduction
-{:.no_toc}
 
-
+In this tutorial, we perform proteogenomic database searching using the Mass Spectrometry data. The inputs for performing the proteogenomic database searching are the MGF files and the FASTA database file. The FASTA database is obtained by running the first workflow “Uniprot_cRAP_SAV_indel_translatedbed.FASTA”. The second workflow focuses on performing database search of the peak list files (MGFs).
 
 > ### Agenda
 >
 > In this tutorial, we will deal with:
 >
 > 1. TOC
-> {:toc}
->
-{: .agenda}
+> - _Pretreatments / Data upload_ 
+
+> - _Database searching using SearchGUI and Peptide Shaker_
+
+> - _Removing known peptides_
+
+> - _Performing Blast-P analysis for obtaining novel proteoforms_
 
 # Pretreatments
 
@@ -30,25 +33,20 @@ There are a many ways how you can upload your data. Three among these are:
 
 In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg)](https://doi.org/10.5281/zenodo.839701).
 
-> ### {% icon hands_on %} Hands-on: Data upload and organization
+### Hands-on: Data upload and organization
 >
-> 1. Create a new history and name it something meaningful (e.g. *Metaproteomics tutorial*)
+> 1. Create a new history and name it something meaningful (e.g. *Proteogenomics DB search*)
 > 2. Import the three MGF MS/MS files and the FASTA sequence file from Zenodo.
 >
->    > ### {% icon tip %} Tip: Importing data via links
->    >
->    > * Copy the link location
->    > * Open the Galaxy Upload Manager
->    > * Select **Paste/Fetch Data**
->    > * Paste the link into the text field. You can add multiple links, each on a separate line.
->    > * Press **Start**
->    {: .tip}
->
->    As default, Galaxy takes the link as name.
->
->    > ### {% icon comment %} Comments
->    > - Rename the datasets to a more descriptive name
->    {: .comment}
+>>       Tip: Importing data via links
+>>          * Copy the link location 
+>>          * Open the Galaxy Upload Manager
+>>          * Select "Paste/Fetch Data"
+>>          * Paste the link into the text field. You can add multiple links, each on a separate line.
+>>          * Press Start. As default, Galaxy takes the link as name.
+>>
+>>       **Comments**:Rename the datasets to a more descriptive name
+>    
 >
 > 3. Build a **Dataset list** for the three MGF files
 >    - Click the **Operations on multiple datasets** check box at the top of the history panel
@@ -58,27 +56,26 @@ In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/b
 >    - Ensure the three control samples are the only ones selected, and enter a name for the new collection (e.g. *MGF files*)
 >    - Click **Create list** and exit by clicking again the dataset operations icon
 >
-{: .hands_on}
+
 
 # Analysis
 
 ## Match peptide sequences
 
-The search database labelled `FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA` is the input database that
-will be used to match MS/MS to peptide sequences via a sequence database search. It is a small excerpt of the original database, which was constructed based on a metagenomic screening of the sea water samples (see [May et al. (2016)](https://www.ncbi.nlm.nih.gov/pubmed/27396978)). The full original database can be accessed from [here](https://noble.gs.washington.edu/proj/metapeptide/data/metapeptides_BSt.fasta). A contaminant database was added.
+The search database labelled `Uniprot_cRAP_SAV_indel_translatedbed.FASTA` is the input database that
+will be used to match MS/MS to peptide sequences via a sequence database search. 
 
-For this, the sequence database-searching program called [SearchGUI](https://compomics.github.io/projects/searchgui.html) will be used.
-The created dataset collection of the three *MGF files* in the history is used as the MS/MS input.
+For this, the sequence database-searching program called [SearchGUI](https://compomics.github.io/projects/searchgui.html) will be used.The created dataset collection of the three *MGF files* in the history is used as the MS/MS input. We will walk through a number of these settings in order to utilize SearchGUI on these example MGF files.
 
 #### SearchGUI
 
-> ### {% icon hands_on %} Hands-on: SearchGUI
+### Hands-on: SearchGUI
 >
-> 1. **SearchGUI** {% icon tool %}: Run **SearchGUI** with:
->    - **Protein Database**: `FASTA_Bering_Strait_Trimmed_metapeptides_cRAP.FASTA`(or however you named the `FASTA` file)
+> 1. **SearchGUI**: Run **SearchGUI** with:
+>    - **Protein Database**: `Uniprot_cRAP_SAV_indel_translatedbed.FASTA`(or however you named the `FASTA` file)
 >    - **Input Peak lists (mgf)**: `MGF files` dataset collection.
 >
->    > ### {% icon tip %} Tip: Select dataset collections as input
+>    >>     Tip: Select dataset collections as input
 >    >
 >    > * Click the **Dataset collection** icon on the left of the input field:
 >    >
@@ -90,28 +87,34 @@ The created dataset collection of the three *MGF files* in the history is used a
 >
 >    - **B-Search Engines**: `X!Tandem`
 >
->    > ### {% icon comment %} Comment
->    >
->    > The section **Search Engine Options** contains a selection of sequence database searching
->    > programs that are available in SearchGUI. Any combination of these programs can be used for
->    > generating PSMs from MS/MS data. For the purpose of this tutorial, **X!Tandem** we will be used.
->    {: .comment}
+>>      **Comments**:
+>>    The section **Search Engine Options** contains a selection of sequence database searching
+>>    programs that are available in SearchGUI. Any combination of these programs can be used for
+>>    generating PSMs from MS/MS data. For the purpose of this tutorial, **X!Tandem** we will be 
+>>    used.    
 >
 >    Section **Precursor Options**:
->
->    - **Fragment Tolerance Units**: `Daltons`
->    - **Fragment Tolerance**: `0.02`- this is high resolution MS/MS data
->    - **Maximum Charge**: `6`
+>   
+>    **Enzyme**: `Trypsin`
+>    **Maximum Missed Cleavages**: `2`
+>    **Precursor Ion Tolerance Units**: `Parts per million (ppm)`
+>    **Precursor Ion Tolerance**:` 10`
+>    **Fragment Tolerance (Daltons)**: `0.05` (this is high resolution MS/MS data) 
+>    **Minimum charge**:`2`
+>    **Maximum charge**:`6`
+>    **Forward Ion**: `b`
+>    **Reverse Ion**:` y`
+>    **Minimum Precursor Isotope** :`0`
+>    **Maximum Precursor Isotope** :`1`
 >
 >    Section **Protein Modification Options**:
 >
->    - **Fixed Modifications**: `Carbamidomethylation of C`
->    - **Variable modifications**: `Oxidation of M`
+>    - **Fixed Modifications**: `Carbamidomethylation of C, ITRAQ-4Plex of K, ITRAQ-4Plex of Ntermini`
+>    - **Variable modifications**: `Oxidation of M, ITRAQ-4Plex of Y`
 >
->    > ### {% icon tip %} Tip: Search for options
->    >
->    > * For selection lists, typing the first few letters in the window will filter the available options.
->    {: .tip}
+>>       ### Tip: Search for options
+>>       * For selection lists, typing the first few letters in the window will filter the
+>>         available options.  
 >
 >    Section **Advanced Options**:
 >    - **X!Tandem Options**: `Advanced`
@@ -124,7 +127,7 @@ The created dataset collection of the three *MGF files* in the history is used a
 >
 > 2. Click **Execute**.
 >
-{: .hands_on}
+
 
 Once the database search is completed, the SearchGUI tool will output a file (called a
 SearchGUI archive file) that will serve as an input for the next section, PeptideShaker.
