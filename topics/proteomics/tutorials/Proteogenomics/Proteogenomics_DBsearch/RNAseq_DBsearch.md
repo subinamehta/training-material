@@ -171,7 +171,7 @@ outputs.
 >      
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->     ![View data button]<img src="../../../images/view_icon.png" width=100%>
+>     ![View data button]<img src="../../../images/view_icon.png" width=15%>
 >
 
 
@@ -200,7 +200,7 @@ The mzidentml output from the Peptide shaker is converted into an sqlite databas
 >    - **Proteomics Search Database Fasta**: `Uniprot_cRAP_SAV_indel_translatedbed.FASTA`
 >
 Click **Execute**
-<img src="../../../images/mz2sqlite.png" width=100%>
+<img src="../../../images/mz2sqlite.png" width=50%>
 
 The next step is to remove known peptides from the list of PSM's that we acquired from the Peptide shaker results. For that we need to perform some text manipulation steps to extract list of known peptides from the Uniprot and cRAP database.
 
@@ -385,7 +385,7 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 > 2. Click **Execute** and inspect the query results file after it turned green.
 
-<img src="../../../QT_output.png" width=100%>
+<img src="../../../QT_output.png" width=60%>
 
 
 To Continue processing this data, proceed to workflow 3 for Novel Peptide analysis.
