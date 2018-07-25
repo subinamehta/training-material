@@ -269,8 +269,6 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 
 #### Query Tabular
 
-
-
 > ### {% icon hands_on %} Hands-on: Query Tabular
 >
 > 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
@@ -301,24 +299,26 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >    - **Specify Column Names (comma-separated list)**:`id,Proteins,Sequence`
 >    - **Only load the columns you have named into database**: `Yes` 
 >
-> _**Table Index**_:
->    -**Table Index**: `No`
->    -**Index on Columns**: `id`
+>    Section **Table Index**:
+>    - **Table Index**: `No`
+>    - **Index on Columns**: `id`
 >  
 >     - (c) **Database Table**: Click on `+ Insert Database Table`:
 >    Section **Filter Dataset Input**
 >      - **Filter Tabular input lines**
->      - Filter by:  `skip leading lines`
->      - Skip lines: `1`
+>      - **Filter by**:  `skip leading lines`
+>      - **Skip lines**: `1`
+>
 >    Add another filter tabular input lines
 >      - **Filter Tabular input lines**
->      - Filter by:  `select columns`
->      - Enter column numbers to keep: `1,2`
+>      - **Filter by**:  `select columns`
+>      - **Enter column numbers to keep**: `1,2`
+>
 >   Add another filter tabular input lines
 >      - **Filter Tabular input lines**
->      - Filter by:  `normalize list columns,replicate rows for each item in the list`
->      - Enter column numbers to normalize: `2`
->      - List item delimiter in column: `,`
+>      - **Filter by**:  `normalize list columns,replicate rows for each item in the list`
+>      - **Enter column numbers to normalize**: `2`
+>      - **List item delimiter in column**: `,`
 >
 >    Section **Table Options**:
 >
@@ -358,98 +358,115 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >>       FROM prots JOIN uniprot ON prots.prot = uniprot.prot) 
 >>       ORDER BY psms.id
 >
->    > ### {% icon question %} Questions
->    >
 >
 >    - **include query result column headers**: `Yes`
 >
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
->     ![Query Tabular output showing the peptides](../../images/query_tabular_1.png "Query Tabular output")
+>     ![Query Tabular output showing the peptides]
 >
-{: .hands_on}
-#### Query Tabular
-
-We use the query tabular tool again to create a tabular output containing peptides ready for Blast P analysis.
-
-
+**The output from this step is that the resultant peptides would be those which doesn't belong in the Uniprot or cRAP database.The query tabular tool is used again to create a tabular output containing peptides ready for Blast P analysis.**
+>
 > ### {% icon hands_on %} Hands-on: Query Tabular
 >
 > 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
 >
->    - **Database Table**: Click on `+ Insert Database Table`:
->    - **Tabular Dataset for Table**: The PSM report
->
->    Section **Filter Dataset Input**:
->
->    - **Filter Tabular Input Lines**: Click on `+ Insert Filter Tabular Input Lines`:
->    - **Filter By**: Select `by regex expression matching`
->        - **regex pattern**: `^\d`
->        - **action for regex match**: `include line on pattern match`
+>    Section **Filter Dataset Input**
+>    - **Filter Tabular input lines**
+>      - Filter by:  `skip leading lines`
+>      - Skip lines: `1`
 >
 >    Section **Table Options**:
 >
->    - **Specify Name for Table**: `psm`
->    - **Specify Column Names (comma-separated list)**: `id,,sequence,,,,,,,,,,,,,,,,,,,,confidence,validation`
->
->        > ### {% icon comment %} Comment
->        >
->        > By default, table columns will be named: c1,c2,c3,...,cn (column names for a table must be unique).
->        > You can override the default names by entering a comma separated list of names, e.g. `,name1,,,name2`
->        > would rename the second and fifth columns.
->        >
->        > Check your input file to find the settings which best fits your needs.
->        {: .comment}
->
->    - **Only load the columns you have named into database**: `Yes`
->
->    - **Save the sqlite database in your history**: `Yes`
->
->        > ### {% icon tip %} Tip
->        >
->        > * **Query Tabular** can also use an existing SQLite database. Activating `Save the sqlite database in your history`
->        > will store the created database in the history, allowing to reuse it directly.
->        >
->        {: .tip}
+>    - **Specify Name for Table**: `psm`    
+>    - **Use first line as column names** : `No`
+>    - **Specify Column Names (comma-separated list)**:`id,Proteins,Sequence`
+>    - **Only load the columns you have named into database**: `Yes` 
 >
 >    - **SQL Query to generate tabular output**:
 >
->          SELECT distinct sequence
+>>       SELECT Sequence || ' PSM=' || group_concat(id,',') || ' length=' || length(Sequence) as "ID",Sequence
+>>       FROM  psm
+>>       WHERE length(Sequence) >6  
+>>       AND length(Sequence) <= 30
+>>       GROUP BY Sequence 
+>>       ORDER BY length(Sequence),Sequence
 >
->          FROM psm
+>    - **include query result column headers**: `Yes`
 >
->          WHERE confidence >= 95
->
->          ORDER BY sequence
->
->    > ### {% icon question %} Questions
->    >
->    > The SQL query might look confusing at first, but having a closer look should clarify a lot.
->    >
->    > 1. What does `FROM psm` mean?
->    > 2. What need to be changed if we only want peptides with a confidence higher then 98%?
->    >
->    >    > ### {% icon solution %} Solution
->    >    > 1. We want to read from table "psm". We defined the name before in the "Specify Name for Table" option.
->    >    > 2. We need to change the value in line 3: "WHERE validation IS NOT 'Confident' AND confidence >= 98"
->    >    {: .solution }
->    {: .question}
->
->    - **include query result column headers**: `No`
->
-> 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
->
->     ![Query Tabular output showing the peptides](../../images/query_tabular_1.png "Query Tabular output")
->
-{: .hands_on}
+> 2. Click **Execute** and inspect the query results file after it turned green.
 
 Once the tabular output is created, we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
 
 ### Tabular to FASTA
 
+> **Title column**: `1`
+> **Sequence Column**:`2`
 
 
 Now that we have the FASTA file, this is going to be subjected to BLAST-P analysis
 
 ### BLASTP
+Protein query sequence(s)
+Data input 'query' (fasta)
+(-query)
+Subject database/sequences
+
+Protein BLAST database
+Select/Unselect all
+
+Type of BLAST
+blastp - Traditional BLASTP to compare a protein query to a protein database
+blastp-short - BLASTP optimized for queries shorter than 30 residues
+blastp-fast - Use longer words for seeding, faster but less accurate
+See help text for default parameter values for each BLAST type. (-task)
+Set expectation value cutoff
+
+200000.0
+(-evalue)
+Output format
+
+(-outfmt)
+Advanced Options
+
+Filter out low complexity regions (with SEG)
+(-seg)
+Scoring matrix and gap costs
+
+(-matrix)
+Gap Costs
+
+Maximum hits to show
+
+1
+Use zero for default limits
+Maximum number of HSPs (alignments) to keep for any single query-subject pair
+
+1
+The HSPs shown will be the best as judged by expect value. If this option is not set, BLAST shows all HSPs meeting the expect value criteria (-max_hsps)
+Word size for wordfinder algorithm
+
+2
+Leave blank for default, otherwise minimum 2 (-word_size)
+Multiple hits window size: use 0 to specify 1-hit algorithm, leave blank for default
+
+40
+Default window size varies with substitution matrix and BLAST type. Enter an integer to override the default. (-window_size)
+Minimum score to add a word to the BLAST lookup table.
+
+11
+Leave blank for default, which varies based on application. (-threshold)
+Composition-based statistics
+
+The default value varies based on application and task. Most common default is 2. (-comp_based_stats)
+Should the query and subject defline(s) be parsed?
+This affects the formatting of the query/subject ID strings (-parse_deflines)
+Restrict search of database to a given set of ID's
+
+This feature provides a means to exclude ID's from a BLAST database search. The expectation values in the BLAST results are based upon the sequences actually searched, and not on the underlying database. Note this cannot be used when comparing against a FASTA file.
+Minimum query coverage per hsp (percentage, 0 to 100)
+
+0
+See also the output column qcovhsp (-qcov_hsp_perc)
+Compute locally optimal Smith-Waterman alignments
 
