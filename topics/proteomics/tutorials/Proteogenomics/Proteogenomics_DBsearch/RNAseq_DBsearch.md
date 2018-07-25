@@ -213,13 +213,22 @@ The mzidentml output from the Peptide shaker is converted into an sqlite databas
 >
 Click **Execute**
 
+The next step is to remove known peptides from the list of PSM's that we acquired from the Peptide shaker results. For that we need to perform some text manipulation steps to extract list of known peptides from the Uniprot and cRAP database.
+### 
+### Text Manipulation steps 
+
+> 1. Cut
+> 2. Convert
+> 3. Cut
+> 4. Convert
+> 5. Group
+
+Now that we have the list of known peptides, the query tabular tool is used to move these reference pepides from the PSM report.
 
 
-#### Recieving the list of peptides: Query Tabular
+#### Query Tabular
 
-In order to use *Unipept*, a list containing the peptide sequences has to be generated.
-The tool **Query Tabular** can load tabular data (the PSM report in this case) into a SQLite data base.
-As a tabular file is being read, line filters may be applied and an SQL query can be performed.
+
 
 > ### {% icon hands_on %} Hands-on: Query Tabular
 >
@@ -290,4 +299,88 @@ As a tabular file is being read, line filters may be applied and an SQL query ca
 >     ![Query Tabular output showing the peptides](../../images/query_tabular_1.png "Query Tabular output")
 >
 {: .hands_on}
+#### Query Tabular
+
+We use the query tabular tool again to create a tabular output containing peptides ready for Blast P analysis.
+
+
+> ### {% icon hands_on %} Hands-on: Query Tabular
+>
+> 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
+>
+>    - **Database Table**: Click on `+ Insert Database Table`:
+>    - **Tabular Dataset for Table**: The PSM report
+>
+>    Section **Filter Dataset Input**:
+>
+>    - **Filter Tabular Input Lines**: Click on `+ Insert Filter Tabular Input Lines`:
+>    - **Filter By**: Select `by regex expression matching`
+>        - **regex pattern**: `^\d`
+>        - **action for regex match**: `include line on pattern match`
+>
+>    Section **Table Options**:
+>
+>    - **Specify Name for Table**: `psm`
+>    - **Specify Column Names (comma-separated list)**: `id,,sequence,,,,,,,,,,,,,,,,,,,,confidence,validation`
+>
+>        > ### {% icon comment %} Comment
+>        >
+>        > By default, table columns will be named: c1,c2,c3,...,cn (column names for a table must be unique).
+>        > You can override the default names by entering a comma separated list of names, e.g. `,name1,,,name2`
+>        > would rename the second and fifth columns.
+>        >
+>        > Check your input file to find the settings which best fits your needs.
+>        {: .comment}
+>
+>    - **Only load the columns you have named into database**: `Yes`
+>
+>    - **Save the sqlite database in your history**: `Yes`
+>
+>        > ### {% icon tip %} Tip
+>        >
+>        > * **Query Tabular** can also use an existing SQLite database. Activating `Save the sqlite database in your history`
+>        > will store the created database in the history, allowing to reuse it directly.
+>        >
+>        {: .tip}
+>
+>    - **SQL Query to generate tabular output**:
+>
+>          SELECT distinct sequence
+>
+>          FROM psm
+>
+>          WHERE confidence >= 95
+>
+>          ORDER BY sequence
+>
+>    > ### {% icon question %} Questions
+>    >
+>    > The SQL query might look confusing at first, but having a closer look should clarify a lot.
+>    >
+>    > 1. What does `FROM psm` mean?
+>    > 2. What need to be changed if we only want peptides with a confidence higher then 98%?
+>    >
+>    >    > ### {% icon solution %} Solution
+>    >    > 1. We want to read from table "psm". We defined the name before in the "Specify Name for Table" option.
+>    >    > 2. We need to change the value in line 3: "WHERE validation IS NOT 'Confident' AND confidence >= 98"
+>    >    {: .solution }
+>    {: .question}
+>
+>    - **include query result column headers**: `No`
+>
+> 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
+>
+>     ![Query Tabular output showing the peptides](../../images/query_tabular_1.png "Query Tabular output")
+>
+{: .hands_on}
+
+Once the tabular output is created, we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
+
+### Tabular to FASTA
+
+
+
+Now that we have the FASTA file, this is going to be subjected to BLAST-P analysis
+
+### BLASTP
 
