@@ -41,7 +41,7 @@ In this tutorial, we perform proteogenomic database searching using the Mass Spe
 >
 > 3. Build a **Dataset list** for the three MGF files
 >    - Click the **Operations on multiple datasets** check box at the top of the history panel
->       ![Operations on multiple datasets button](../../images/operations_icon.png)
+>       ![Operations on multiple datasets button]<img src="../../../images/dataset_list.png" width=100%>
 >    - Check the three boxes next to the MGF files
 >    - Click **For all selected...** and choose **Build dataset list**
 >    - Ensure the three control samples are the only ones selected, and enter a name for the new collection (e.g. *MGF files*)
@@ -70,7 +70,7 @@ For this, the sequence database-searching program called [SearchGUI](https://com
 >    >
 >    > * Click the **Dataset collection** icon on the left of the input field:
 >    >
->    >      ![Dataset collection button](../../images/dataset_button.png)
+>    >      ![Dataset collection button]<img src="../../../images/dataset_list.png" width=100%>
 >    > * Select the appropriate dataset collection from the list
 >    {: .tip}
 >
@@ -130,9 +130,7 @@ SearchGUI archive file) that will serve as an input for the next section, Peptid
 >>    database is a crucial step of your workflow, for further reading see 
 >>    [Timmins-Schiffman et al (2017)](https://www.ncbi.nlm.nih.gov/pubmed/27824341).
 >>
->>    To learn more about database construction in general, like integrating contaminant 
->>    databases or using a decoy strategy for FDR searching, please consult our tutorial
->>    on [Database Handling]({{site.baseurl}}/topics/proteomics/tutorials/database-handling/tutorial.html).
+
 
 
 #### PeptideShaker
@@ -154,8 +152,7 @@ outputs.
 >>      proteins identified from the PSMs, as well as phosphorylation reports, relevant if 
 >>      a phosphoproteomics experiment has been undertaken. 
 >>
->>      More detailed information on peptide inference using SearchGUI and PeptideShaker can
->>      be found in our tutorial on [Peptide and Protein ID]({{site.baseurl}}/topics/proteomics/tutorials/protein-id-sg-ps/tutorial.html).
+
 
  ###  Hands-on: PeptideShaker
 >
@@ -174,9 +171,9 @@ outputs.
 >      
 >
 > 2. Click **Execute** and inspect the resulting files after they turned green with the **View data** icon:
->     ![View data button](../../images/view_data_icon.png)
+>     ![View data button]<img src="../../../images/view_icon.png" width=100%>
 >
-{: .hands_on}
+
 
 
 A number of new items will appear in your history, each corresponding to the outputs selected
@@ -387,6 +384,7 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >    - **include query result column headers**: `Yes`
 >
 > 2. Click **Execute** and inspect the query results file after it turned green.
+
 <img src="../../../QT_output.png" width=100%>
 
 
