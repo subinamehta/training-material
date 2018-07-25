@@ -385,7 +385,7 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 > 2. Click **Execute** and inspect the query results file after it turned green.
 
-<img src="../../../QT_output.png" width=60%>
+<img src="../../../QT_output.png" width=60%> 
 
 
 To Continue processing this data, proceed to workflow 3 for Novel Peptide analysis.
