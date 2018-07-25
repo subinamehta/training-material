@@ -214,14 +214,55 @@ The mzidentml output from the Peptide shaker is converted into an sqlite databas
 Click **Execute**
 
 The next step is to remove known peptides from the list of PSM's that we acquired from the Peptide shaker results. For that we need to perform some text manipulation steps to extract list of known peptides from the Uniprot and cRAP database.
-### 
+
+### Merged Uniprot and cRAP database
+The file named "Trimmed_ref_500_Uniprot_cRAP.fasta" is the trimmed version of Uniprot and cRAP database merged Fasta files.
+
+This Fasta file will be subjected to few text manipulation steps in order to get the tabular file for the known peptides. The first step is to convert this FASTA file to tabular in order to proceed with text manipulation.
+
+###  Hands-on: FASTA to Tabular
+Convert these sequences:
+
+> **Data input 'input' (fasta)**: `Trimmed_ref_500_Uniprot_cRAP.fasta`
+> **How many columns to divide title string into?**: `2`
+> **How many title characters to keep?**: `0`
+
+The resultant tabular file will go through a series of text manipulation steps.
+
+
 ### Text Manipulation steps 
 
-> 1. Cut
-> 2. Convert
-> 3. Cut
-> 4. Convert
-> 5. Group
+> 1. **Cut**
+>    - **Cut Columns**: `c1`
+>    - **Delimited by**: `Tab`
+ 
+ Upon completion of this step you will have extracted C1 (column 1) from the input tabular file
+ 
+> 2. **Convert**
+>   - **Convert all**: `Whitespaces`
+>   - **in Dataset** : `Data input 'input' (txt)`
+>   - **Strip leading and trailing whitespaces**: `Yes`
+>   - **Condense consecutive delimiters in one TAB**: `Yes`
+
+This step will convert all the white spaces into different tabular column.
+
+> 3. **Cut**
+>    - **Cut Columns**: `c2`
+>    - **Delimited by**: `Pipe`
+
+This step will extract information in column2 separated by Pipe (|)
+
+> 4. **Convert**
+>   - **Convert all**: `Dots`
+>   - **in Dataset** : `Data input 'input' (txt)`
+>   - **Strip leading and trailing whitespaces**: `Yes`
+>   - **Condense consecutive delimiters in one TAB**: `Yes`
+This step will convert all the dots into different tabular column.
+
+> 5. **Group**
+>   - **Select data**: `input from above`
+>   - **Group by column**: `1`
+
 
 Now that we have the list of known peptides, the query tabular tool is used to move these reference pepides from the PSM report.
 
@@ -234,21 +275,61 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 > 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
 >
->    - **Database Table**: Click on `+ Insert Database Table`:
->    - **Tabular Dataset for Table**: The PSM report
->
->    Section **Filter Dataset Input**:
->
->    - **Filter Tabular Input Lines**: Click on `+ Insert Filter Tabular Input Lines`:
->    - **Filter By**: Select `by regex expression matching`
->        - **regex pattern**: `^\d`
->        - **action for regex match**: `include line on pattern match`
+>    - (a)**Database Table**: Click on `+ Insert Database Table`:
 >
 >    Section **Table Options**:
 >
->    - **Specify Name for Table**: `psm`
->    - **Specify Column Names (comma-separated list)**: `id,,sequence,,,,,,,,,,,,,,,,,,,,confidence,validation`
+>    - **Tabular Dataset for Table**: Uniprot
 >
+>    - **Use first line as column names** : `No`
+>    - **Specify Column Names (comma-separated list)**:`prot`
+>
+> _**Table Index**_:
+>    -**Table Index**: `No`
+>    -**Index on Columns**: `Prot`
+>
+>    - (b) **Database Table**: Click on `+ Insert Database Table`:
+>    Section **Filter Dataset Input**
+>    - **Filter Tabular input lines**
+>      - Filter by:  `skip leading lines`
+>      - Skip lines: `1`
+>
+>    Section **Table Options**:
+>
+>    - **Specify Name for Table**: `psms`    
+>    - **Use first line as column names** : `No`
+>    - **Specify Column Names (comma-separated list)**:`id,Proteins,Sequence`
+>    - **Only load the columns you have named into database**: `Yes` 
+>
+> _**Table Index**_:
+>    -**Table Index**: `No`
+>    -**Index on Columns**: `id`
+>  
+>     - (c) **Database Table**: Click on `+ Insert Database Table`:
+>    Section **Filter Dataset Input**
+>      - **Filter Tabular input lines**
+>      - Filter by:  `skip leading lines`
+>      - Skip lines: `1`
+>    Add another filter tabular input lines
+>      - **Filter Tabular input lines**
+>      - Filter by:  `select columns`
+>      - Enter column numbers to keep: `1,2`
+>   Add another filter tabular input lines
+>      - **Filter Tabular input lines**
+>      - Filter by:  `normalize list columns,replicate rows for each item in the list`
+>      - Enter column numbers to normalize: `2`
+>      - List item delimiter in column: `,`
+>
+>    Section **Table Options**:
+>
+>    - **Specify Name for Table**: `prots`    
+>    - **Use first line as column names** : `No`
+>    - **Specify Column Names (comma-separated list)**:`id,prot`
+>    - **Only load the columns you have named into database**: `Yes` 
+>
+> _**Table Index**_:
+>    -**Table Index**: `No`
+>    -**Index on Columns**: `prot, id`
 >        > ### {% icon comment %} Comment
 >        >
 >        > By default, table columns will be named: c1,c2,c3,...,cn (column names for a table must be unique).
@@ -258,9 +339,8 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >        > Check your input file to find the settings which best fits your needs.
 >        {: .comment}
 >
->    - **Only load the columns you have named into database**: `Yes`
 >
->    - **Save the sqlite database in your history**: `Yes`
+>    - **Save the sqlite database in your history**: `No`
 >
 >        > ### {% icon tip %} Tip
 >        >
@@ -271,28 +351,17 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 >    - **SQL Query to generate tabular output**:
 >
->          SELECT distinct sequence
->
->          FROM psm
->
->          WHERE confidence >= 95
->
->          ORDER BY sequence
+>>       SELECT psms.* 
+>>       FROM psms 
+>>       WHERE psms.id NOT IN 
+>>       (SELECT distinct prots.id 
+>>       FROM prots JOIN uniprot ON prots.prot = uniprot.prot) 
+>>       ORDER BY psms.id
 >
 >    > ### {% icon question %} Questions
 >    >
->    > The SQL query might look confusing at first, but having a closer look should clarify a lot.
->    >
->    > 1. What does `FROM psm` mean?
->    > 2. What need to be changed if we only want peptides with a confidence higher then 98%?
->    >
->    >    > ### {% icon solution %} Solution
->    >    > 1. We want to read from table "psm". We defined the name before in the "Specify Name for Table" option.
->    >    > 2. We need to change the value in line 3: "WHERE validation IS NOT 'Confident' AND confidence >= 98"
->    >    {: .solution }
->    {: .question}
 >
->    - **include query result column headers**: `No`
+>    - **include query result column headers**: `Yes`
 >
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
