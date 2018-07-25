@@ -406,67 +406,57 @@ Once the tabular output is created, we convert this tabular report into a FASTA 
 
 Now that we have the FASTA file, this is going to be subjected to BLAST-P analysis
 
-### BLASTP
-Protein query sequence(s)
-Data input 'query' (fasta)
-(-query)
-Subject database/sequences
+### BLASTP (Basic Local Alignment Search Tool- proteins)
 
-Protein BLAST database
-Select/Unselect all
+BLAST[https://blast.ncbi.nlm.nih.gov/Blast.cgi] is a web based tool used to compare biological sequences. BlastP, matches protein sequences against a protein database. More specifically, it looks at the amino acid sequence of proteins and can detect and evaluate the amount of differences between say, an experimentally derived sequence and all known amino acid sequences from a database. It can then find the most similar sequences and allow for identification of known proteins or for identification of potential peptides associated with novel proteoforms.
 
-Type of BLAST
-blastp - Traditional BLASTP to compare a protein query to a protein database
-blastp-short - BLASTP optimized for queries shorter than 30 residues
-blastp-fast - Use longer words for seeding, faster but less accurate
-See help text for default parameter values for each BLAST type. (-task)
-Set expectation value cutoff
+BlastP search is carried out with the PSM report (output from PeptideShaker). Before, BlastP analysis the “Peptides_for_Blast-P_analysis” is first converted from Tabular format to FASTA file format which can be easily read by the BlastP algorithm. This is done with the help of “Tabular to FASTA” conversion tool.
+The short BlastP uses parameters for short peptide sequences (8-30 aas). Please use the rerun option to look at the parameters used.
 
-200000.0
-(-evalue)
-Output format
+>   **Protein query sequence(s)**: `Data input 'query' (fasta)`
+>   **Subject database/sequences**: `Locally installed BLAST database`
+>> - **Protein Blast database**: Select `nr_mouse_current`
+>
+>   **Type of BLAST**:`blastp-short - BLASTP optimized for queries shorter than 30 residues`
+>
+>   **Set expectation value cutoff**:`200000.0`
+>
+>   **Output format**: `Tabular(extended 25 columns)`
+>
+>   **Advanced Options**
+>
+>   **Filter out low complexity regions (with SEG)**: `No`
+>
+>   **Scoring matrix and gap costs**: `PAM30`
+>
+>   **Gap Costs**: `Existence: 9 Extension: 1`
+>
+>   **Maximum hits to show**: `1`
+>
+>   **Maximum number of HSPs (alignments) to keep for any single query-subject pair**:`1`
+>
+>   **Word size for wordfinder algorithm**: `2`
+>
+>   **Multiple hits window size**: `40`
+>
+>   **Minimum score to add a word to the BLAST lookup table**: `11`
+>
+>   **Composition-based statistics**: `0 (No composition)`
+>
+>   **Should the query and subject defline(s) be parsed?**: `No`
+>
+>   **Restrict search of database to a given set of ID's**:`No restriction`
+>
+>>       This feature provides a means to exclude ID's from a BLAST database search. 
+>>       The expectation values in the BLAST results are based upon the sequences actually 
+>>       searched, and not on the underlying database. Note this cannot be used when 
+>>       comparing against a FASTA file.
+>
+>   **Minimum query coverage per hsp (percentage, 0 to 100)**: `0`
+>
+>   **Compute locally optimal Smith-Waterman alignments**:`No`
 
-(-outfmt)
-Advanced Options
+Once BlastP search is performed, it provides with a tabular output containing “Novel peptides”. Now this output is further processed by comparing the Novel Peptide output with the PSM report for selecting only distinct peptides which pass these criteria.
 
-Filter out low complexity regions (with SEG)
-(-seg)
-Scoring matrix and gap costs
-
-(-matrix)
-Gap Costs
-
-Maximum hits to show
-
-1
-Use zero for default limits
-Maximum number of HSPs (alignments) to keep for any single query-subject pair
-
-1
-The HSPs shown will be the best as judged by expect value. If this option is not set, BLAST shows all HSPs meeting the expect value criteria (-max_hsps)
-Word size for wordfinder algorithm
-
-2
-Leave blank for default, otherwise minimum 2 (-word_size)
-Multiple hits window size: use 0 to specify 1-hit algorithm, leave blank for default
-
-40
-Default window size varies with substitution matrix and BLAST type. Enter an integer to override the default. (-window_size)
-Minimum score to add a word to the BLAST lookup table.
-
-11
-Leave blank for default, which varies based on application. (-threshold)
-Composition-based statistics
-
-The default value varies based on application and task. Most common default is 2. (-comp_based_stats)
-Should the query and subject defline(s) be parsed?
-This affects the formatting of the query/subject ID strings (-parse_deflines)
-Restrict search of database to a given set of ID's
-
-This feature provides a means to exclude ID's from a BLAST database search. The expectation values in the BLAST results are based upon the sequences actually searched, and not on the underlying database. Note this cannot be used when comparing against a FASTA file.
-Minimum query coverage per hsp (percentage, 0 to 100)
-
-0
-See also the output column qcovhsp (-qcov_hsp_perc)
-Compute locally optimal Smith-Waterman alignments
+To Continue processing this data, proceed to workflow 3 for Novel Peptide analysis.
 
