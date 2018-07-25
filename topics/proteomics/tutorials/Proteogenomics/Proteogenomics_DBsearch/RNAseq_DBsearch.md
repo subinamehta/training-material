@@ -7,7 +7,7 @@ tutorial_name: Proteogenomics_RNAseq_db_search
 # Introduction
 
 In this tutorial, we perform proteogenomic database searching using the Mass Spectrometry data. The inputs for performing the proteogenomic database searching are the MGF files and the FASTA database file. The FASTA database is obtained by running the first workflow “Uniprot_cRAP_SAV_indel_translatedbed.FASTA”. The second workflow focuses on performing database search of the peak list files (MGFs).
-
+<img src="../../../images/second_workflow.png" width=100%>
 > ### Agenda
 >
 > In this tutorial, we will deal with:
@@ -23,15 +23,6 @@ In this tutorial, we perform proteogenomic database searching using the Mass Spe
 
 # Pretreatments
 
-## Data upload
-
-There are a many ways how you can upload your data. Three among these are:
-
-*   Upload the files from your computer
-*   Using a direct link
-*   Import from the data library if your instance provides the files
-
-In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg)](https://doi.org/10.5281/zenodo.839701).
 
 ### Hands-on: Data upload and organization
 >
@@ -212,6 +203,7 @@ The mzidentml output from the Peptide shaker is converted into an sqlite databas
 >    - **Proteomics Search Database Fasta**: `Uniprot_cRAP_SAV_indel_translatedbed.FASTA`
 >
 Click **Execute**
+<img src="../../../images/mz2sqlite.png" width=100%>
 
 The next step is to remove known peptides from the list of PSM's that we acquired from the Peptide shaker results. For that we need to perform some text manipulation steps to extract list of known peptides from the Uniprot and cRAP database.
 
@@ -395,7 +387,7 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >    - **include query result column headers**: `Yes`
 >
 > 2. Click **Execute** and inspect the query results file after it turned green.
-
+<img src="../../../QT_output.png" width=100%>
 
 
 To Continue processing this data, proceed to workflow 3 for Novel Peptide analysis.
