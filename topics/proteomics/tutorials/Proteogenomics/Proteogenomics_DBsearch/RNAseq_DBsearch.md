@@ -41,7 +41,7 @@ In this tutorial, we perform proteogenomic database searching using the Mass Spe
 >
 > 3. Build a **Dataset list** for the three MGF files
 >    - Click the **Operations on multiple datasets** check box at the top of the history panel
->       ![Operations on multiple datasets button]<img src="../../../images/dataset_list.png" width=100%>
+>       ![Operations on multiple datasets button]<img src="../../../images/dataset_list.png" width=10%>
 >    - Check the three boxes next to the MGF files
 >    - Click **For all selected...** and choose **Build dataset list**
 >    - Ensure the three control samples are the only ones selected, and enter a name for the new collection (e.g. *MGF files*)
@@ -70,7 +70,7 @@ For this, the sequence database-searching program called [SearchGUI](https://com
 >    >
 >    > * Click the **Dataset collection** icon on the left of the input field:
 >    >
->    >      ![Dataset collection button]<img src="../../../images/dataset_list.png" width=100%>
+>    >      ![Dataset collection button]<img src="../../../images/dataset_list.png" width=10%>
 >    > * Select the appropriate dataset collection from the list
 >    {: .tip}
 >
