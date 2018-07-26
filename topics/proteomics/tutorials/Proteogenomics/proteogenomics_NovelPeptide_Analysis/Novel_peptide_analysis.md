@@ -10,6 +10,7 @@ All the files to run this workflow can be obtained from the second workflow outp
 ### Tabular to FASTA
 
 > **Title column**: `1`
+>
 > **Sequence Column**:`2`
 
 
