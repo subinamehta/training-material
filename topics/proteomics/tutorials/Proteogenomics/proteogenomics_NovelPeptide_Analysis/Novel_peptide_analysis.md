@@ -18,7 +18,10 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 
 ### Uploading only those peptides which have good lorikeet spectra
 
+The next tool in the workflow is the Peptide genomic coordinate tool which takes the novel peptides as the input along with the mztosqlite file and the genomic mapping sqlite file (obtained during creation of the database). This tool helps create a bed file with the genomic coordinate information of the peptides based on the sqlite files. 
+
 ### Peptide genomic Coordinate
+
 
 ### Peppointer
 
