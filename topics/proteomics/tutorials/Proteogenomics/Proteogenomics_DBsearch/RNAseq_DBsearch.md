@@ -374,7 +374,8 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 >    - **SQL Query to generate tabular output**:
 >
->>       SELECT Sequence || ' PSM=' || group_concat(id,',') || ' length=' || length(Sequence) as "ID",Sequence
+>>       SELECT Sequence || ' PSM=' || group_concat(id,',') || ' length=' 
+>>       || length(Sequence) as "ID",Sequence
 >>       FROM  psm
 >>       WHERE length(Sequence) >6  
 >>       AND length(Sequence) <= 30
