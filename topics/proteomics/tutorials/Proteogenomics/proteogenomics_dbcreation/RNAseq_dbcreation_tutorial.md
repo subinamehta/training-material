@@ -43,7 +43,7 @@ There are many ways to upload your data. Three among these are:
 *   Using a direct link
 *   Importing from the data library if your instance provides the files
 
-In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.839701.svg)](https://doi.org/10.5281/zenodo.839701).
+In this tutorial, we will get the data from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1302055.svg)](https://doi.org/10.5281/zenodo.1302055)
 
 ### Hands-on data upload and organization
 >
