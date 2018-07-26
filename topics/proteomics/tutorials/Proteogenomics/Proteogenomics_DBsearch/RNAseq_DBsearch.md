@@ -383,9 +383,7 @@ Now that we have the list of known peptides, the query tabular tool is used to m
 >
 >    - **include query result column headers**: `Yes`
 >
-> 2. Click **Execute** and inspect the query results file after it turned green.
-
-<img src="../../../QT_output.png" width=60%> 
+> 2. Click **Execute** and inspect the query results file after it turned green.<img src="../../../QT_output.png" width=60%> 
 
 ### Tabular to FASTA
 
