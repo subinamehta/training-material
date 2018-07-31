@@ -1,11 +1,15 @@
 The third and the last proteogenomics workflow is for identifying the novel peptides using BlastP and to localize the peptides to its genomic coordinates. Inputs from both workflow 1 and 2 will be used in this workflow.
-The inputs for this workflow are:
+
+<img src="../../../images/Third_workflow.png" width=100%>
+
+> The inputs for this workflow are:
 > - Tabular file – “Peptides from BlastP analysis”
 > - Tabular file – “PeptideShaker_PSM”
 > - Mz to sqlite
 > - Genomic mapping sqlite
 
-All the files to run this workflow can be obtained from the second workflow output.Once the tabular output is created, we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
+> All the files to run this workflow can be obtained from the second workflow output.Once the tabular output is created, 
+> we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
 
 
 Once Blast-P search is performed, it provides with a tabular output containing “Novel peptides”. Now this output is further processed by comparing the Novel Peptide output with the PSM report for selecting only distinct peptides which pass these parameters:
@@ -91,21 +95,52 @@ Once Blast-P search is performed, it provides with a tabular output containing �
 >
 
 ### MVP
-The spectra from these novel peptides can be viewed using MVP by selecting the output from the mz to sqlite tool. Here is a step by step proteogenomic view of the novel peptides obtained from running this workflow:
-1) Click on the “Visualize in MVP application”, it will open up a new window for MVP.
-2) Click on “Load from Galaxy”.
-3) Select “Novel Peptides” from the right hand side.
-4) Select any peptide, For eg: ESSREALVEPTSESPRPALAR, and then click on “Selected Peptide PSMs”.
-5)If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet values will be shown. The lorikeet visualization is interactive, i.e the user can change the values or select any parameter and click on Update button to view these changes.
-6) For a Protein centric view, click on “View in Protein” , it will open up all the proteins associate with the peptides. For eg: Select the “ESSREALVEPTSESPRPALAR” peptide and click on the first protein. The chromosome location of the peptide will be displayed.
-7)Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the peptide will be displayed.
-8) To add tracks to your IGV viewer, click on “Add Track”. This will open up a list of tracks that are compatible to view in your IGV viewer. For eg. Select the “Pep_gen_coordinate.bed” file and then click on “Load Track”. This will open up the bed will below the nucleotide sequence.
-9) By clicking the wheel, you can select the “three frame translate” which will show the three frame translated region of your sequence.
-10) The IGV is inbuilt in the MVP viewer and is very interactive, you could also load more tracks such as the aligned Bam file (from HISAT) or the identified pro bam file (one of the input file).
+
+> The spectra from these novel peptides can be viewed using MVP by selecting the output from the mz to sqlite tool. 
+> Here is a step by step proteogenomic view of the novel peptides obtained from running this workflow:
+
+> 1) Click on the “Visualize in MVP application”, it will open up a new window for MVP.
+<img src="../../../images/mz2sqlite.png" width=100%>
+>
+> 2) Click on “Load from Galaxy”.
+<img src="../../../images/load_from_Galaxy.png" width=100%>
+>
+> 3) Select “Novel Peptides” from the right hand side.
+<img src="../../../images/novel_peptides_view.png" width=100%>
+>
+> 4) Select any peptide, For eg: ESSREALVEPTSESPRPALAR, and then click on “Selected Peptide PSMs”.
+<img src="../../../images/select_pep_PSM.png" width=100%>
+>
+> 5)If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet 
+> values will be shown. The lorikeet visualization is interactive, i.e the user can change the values or select any 
+> parameter and click on Update button to view these changes.
+<img src="../../../images/Psm.png" width=100%>
+<img src="../../../images/lorikeet.png" width=100%>
+>
+> 6) For a Protein centric view, click on “View in Protein” , it will open up all the proteins associate with the 
+> peptides. For eg: Select the “ESSREALVEPTSESPRPALAR” peptide and click on the first protein. The chromosome location 
+> of the peptide will be displayed.
+<img src="../../../images/view_in_prot.png" width=100%>
+<img src="../../../images/select_protein.png" width=100%>
+<img src="../../../images/PRoteinview.png" width=100%>
+>
+> 7)Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the 
+> peptide will be displayed.
+<img src="../../../images/select_IGV.png" width=100%>
+>
+> 8) To add tracks to your IGV viewer, click on “Add Track”. This will open up a list of tracks that are compatible 
+> to view in your IGV viewer. For eg. Select the “Pep_gen_coordinate.bed” file and then click on “Load Track”.
+> This will open up the bed will below the nucleotide sequence.
+<img src="../../../images/track_load.png" width=100%>
+>
+> 9) By clicking the wheel, you can select the “three frame translate” which will show the three frame translated 
+> region of your sequence.
+<img src="../../../images/IGV_viewer.png" width=100%>
+>
+> 10) The IGV is inbuilt in the MVP viewer and is very interactive, you could also load more tracks such as the aligned 
+> Bam file (from HISAT) or the identified pro bam file (one of the input file).
 MVP has many useful features beyond those covered in this workshop and is under active development.
-
-
-### Uploading only those peptides which have good lorikeet spectra
+<img src="../../../images/tracks_align.png" width=100%>
 
 The next tool in the workflow is the Peptide genomic coordinate tool which takes the novel peptides as the input along with the mztosqlite file and the genomic mapping sqlite file (obtained during creation of the database). This tool helps create a bed file with the genomic coordinate information of the peptides based on the sqlite files. 
 
@@ -116,9 +151,10 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 >
 > - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
 > - **Output** : `Tabular BED file with all the columns`
->
+><img src="../../../images/pep_gen_cor.png" width=100%>
 > mzsqlite file from: https://toolshed.g2.bx.psu.edu/repos/galaxyp/mz_to_sqlite/mz_to_sqlite/2.0.0 
 > genome mapping sqlite file from: https://toolshed.g2.bx.psu.edu/view/galaxyp/translate_bed/038ecf54cbec
+<img src="../../../images/Output_PGC.png" width=100%>
 
 ### Peppointer
 > Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
@@ -126,8 +162,9 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 > - **Choose the source of the GTF file** - `Locally Installed`
 >              - **GTF file with the genome of interest** - `Mus_Musculus_GRCm38.90_Ensembl_GTF`
 > - **Input** - `Bed file from Peptide genomic coordinate tool`
-> 
+> <img src="../../../images/Peppointer.png" width=100%>
 >  This tool provides a bed output with the classification of the genomic location of the peptides.
+<img src="../../../images/Output_PP.png" width=100%>
 
 ### Query tabular( Final Summary)
 
@@ -167,3 +204,4 @@ GROUP BY psm.Sequence
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
 The output consists of the Peptide sequence, the spectra associated with the peptides, the protein accession number, chromosome number, Start and Stop of the genomic coordinate, the annotation, the genomic coordinate entry for viewing in Integrative Genomics Viewer (IGV), MVP or UCSC genome browser and the URL for viewing it on UCSC genome browser.
+<img src="../../../images/final_summary.png" width=100%>
