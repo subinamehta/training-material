@@ -91,17 +91,46 @@ Once Blast-P search is performed, it provides with a tabular output containing �
 >
 
 ### MVP
+The spectra from these novel peptides can be viewed using MVP by selecting the output from the mz to sqlite tool. Here is a step by step proteogenomic view of the novel peptides obtained from running this workflow:
+1) Click on the “Visualize in MVP application”, it will open up a new window for MVP.
+2) Click on “Load from Galaxy”.
+3) Select “Novel Peptides” from the right hand side.
+4) Select any peptide, For eg: ESSREALVEPTSESPRPALAR, and then click on “Selected Peptide PSMs”.
+5)If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet values will be shown. The lorikeet visualization is interactive, i.e the user can change the values or select any parameter and click on Update button to view these changes.
+6) For a Protein centric view, click on “View in Protein” , it will open up all the proteins associate with the peptides. For eg: Select the “ESSREALVEPTSESPRPALAR” peptide and click on the first protein. The chromosome location of the peptide will be displayed.
+7)Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the peptide will be displayed.
+8) To add tracks to your IGV viewer, click on “Add Track”. This will open up a list of tracks that are compatible to view in your IGV viewer. For eg. Select the “Pep_gen_coordinate.bed” file and then click on “Load Track”. This will open up the bed will below the nucleotide sequence.
+9) By clicking the wheel, you can select the “three frame translate” which will show the three frame translated region of your sequence.
+10) The IGV is inbuilt in the MVP viewer and is very interactive, you could also load more tracks such as the aligned Bam file (from HISAT) or the identified pro bam file (one of the input file).
+MVP has many useful features beyond those covered in this workshop and is under active development.
+
 
 ### Uploading only those peptides which have good lorikeet spectra
 
 The next tool in the workflow is the Peptide genomic coordinate tool which takes the novel peptides as the input along with the mztosqlite file and the genomic mapping sqlite file (obtained during creation of the database). This tool helps create a bed file with the genomic coordinate information of the peptides based on the sqlite files. 
 
 ### Peptide genomic Coordinate
-
+> Gets genomic coordinate of peptides based on the information in mzsqlite and genomic mapping sqlite files. This program 
+> loads two sqlite databases (mzsqlite and genomic mapping sqlite files) and calculates the genomic coordinates of the
+> peptides provided as input. This outputs bed file for peptides.
+>
+> - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
+> - **Output** : `Tabular BED file with all the columns`
+>
+> mzsqlite file from: https://toolshed.g2.bx.psu.edu/repos/galaxyp/mz_to_sqlite/mz_to_sqlite/2.0.0 
+> genome mapping sqlite file from: https://toolshed.g2.bx.psu.edu/view/galaxyp/translate_bed/038ecf54cbec
 
 ### Peppointer
+> Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
+>
+> - **Choose the source of the GTF file** - `Locally Installed`
+>              - **GTF file with the genome of interest** - `Mus_Musculus_GRCm38.90_Ensembl_GTF`
+> - **Input** - `Bed file from Peptide genomic coordinate tool`
+> 
+>  This tool provides a bed output with the classification of the genomic location of the peptides.
 
 ### Query tabular( Final Summary)
+
 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
 >
 >    - (a)**Database Table**: Click on `+ Insert Database Table`:
@@ -137,3 +166,4 @@ GROUP BY psm.Sequence
 >
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
+The output consists of the Peptide sequence, the spectra associated with the peptides, the protein accession number, chromosome number, Start and Stop of the genomic coordinate, the annotation, the genomic coordinate entry for viewing in Integrative Genomics Viewer (IGV), MVP or UCSC genome browser and the URL for viewing it on UCSC genome browser.
