@@ -88,7 +88,7 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 >
 >    - **include query result column headers**: `Yes`
 >
-> 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
+> 2. Click **Execute** and inspect the query results file after it turned green. 
 >
 
 ### Query tabular (Distinct Peptides from the list of Novel peptides)
@@ -114,7 +114,7 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 >
 >    - **include query result column headers**: `Yes`
 >
-> 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
+> 2. Click **Execute** and inspect the query results file after it turned green. 
 >
 
 ### MVP
@@ -178,10 +178,11 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 The next tool in the workflow is the Peptide genomic coordinate tool which takes the novel peptides as the input along with the mztosqlite file and the genomic mapping sqlite file (obtained during creation of the database). This tool helps create a bed file with the genomic coordinate information of the peptides based on the sqlite files. 
 
 ### Peptide genomic Coordinate
-> Gets genomic coordinate of peptides based on the information in mzsqlite and genomic mapping sqlite files. This program 
-> loads two sqlite databases (mzsqlite and genomic mapping sqlite files) and calculates the genomic coordinates of the
-> peptides provided as input. This outputs bed file for peptides.
+Gets genomic coordinate of peptides based on the information in mzsqlite and genomic mapping sqlite files. This program 
+loads two sqlite databases (mzsqlite and genomic mapping sqlite files) and calculates the genomic coordinates of the
+peptides provided as input. This outputs bed file for peptides.
 >
+>1. Peptide genomic Coordinate
 > - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
 > - **Output** : `Tabular BED file with all the columns`
 > <img src="../../../images/pep_gen_cor.png" width=100%>
@@ -190,16 +191,24 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 > genome mapping sqlite file from: https://toolshed.g2.bx.psu.edu/view/galaxyp/translate_bed/038ecf54cbec
 >
 > <img src="../../../images/Output_PGC.png" width=50%>
+> 2. Click **Execute** and inspect the query results file after it turned green. 
+>
 
 ### Peppointer
-> Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
->
+
+Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
+
+> 1. Peppointer
 > - **Choose the source of the GTF file** - `Locally Installed`
 >              - **GTF file with the genome of interest** - `Mus_Musculus_GRCm38.90_Ensembl_GTF`
 > - **Input** - `Bed file from Peptide genomic coordinate tool`
 > <img src="../../../images/Peppointer.png" width=80%>
 >  This tool provides a bed output with the classification of the genomic location of the peptides.
 > <img src="../../../images/Output_PP.png" width=50%>
+> 2. Click **Execute** and inspect the query results file after it turned green. 
+
+The final tool for this workflow is creating a tabular output that includes all the information that you get after running these workflows. The final summary output consists of the Peptide sequence, the spectra associated with the peptides, the protein accession number, chromosome number, Start and Stop of the genomic coordinate, the annotation, the genomic coordinate entry for viewing in Integrative Genomics Viewer (IGV), MVP or UCSC genome browser and the URL for viewing it on UCSC genome browser. This summary is created with the help of the query tabular tool.
+
 
 ### Query tabular( Final Summary)
 
@@ -238,5 +247,11 @@ GROUP BY psm.Sequence
 >
 > 2. Click **Execute** and inspect the query results file after it turned green. If everything went well, it should look similiar:
 >
-The output consists of the Peptide sequence, the spectra associated with the peptides, the protein accession number, chromosome number, Start and Stop of the genomic coordinate, the annotation, the genomic coordinate entry for viewing in Integrative Genomics Viewer (IGV), MVP or UCSC genome browser and the URL for viewing it on UCSC genome browser.
 <img src="../../../images/final_summary.png" width=80%>
+
+This completes the proteogenomics workflow analysis. This training workflow uses mouse data but for any other organism the data and the workflow has to be modified accordingly.
+
+This workflow is also available at z.umn.edu/proteogenomicsgateway.
+
+This workflow was developed by the Galaxy-P team at the University of Minnesota.
+For more information about Galaxy-P or our ongoing work, please visit us at www.galaxyp.org
