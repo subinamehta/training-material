@@ -1,6 +1,6 @@
 The third and the last proteogenomics workflow is for identifying the novel peptides using BlastP and to localize the peptides to its genomic coordinates. Inputs from both workflow 1 and 2 will be used in this workflow.
 
-<img src="../../../images/Third_workflow.png" width=100%>
+<img src="../../../images/Third_workflow.png" width=80%>
 
 > The inputs for this workflow are:
 > - Tabular file – “Peptides from BlastP analysis”
@@ -114,33 +114,35 @@ Once Blast-P search is performed, it provides with a tabular output containing �
 > 5)If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet 
 > values will be shown. The lorikeet visualization is interactive, i.e the user can change the values or select any 
 > parameter and click on Update button to view these changes.
-<img src="../../../images/Psm.png" width=40%>
-<img src="../../../images/lorikeet.png" width=70%>
+>
+> <img src="../../../images/Psm.png" width=40%>
+>
+> <img src="../../../images/lorikeet.png" width=70%>
 >
 > 6) For a Protein centric view, click on “View in Protein” , it will open up all the proteins associate with the 
 > peptides. For eg: Select the “ESSREALVEPTSESPRPALAR” peptide and click on the first protein. The chromosome location 
 > of the peptide will be displayed.
-<img src="../../../images/view_in_prot.png" width=30%>
-<img src="../../../images/select_protein.png" width=60%>
-<img src="../../../images/PRoteinview.png" width=50%>
+> <img src="../../../images/view_in_prot.png" width=30%>
+> <img src="../../../images/select_protein.png" width=60%>
+> <img src="../../../images/PRoteinview.png" width=50%>
 >
 > 7)Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the 
 > peptide will be displayed.
-<img src="../../../images/select_IGV.png" width=80%>
+> <img src="../../../images/select_IGV.png" width=80%>
 >
 > 8) To add tracks to your IGV viewer, click on “Add Track”. This will open up a list of tracks that are compatible 
 > to view in your IGV viewer. For eg. Select the “Pep_gen_coordinate.bed” file and then click on “Load Track”.
 > This will open up the bed will below the nucleotide sequence.
-<img src="../../../images/track_load.png" width=40%>
+> <img src="../../../images/track_load.png" width=40%>
 >
 > 9) By clicking the wheel, you can select the “three frame translate” which will show the three frame translated 
 > region of your sequence.
-<img src="../../../images/IGV_viewer.png" width=40%>
+> <img src="../../../images/IGV_viewer.png" width=40%>
 >
 > 10) The IGV is inbuilt in the MVP viewer and is very interactive, you could also load more tracks such as the aligned 
 > Bam file (from HISAT) or the identified pro bam file (one of the input file).
-MVP has many useful features beyond those covered in this workshop and is under active development.
-<img src="../../../images/tracks_align.png" width=70%>
+> MVP has many useful features beyond those covered in this workshop and is under active development.
+> <img src="../../../images/tracks_align.png" width=70%>
 
 The next tool in the workflow is the Peptide genomic coordinate tool which takes the novel peptides as the input along with the mztosqlite file and the genomic mapping sqlite file (obtained during creation of the database). This tool helps create a bed file with the genomic coordinate information of the peptides based on the sqlite files. 
 
@@ -151,10 +153,12 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 >
 > - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
 > - **Output** : `Tabular BED file with all the columns`
-><img src="../../../images/pep_gen_cor.png" width=100%>
+> <img src="../../../images/pep_gen_cor.png" width=100%>
+>
 > mzsqlite file from: https://toolshed.g2.bx.psu.edu/repos/galaxyp/mz_to_sqlite/mz_to_sqlite/2.0.0 
 > genome mapping sqlite file from: https://toolshed.g2.bx.psu.edu/view/galaxyp/translate_bed/038ecf54cbec
-<img src="../../../images/Output_PGC.png" width=50%>
+>
+> <img src="../../../images/Output_PGC.png" width=50%>
 
 ### Peppointer
 > Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
@@ -164,7 +168,7 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 > - **Input** - `Bed file from Peptide genomic coordinate tool`
 > <img src="../../../images/Peppointer.png" width=80%>
 >  This tool provides a bed output with the classification of the genomic location of the peptides.
-<img src="../../../images/Output_PP.png" width=50%>
+> <img src="../../../images/Output_PP.png" width=50%>
 
 ### Query tabular( Final Summary)
 
