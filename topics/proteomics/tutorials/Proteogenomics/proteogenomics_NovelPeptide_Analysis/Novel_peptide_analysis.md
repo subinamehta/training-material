@@ -1,12 +1,32 @@
+
+---
+layout: tutorial_hands_on
+topic_name: proteomics
+tutorial_name: Proteogenomics_NovelPeptide_Analysis
+---
+
 The third and the last proteogenomics workflow is for identifying the novel peptides using BlastP and to localize the peptides to its genomic coordinates. Inputs from both workflow 1 and 2 will be used in this workflow.
 
 <img src="../../../images/Third_workflow.png" width=80%>
 
-> The inputs for this workflow are:
-> - Tabular file – “Peptides from BlastP analysis”
-> - Tabular file – “PeptideShaker_PSM”
-> - Mz to sqlite
-> - Genomic mapping sqlite
+### Agenda
+>
+> In this tutorial, we will deal with:
+>
+
+> - _Inputs required_ 
+>
+> - _Interactive visualization of the Peptides_
+>
+> - _Classification of Novel Peptides_
+>
+> - _Summary of Identified Novel peptides_
+>
+>>      The inputs for this workflow are:
+>>            - Tabular file – “Peptides from BlastP analysis”
+>>            - Tabular file – “PeptideShaker_PSM”
+>>            - Mz to sqlite
+>>            - Genomic mapping sqlite
 
 > All the files to run this workflow can be obtained from the second workflow output.Once the tabular output is created, 
 > we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
