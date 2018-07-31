@@ -122,12 +122,16 @@ Once Blast-P search is performed, it provides with a tabular output containing �
 > 6) For a Protein centric view, click on “View in Protein” , it will open up all the proteins associate with the 
 > peptides. For eg: Select the “ESSREALVEPTSESPRPALAR” peptide and click on the first protein. The chromosome location 
 > of the peptide will be displayed.
+>
 > <img src="../../../images/view_in_prot.png" width=30%>
+>
 > <img src="../../../images/select_protein.png" width=60%>
+>
 > <img src="../../../images/PRoteinview.png" width=50%>
 >
-> 7)Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the 
+> 7) Clicking on the arrow marks will open up the IGV(js) visualization tool, where-in the genomic localization of the 
 > peptide will be displayed.
+>
 > <img src="../../../images/select_IGV.png" width=80%>
 >
 > 8) To add tracks to your IGV viewer, click on “Add Track”. This will open up a list of tracks that are compatible 
