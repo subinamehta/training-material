@@ -125,7 +125,11 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 >
 > <img src="../../../images/view_in_prot.png" width=30%>
 >
+>Once you click on protein it will show the list of proteins the belongs to the peptides.
+>
 > <img src="../../../images/select_protein.png" width=60%>
+>
+>Once you select the protein that you want to visualize you can click on the protein view.
 >
 > <img src="../../../images/PRoteinview.png" width=50%>
 >
