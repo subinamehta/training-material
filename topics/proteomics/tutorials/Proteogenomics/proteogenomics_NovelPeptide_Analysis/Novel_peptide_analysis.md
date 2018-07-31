@@ -54,7 +54,7 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 >    - **SQL Query to generate tabular output**:
 >
 >>       SELECT distinct psm.*
->        FROM psm join blast on psm.Sequence = blast.qseqid
+>>       FROM psm join blast on psm.Sequence = blast.qseqid
 >>       WHERE blast.pident < 100 OR blast.gapopen >= 1 OR blast.length < blast.qlen
 >>       ORDER BY psm.Sequence, psm.ID 
        
@@ -108,87 +108,30 @@ The next tool in the workflow is the Peptide genomic coordinate tool which takes
 >
 >    Section **Table Options**:
 >
->    - **Tabular Dataset for Table**: Uniprot
->
+>    - **Specify Name for Table**: `bed_pep_pointer`    
 >    - **Use first line as column names** : `No`
->    - **Specify Column Names (comma-separated list)**:`prot`
+>    - **Specify Column Names (comma-separated list)**:`chrom,start,end,peptide,score,strand,annot`
+>    - **Only load the columns you have named into database**: `No` 
 >
-> _**Table Index**_:
->    -**Table Index**: `No`
->    -**Index on Columns**: `Prot`
 >
->    - (b) **Database Table**: Click on `+ Insert Database Table`:
->    Section **Filter Dataset Input**
->    - **Filter Tabular input lines**
->      - Filter by:  `skip leading lines`
->      - Skip lines: `1`
->
->    Section **Table Options**:
->
->    - **Specify Name for Table**: `psms`    
->    - **Use first line as column names** : `No`
->    - **Specify Column Names (comma-separated list)**:`id,Proteins,Sequence`
->    - **Only load the columns you have named into database**: `Yes` 
->
->    Section **Table Index**:
->    - **Table Index**: `No`
->    - **Index on Columns**: `id`
->  
->     - (c) **Database Table**: Click on `+ Insert Database Table`:
+>     - (b) **Database Table**: Click on `+ Insert Database Table`:
 >    Section **Filter Dataset Input**
 >      - **Filter Tabular input lines**
 >      - **Filter by**:  `skip leading lines`
 >      - **Skip lines**: `1`
->
->    Add another filter tabular input lines
->      - **Filter Tabular input lines**
->      - **Filter by**:  `select columns`
->      - **Enter column numbers to keep**: `1,2`
->
->   Add another filter tabular input lines
->      - **Filter Tabular input lines**
->      - **Filter by**:  `normalize list columns,replicate rows for each item in the list`
->      - **Enter column numbers to normalize**: `2`
->      - **List item delimiter in column**: `,`
->
 >    Section **Table Options**:
 >
->    - **Specify Name for Table**: `prots`    
+>    - **Specify Name for Table**: `psm`    
 >    - **Use first line as column names** : `No`
->    - **Specify Column Names (comma-separated list)**:`id,prot`
->    - **Only load the columns you have named into database**: `Yes` 
->
-> _**Table Index**_:
->    -**Table Index**: `No`
->    -**Index on Columns**: `prot, id`
->        > ### {% icon comment %} Comment
->        >
->        > By default, table columns will be named: c1,c2,c3,...,cn (column names for a table must be unique).
->        > You can override the default names by entering a comma separated list of names, e.g. `,name1,,,name2`
->        > would rename the second and fifth columns.
->        >
->        > Check your input file to find the settings which best fits your needs.
->        {: .comment}
->
->
->    - **Save the sqlite database in your history**: `No`
->
->        > ### {% icon tip %} Tip
->        >
->        > * **Query Tabular** can also use an existing SQLite database. Activating `Save the sqlite database in your history`
->        > will store the created database in the history, allowing to reuse it directly.
->        >
->        {: .tip}
+>    - **Specify Column Names (comma-separated list)**: `ID,Proteins,Sequence,AAs_Before,AAs_After,Position,Modified_Sequence,Variable_Modifications,Fixed_Modifications,Spectrum_File,Spectrum_Title,Spectrum_Scan_Number,RT,mz,Measured_Charge,Identification_Charge,Theoretical_Mass,Isotope_Number,Precursor_mz_Error_ppm,Localization_Confidence,Probabilistic_PTM_score,Dscore,Confidence,Validation`
+>    - **Only load the columns you have named into database**: `No` 
 >
 >    - **SQL Query to generate tabular output**:
 >
->>       SELECT psms.* 
->>       FROM psms 
->>       WHERE psms.id NOT IN 
->>       (SELECT distinct prots.id 
->>       FROM prots JOIN uniprot ON prots.prot = uniprot.prot) 
->>       ORDER BY psms.id
->
+>>       SELECT psm.Sequence as PeptideSequence, count(psm.Sequence) as SpectralCount, psm.Proteins as  Proteins,bed_pep_pointer.chrom as Chromosome, bed_pep_pointer.start as Start, bed_pep_pointer.end as End, bed_pep_pointer.strand as Strand, bed_pep_pointer.annot as Annotation, bed_pep_pointer.chrom||':'||bed_pep_pointer.start||'-'||bed_pep_pointer.end as GenomeCoordinate,'https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&position='||bed_pep_pointer.chrom||'%3A'||bed_pep_pointer.start||'-'||bed_pep_pointer.end as UCSC_Genome_Browser 
+FROM psm 
+INNER JOIN bed_pep_pointer on bed_pep_pointer.peptide = psm.Sequence 
+GROUP BY psm.Sequence
 >
 >    - **include query result column headers**: `Yes`
 >
