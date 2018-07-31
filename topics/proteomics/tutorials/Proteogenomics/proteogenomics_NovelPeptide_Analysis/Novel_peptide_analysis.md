@@ -1,9 +1,10 @@
-
 ---
 layout: tutorial_hands_on
 topic_name: proteomics
 tutorial_name: Proteogenomics_NovelPeptide_Analysis
 ---
+
+# Introduction
 
 The third and the last proteogenomics workflow is for identifying the novel peptides using BlastP and to localize the peptides to its genomic coordinates. Inputs from both workflow 1 and 2 will be used in this workflow.
 
@@ -32,7 +33,9 @@ The third and the last proteogenomics workflow is for identifying the novel pept
 > we convert this tabular report into a FASTA file. This can be achieved by using the Tabular to FASTA convertion tool.
 
 
-Once Blast-P search is performed, it provides with a tabular output containing “Novel peptides”. Now this output is further processed by comparing the Novel Peptide output with the PSM report for selecting only distinct peptides which pass these parameters:
+Once Blast-P search is performed, it provides with a tabular output containing “Novel peptides”. Now this output is further processed by comparing the Novel Peptide output with the PSM report for selecting only distinct peptides which pass these steps.
+
+# Analysis
 
 ### Query tabular (Extract novel peptides after BlastP)
 1. **Query Tabular** {% icon tool %}: Run **Query Tabular** with:
