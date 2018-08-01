@@ -8,7 +8,7 @@ tutorial_name: Proteogenomics_NovelPeptide_Analysis
 
 The third and the last proteogenomics workflow is for identifying the novel peptides using BlastP and to localize the peptides to its genomic coordinates. Inputs from both workflow 1 and 2 will be used in this workflow.
 
-<img src="../../../images/Third_workflow.png" width=80%>
+<img src="../../../images/Third_workflow.png" width=100%>
 
 ### Agenda
 >
