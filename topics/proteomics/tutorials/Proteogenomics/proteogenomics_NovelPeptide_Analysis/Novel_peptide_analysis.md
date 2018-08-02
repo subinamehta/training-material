@@ -119,7 +119,7 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 
 ### MVP
 
-> The spectra from these novel peptides can be viewed using MVP by selecting the output from the mz to sqlite tool. 
+> The spectra belonging to these novel peptides can be viewed using MVP,this can be achieved by selecting the output from the mz to sqlite tool. 
 > Here is a step by step proteogenomic view of the novel peptides obtained from running this workflow:
 
 > 1) Click on the â€œVisualize in MVP applicationâ€, it will open up a new window for MVP.
@@ -134,7 +134,7 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 > 4) Select any peptide, For eg: ESSREALVEPTSESPRPALAR, and then click on â€œSelected Peptide PSMsâ€.
 > <img src="../../../images/select_pep_PSM.png" width=50%>
 >
-> 5)If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet 
+> 5) If you scroll down, the PSM associated with the peptide will be displayed. By clicking on the PSM, the lorikeet 
 > values will be shown. The lorikeet visualization is interactive, i.e the user can change the values or select any 
 > parameter and click on Update button to view these changes.
 >
@@ -148,11 +148,11 @@ Once Blast-P search is performed, it provides with a tabular output containing â
 >
 > <img src="../../../images/view_in_prot.png" width=30%>
 >
->Once you click on protein it will show the list of proteins the belongs to the peptides.
+> Once you click on protein it will show the list of proteins the belongs to the peptides.
 >
 > <img src="../../../images/select_protein.png" width=60%>
 >
->Once you select the protein that you want to visualize you can click on the protein view.
+> Once you select the protein that you want to visualize you can click on the protein view.
 >
 > <img src="../../../images/PRoteinview.png" width=50%>
 >
@@ -182,16 +182,16 @@ Gets genomic coordinate of peptides based on the information in mzsqlite and gen
 loads two sqlite databases (mzsqlite and genomic mapping sqlite files) and calculates the genomic coordinates of the
 peptides provided as input. This outputs bed file for peptides.
 >
->1. Peptide genomic Coordinate
-> - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
-> - **Output** : `Tabular BED file with all the columns`
+> 1. Peptide genomic Coordinate
+>       - **Input**: `Peptide list file`, `mzsqlite sqlite DB file`, and `genomic mapping sqlite DB file` 
+>       - **Output**: `Tabular BED file with all the columns`
 > <img src="../../../images/pep_gen_cor.png" width=100%>
 >
 > mzsqlite file from: https://toolshed.g2.bx.psu.edu/repos/galaxyp/mz_to_sqlite/mz_to_sqlite/2.0.0 
 > genome mapping sqlite file from: https://toolshed.g2.bx.psu.edu/view/galaxyp/translate_bed/038ecf54cbec
 >
 > <img src="../../../images/Output_PGC.png" width=50%>
-> 2. Click **Execute** and inspect the query results file after it turned green. 
+>  2. Click **Execute** and inspect the query results file after it turned green. 
 >
 
 ### Peppointer
@@ -199,9 +199,9 @@ peptides provided as input. This outputs bed file for peptides.
 Given chromosomal locations of peptides in a BED file, PepPointer classifies them as CDS, UTR, exon, intron, or intergene.
 
 > 1. Peppointer
-> - **Choose the source of the GTF file** - `Locally Installed`
+>      - **Choose the source of the GTF file** - `Locally Installed`
 >              - **GTF file with the genome of interest** - `Mus_Musculus_GRCm38.90_Ensembl_GTF`
-> - **Input** - `Bed file from Peptide genomic coordinate tool`
+>      - **Input** - `Bed file from Peptide genomic coordinate tool`
 > <img src="../../../images/Peppointer.png" width=80%>
 >  This tool provides a bed output with the classification of the genomic location of the peptides.
 > <img src="../../../images/Output_PP.png" width=50%>
