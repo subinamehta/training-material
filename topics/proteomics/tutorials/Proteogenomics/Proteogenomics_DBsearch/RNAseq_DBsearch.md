@@ -123,7 +123,7 @@ For this, the sequence database-searching program called [SearchGUI](https://com
 Once the database search is completed, the SearchGUI tool will output a file (called a
 SearchGUI archive file) that will serve as an input for the next section, PeptideShaker.
 
->>    ###Comment
+>>    ### Comment
 >>    Note that sequence databases used for metaproteomics are usually much larger than 
 >>    the excerpt used in this tutorial. When using large databases, the peptide identification 
 >>    step can take much more time for computation. In metaproteomics, choosing the optimal 
@@ -143,7 +143,7 @@ matched peptide sequences and generates outputs that can be visualized by users 
 results. PeptideShaker has been wrapped in Galaxy to work in combination with SearchGUI
 outputs.
 
->>     ###Comment
+>>     ### Comment
 >>      There are a number of choices for different data files that can be generated using
 >>      PeptideShaker. A compressed file can be made containing all information needed to 
 >>      view them results in the standalone PeptideShaker viewer. A `mzidentML` file can 
