@@ -129,3 +129,5 @@ exclude:
 plugins:
   - jekyll-feed
   - jemoji
+
+theme: jekyll-theme-cayman
