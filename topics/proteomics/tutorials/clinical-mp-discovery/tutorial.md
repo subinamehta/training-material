@@ -187,7 +187,7 @@ The SearchGUI tool will perform a database search based on the parameters we've 
 >    - {% icon param-file %} *"Compressed SearchGUI results"*: `searchgui_results` (output of **Search GUI** {% icon tool %})
 >    - In *"Exporting options"*:
 >        - *"Follow-up analysis export options"*: `Do not export`
->        - *"Identification features reports to be generated"*: ``
+>        - *"Identification features reports to be generated"*: `PSM Report` `Peptide Report` `Protein Report` `Certificate of Analysis`
 >
 >
 {: .hands_on}
@@ -395,13 +395,8 @@ We will generate and merge the Human SwissProt Protein Database and contaminants
 >                - In *"Table Index"*:
 >                    - {% icon param-repeat %} *"Insert Table Index"*
 >                        - *"Index on Columns"*: `prot`
->    - *"SQL Query to generate tabular output"*: `SELECT id,Proteins,Sequence
-> `FROM psms 
-> WHERE psms.ln NOT IN
-> (SELECT distinct prots.ln
-> FROM prots JOIN Uniprot ON prots.prot = Uniprot.prot)
-> ORDER BY psms.ln`
->    - *"include query result column headers"*: `Yes``
+>    - *"SQL Query to generate tabular output"*: `SELECT id,Proteins,Sequence FROM psms WHERE psms.ln NOT IN (SELECT distinct prots.ln FROM prots JOIN Uniprot ON prots.prot = Uniprot.prot) ORDER BY psms.ln`
+>    - *"include query result column headers"*: `Yes`
 >
 >
 {: .hands_on}
@@ -433,7 +428,7 @@ We will generate and merge the Human SwissProt Protein Database and contaminants
 
 
 ## Peptide discovery using MaxQuant with **MaxQuant**
-MaxQuant is an MS-based proteomics platform that is capable of processing raw data and provides improved mass precision and high precursor mass accuracy (HPMA), which resulted in increased protein identification and more in-depth proteomic analysis **(tool info)**. Raw MS/MS spectra will be searched against the reduced MetaNovo-generated database (~21.2k sequences). More information about analysis using MaxQuant is available, including [Label-free data analysis](https://gxy.io/GTN:T00218) and [MaxQuant and MSstats for the analysis of TMT data](https://gxy.io/GTN:T00220).
+MaxQuant is an MS-based proteomics platform that is capable of processing raw data and provides improved mass precision and high precursor mass accuracy (HPMA), which resulted in increased protein identification and more in-depth proteomic analysis. Raw MS/MS spectra will be searched against the reduced MetaNovo-generated database (~21.2k sequences). More information about analysis using MaxQuant is available, including [Label-free data analysis](https://gxy.io/GTN:T00218) and [MaxQuant and MSstats for the analysis of TMT data](https://gxy.io/GTN:T00220).
 
 > <hands-on-title> MaxQuant </hands-on-title>
 >
@@ -447,21 +442,21 @@ MaxQuant is an MS-based proteomics platform that is capable of processing raw da
 >        - *"Maximum peptide length for unspecific searches"*: `50`
 >    - In *"Protein quantification"*:
 >        - *"Use only unmodified peptides"*: `Yes`
->            - *"Modifications used in protein quantification"*: ``
+>            - *"Modifications used in protein quantification"*: `Oxidation (M)`
 >        - In *"LFQ Options"*:
 >            - *"iBAQ (calculates absolute protein abundances by normalizing to copy number and not protein mass)"*: `No`
 >    - In *"Parameter Group"*:
 >        - {% icon param-repeat %} *"Insert Parameter Group"*
 >            - {% icon param-collection %} *"Infiles"*: `output` (Input dataset collection)
->            - *"fixed modifications"*: ``
->            - *"variable modifications"*: ``
->            - *"enzyme"*: ``
+>            - *"fixed modifications"*: `Carbamidomethyl (C)`
+>            - *"variable modifications"*: `Oxidation (M)`
+>            - *"enzyme"*: `Trypsin/P`
 >            - *"Quantitation Methods"*: `reporter ion MS2`
 >                - *"isobaric labeling"*: `TMT11plex`
 >                - *"Filter by PIF"*: `True`
 >    - *"Generate PTXQC (proteomics quality control pipeline) report? (experimental setting)"*: `False`
 >    - In *"Output Options"*:
->        - *"Select the desired outputs."*: ``
+>        - *"Select the desired outputs."*: `Protein Groups` `mqpar.xml` `Peptides` `MSMS` `msms scans` `summary` `MaxQuant and PTXQC log` `yaml config file`
 >
 >
 >
@@ -471,31 +466,22 @@ MaxQuant is an MS-based proteomics platform that is capable of processing raw da
 > <question-title></question-title>
 >
 > 1. What is the Experimental Design file for MaxQuant?
+> >
 > > <solution-title></solution-title>
 > >
-> >
-> > 1. In MaxQuant, the **Experimental Design** file is used to specify the experimental conditions, sample groups, and the relationships between different samples in a proteomics > > experiment. This file is a crucial component of the MaxQuant analysis process because it helps the software correctly organize and analyze the mass spectrometry data. The > > > > Experimental Design file typically has a ".txt" extension and is a tab-delimited text file.
+> > 1. In MaxQuant, the **Experimental Design** file is used to specify the experimental conditions, sample groups, and the relationships between different samples in a proteomics experiment. This file is a crucial component of the MaxQuant analysis process because it helps the software correctly organize and analyze the mass spectrometry data. The **Experimental Design** file typically has a ".txt" extension and is a tab-delimited text file.
 > > 
 > > Here's what you might include in an Experimental Design file for MaxQuant:
 > > 
 > > - **Sample Names**: You specify the names of each sample in your experiment. These names should be consistent with the naming conventions used in your raw data files.
 > > 
-> > - **Experimental Conditions**: You define the experimental conditions or treatment groups associated with each sample. For example, you might have control and treated groups, > > and you would assign the appropriate condition to each sample.
+> > - **Experimental Conditions**: You define the experimental conditions or treatment groups associated with each sample. For example, you might have control and treated groups, and you would assign the appropriate condition to each sample.
 > > 
-> > - **Replicates**: You indicate the replicates for each sample, which is important for assessing the statistical significance of your results. Replicates are typically denoted > > by numeric values (e.g., "1," "2," "3") or by unique identifiers (e.g., "Replicate A," "Replicate B").
+> > - **Replicates**: You indicate the replicates for each sample, which is important for assessing the statistical significance of your results. Replicates are typically denoted by numeric values (e.g., "1," "2," "3") or by unique identifiers (e.g., "Replicate A," "Replicate B").
 > > 
 > > - **Labels**: If you're using isobaric labeling methods like TMT (Tandem Mass Tag) or iTRAQ (Isobaric Tags for Relative and Absolute Quantitation), you specify the labels > > > > associated with each sample. This is important for quantification.
 > > 
-> > - **Other Metadata**: You can include additional metadata relevant to your experiment, such as the biological source, time points, or any other information that helps describe > > the samples and experimental conditions.
-> > 
-> > Here's a simple example of what an Experimental Design file might look like:
-> > | SampleName  |   Condition  |  Replicate  |  Label |
-> > | :----: | :----: | :----: | :----: |
-> > |Sample1 |     Control   |   1     |     TMT-126|
-> > |Sample2 |     Control   |   2   |         TMT-127|
-> > |Sample3 |     Treated   |   1     |       TMT-128|
-> > |Sample4 |     Treated   |   2       |     TMT-129|
-> > 
+> > - **Other Metadata**: You can include additional metadata relevant to your experiment, such as the biological source, time points, or any other information that helps describe the samples and experimental conditions.
 > >
 > {: .solution}
 >
