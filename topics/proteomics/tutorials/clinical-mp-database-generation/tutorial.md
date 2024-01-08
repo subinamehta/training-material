@@ -89,6 +89,7 @@ The first workflow for the clinical metaproteomics data analysis is the Database
 >
 > 5. Optional-Add to each database a tag corresponding to the file name.
 > 6. Create a dataset collection of the 4 MGF datasets.
+>
 >    {% snippet faqs/galaxy/datasets_add_tag.md %}
 >
 {: .hands_on}
@@ -112,12 +113,12 @@ The first workflow for the clinical metaproteomics data analysis is the Database
 >
 {: .hands_on}
 
-# Step-by-step analysis
+# **Step-by-step analysis**
 
 # Download Protein Sequences using taxon names
 First, we want to generate a large comprehensive protein sequence database using the UniProt XML Downloader to extract sequences for species of interest. To do so, you will need a tabular file that contains a list of species.
 
-For this tutorial, a literature survey was conducted to obtain 118 taxonomic species of organisms that are commonly associated with the female reproductive tract ([Afiuni-Zadeh, S., Boylan, K.L.M., Jagtap, P.D. et al., 2018](https://doi.org/10.1038/s41598-018-29092-4)). This species list was used to generate a protein sequence FASTA database was generated using the UniProt XML Downloader tool within the Galaxy framework. In this tutorial, the Species FASTA database (~3.38 million sequences) has already been provided as input. However, if you have your own list of species of interest as a tabular file (Your_Species_tabular.tabular), steps to generate a FASTA file from a tabular file are included:
+For this tutorial, a literature survey was conducted to obtain 118 taxonomic species of organisms that are commonly associated with the female reproductive tract ([Afiuni-Zadeh, S., Boylan, K.L.M., Jagtap, P.D. et al., 2018](https://doi.org/10.1038/s41598-018-29092-4)). This species list was used to generate a protein sequence FASTA database was generated using the UniProt XML Downloader tool within the Galaxy framework. In this tutorial, the Species FASTA database (~3.38 million sequences) has already been provided as input. However, if you have your own list of species of interest as a tabular file (`Your_Species_tabular.tabular`), steps to generate a FASTA file from a tabular file are included:
 
 
 ## Download Protein Sequences using UniProt XML downloader with **UniProt**
@@ -130,7 +131,7 @@ For this tutorial, a literature survey was conducted to obtain 118 taxonomic spe
 >    - *"UniProt output format"*: `fasta`
 > 2. Rename the output as Species_UniProt_FASTA.fasta
 >
->    > <comment-title> short description </comment-title>
+>    > <comment-title> UniProt description </comment-title>
 >    >
 >    > This tool will help download the protein fasta sequences by inputting the taxon names.
 >    {: .comment}
@@ -198,7 +199,7 @@ For this tutorial, a literature survey was conducted to obtain 118 taxonomic spe
 >
 {: .hands_on}
 
-## Download Human SwissProt(reviewed) database with **Protein Database Downloader**
+## Download Human SwissProt (reviewed) database with **Protein Database Downloader**
 
 > <hands-on-title>  Protein Database Downloader</hands-on-title>
 > 1. {% tool [Protein Database Downloader](toolshed.g2.bx.psu.edu/repos/galaxyp/dbbuilder/dbbuilder/0.3.4) %} with the following parameters:
@@ -225,7 +226,7 @@ For this tutorial, a literature survey was conducted to obtain 118 taxonomic spe
 {: .question}
 
 
-## Merging databases to obtain large comprehensive database for MetaNovo.with **FASTA Merge Files and Filter Unique Sequences**
+## Merging databases to obtain large comprehensive database for MetaNovo with **FASTA Merge Files and Filter Unique Sequences**
 Once generated, the Species UniProt database (~3.38 million sequences) will be merged with the Human SwissProt database (reviewed only; ~20.4K sequences) and contaminant (cRAP) sequences database (116 sequences) and filtered to generate the large comprehensive database (~2.59 million sequences). The large comprehensive database will be used to generate a compact database using MetaNovo, which is much more manageable.
 
 > <hands-on-title> FASTA Merge Files and Filter Unique Sequences </hands-on-title>
@@ -237,6 +238,7 @@ Once generated, the Species UniProt database (~3.38 million sequences) will be m
 >                - {% icon param-file %} *"FASTA File"*: `Species_UniProt_FASTA ` (output of **UniProt XML downloader** {% icon tool %})
 >                - {% icon param-file %} *"FASTA File"*: `Protein Database Human SwissProt` (output of **Protein Database Downloader** {% icon tool %})
 >                - {% icon param-file %} *"FASTA File"*: `Protein Database Contaminants (cRAP)` (output of **Protein Database Downloader** {% icon tool %})
+>
 > 2. Rename out as "Human UniProt Microbial Proteins cRAP for MetaNovo".
 >                  
 {: .hands_on}
